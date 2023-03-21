@@ -1,0 +1,17 @@
+CREATE USER portal_custos IDENTIFIED BY sjc_ping_pong_12_12_2022;
+
+GRANT CREATE SESSION TO portal_custos;
+GRANT CREATE PROCEDURE TO portal_custos;
+GRANT CREATE TABLE TO portal_custos;
+GRANT CREATE VIEW TO portal_custos;
+GRANT UNLIMITED TABLESPACE TO portal_custos;
+GRANT CREATE SEQUENCE TO portal_custos;
+
+GRANT SELECT ON portal_projetos.SEQ_CD_ACESSO TO portal_custos;
+GRANT INSERT ON portal_projetos.ACESSO TO portal_custos;
+
+GRANT EXECUTE ON dbasgu.FNC_MV2000_HMVPEP TO portal_custos;
+
+GRANT SELECT ON dbasgu.USUARIOS TO portal_custos;
+GRANT SELECT ON dbasgu.PAPEL_USUARIOS TO portal_custos;
+
