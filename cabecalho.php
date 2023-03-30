@@ -1,5 +1,5 @@
 <?php
-session_start();	
+    session_start();	
     //PHP GERAL
 
     //PAGINA ATUAL
@@ -9,11 +9,11 @@ session_start();
     ob_start();
 
     //VARIAVEIS NOME
-    @$nome = $_SESSION['usuarioNome'];
+    @$nome = $_SESSION['nomeusuario'];
     @$pri_nome = substr($nome, 0, strpos($nome, ' '));
 
     //ACESSO RESTRITO
-    //include 'acesso_restrito.php';    
+    //include 'acesso_restrito.php';
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +24,9 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="img/logo/icone_santa_casa_sjc_colorido.png">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>Portal Relatórios</title>
+    <title>Portal Comunica</title>
     <!--CSS-->
-    <?php 
+    <?php
         include 'css/style.php';
         include 'css/style_mobile.php';
     ?>
@@ -49,7 +49,7 @@ session_start();
         <nav class="navbar navbar-expand-md navbar-dark bg-color">
             <a class="navbar-brand" href="home.php">
                 <img src="img/logo/icone_santa_casa_sjc_branco.png" height="28px" width="28px" class="d-inline-block align-top efeito-zoom" alt="Santa Casa de São José dos Campos">
-                <h10>Portal Relatórios</h10>
+                <h10>Portal Comunica</h10>
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample06" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,44 +72,9 @@ session_start();
                         <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
-                        <!--MENU-->      
-
-                        <?php if($_SESSION['SN_CUSTOS'] == 'S'){?>
-
-                            <a class="dropdown-item" href="custos.php"><i class="fas fa-file-import"></i>  Custos</a>
+                            <!--MENU-->      
+                            <a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
                         
-                        <?php } ?>
-
-                        <?php if($_SESSION['SN_SEPSE'] == 'S'){?>
-
-                            <a class="dropdown-item" href="relatorio_sepse.php"><i class="fas fa-file-import"></i>  Sepse</a>  
-
-                        <?php } ?>
-
-                        <?php if($_SESSION['SN_REPASSE'] == 'S'){?>
-
-                            <a class="dropdown-item" href="relatorio_repasse.php"><i class="fas fa-file-import"></i>  Repasse</a>  
-
-                        <?php } ?>
-
-                        <?php if($_SESSION['SN_SAE'] == 'S'){?>
-
-                            <a class="dropdown-item" href="relatorio_sae.php"><i class="fas fa-file-import"></i>  SAE</a>  
-                        
-                        <?php } ?>
-
-                        <?php if($_SESSION['SN_RX'] == 'S'){?>
-
-                            <a class="dropdown-item" href="relatorio_exa_realizados.php"><i class="fas fa-file-import"></i>  Exames Realizados</a>  
-                        
-                        <?php } ?>
-
-                        <?php if($_SESSION['SN_PROC_SUS'] == 'S'){?>
-
-                            <a class="dropdown-item" href="relatorio_procedimento_sus.php"><i class="fas fa-file-import"></i>  Procedimento SUS</a>  
-                        
-                        <?php } ?>
-
                         </div>
                     </li>
                 </div>
@@ -117,7 +82,7 @@ session_start();
                 <div class="menu_perfil">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user" aria-hidden="true"></i> <?php echo $pri_nome ?></a></a>
+                        <i class="fa-regular fa-circle-user" aria-hidden="true"></i> <?php echo $nome ?></a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
                         <a class="dropdown-item" href="sair.php"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
                         </div>
