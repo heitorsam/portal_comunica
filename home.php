@@ -10,13 +10,13 @@
 
     <div class="div_br"></div>
     <div class="div_br"></div>
-
-    <div>
+    
+    <!-- BOTÕES -->
+    <a href="cadastro_usuario.php"><button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Usuários</button></a>
         
-        <a href="./cadastro_usuario.php"><button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Usuários</button></a>
+    <span class="espaco_pequeno"></span>
         
-
-    </div>
+    <a href="empresa.php"><button class="btn btn-primary"><i class="fa-solid fa-building"></i> Empresa</button></a>
 
 <?php
 

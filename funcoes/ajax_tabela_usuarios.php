@@ -2,12 +2,16 @@
 
     include '../conexao.php';
 
-    $consulta = "SELECT usu.NM_USUARIO,
+    // CONSULTA DE USUÁRIOS CADASTRADOS
+    $consulta = "SELECT usu.CD_USUARIO,
+                        usu.NM_USUARIO,
                         emp.DS_EMPRESA
                 FROM portal_comunica.USUARIO usu
                 INNER JOIN portal_comunica.EMPRESA emp
-                    ON usu.CD_EMPRESA = emp.CD_EMPRESA";
+                    ON usu.CD_EMPRESA = emp.CD_EMPRESA
+                ORDER BY usu.CD_USUARIO ASC";
 
+    // EXECUTA A CONSULTA E ARMAZENA NA VARIAVEL O RESULTADO
     $res = mysqli_query($conn ,$consulta);
 
 ?>
@@ -25,16 +29,16 @@
     <tbody>
         
         <?php
-
+            // PERCORRE AS LINHAS DE TODOS OS USUÁRIOS CADASTRADOS
             while ($row = mysqli_fetch_array($res)) {
 
                 echo '<tr style="text-align: center">';
-                      
+
                     echo '<td>'. $row['NM_USUARIO'] .'</td>';
                     echo '<td>'. $row['DS_EMPRESA'] .'</td>';
                     echo '<td>
-                        <button class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                        <button onclick="ajax_modal_alterar_usuario('. $row['CD_USUARIO'] .')" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button onclick="ajax_exclui_usuario('. $row['CD_USUARIO'] .')" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                     </td>';
             
                 echo '</tr>';
