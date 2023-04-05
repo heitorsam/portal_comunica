@@ -19,7 +19,7 @@
 <form method="POST" id="form_edicao" enctype='multipart/form-data'>
 
     <input name="id_usuario" value="<?php echo $id_usuario; ?>" style="display: none;">
-
+    
     <div class="row">
         
         <div class="col-md">
@@ -46,7 +46,7 @@
         <div class="col-md-2">
 
             Empresa:
-            <select id="empresa" name="empresa" class="form form-control">
+            <select id="empresa_edicao" name="empresa" class="form form-control">
 
                 <option value="1">Santa Casa</option>
                 <option value="2">Associação</option>
@@ -112,6 +112,9 @@
 </div>
 
 <script>
+
+    // CARREGA TODAS AS EMPRESAS NO SELECT
+    $('#empresa_edicao').load('funcoes/ajax_carregar_empresas.php');
 
     function ajax_editar_usuario(event) {
 

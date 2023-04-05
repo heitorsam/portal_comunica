@@ -56,6 +56,6 @@
                                     '$cd_usu_logado',
                                     NOW())";
 
-    mysqli_query($conn, $cons_insere_usuario);
+    $valida = mysqli_query($conn, $cons_insere_usuario);
 
 ?>

@@ -5,6 +5,8 @@
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
     <div class="div_br"></div>
 
+    <div id="mensagem_acao"></div>
+
     <!-- FORMULÁRIO CADASTRO DE USUÁRIOS -->
     <form method="POST" id="form" enctype='multipart/form-data' class="containerCadastroUsuarios">
         
@@ -44,8 +46,7 @@
                 Empresa:
                 <select id="empresa" name="empresa" class="form form-control">
     
-                    <option value="1">Santa Casa</option>
-                    <option value="2">Associação</option>
+                    
     
                 </select>
 
@@ -88,15 +89,21 @@
 
         <div class="row">
 
-            <div class="col-md">
+            <div class="col-md-10">
 
                 E-mail:
                 <input id="email" name="email" class="form form-control" type="email" placeholder="Informe o e-mail">
 
             </div>
 
-            <button onclick="adicionar_usuario()" style="height: 50px;" class="mt-4 col-md-2 btn btn-primary"><i class="fa-solid fa-plus"></i> Adicionar</button>
+            <div class="col-md-2">
 
+                <br>
+                <a class="btn btn-primary" onclick="adicionar_usuario()"><i class="fa-solid fa-plus"></i> Adicionar</a>
+
+            </div>
+
+           
         </div>
 
 </form>
@@ -147,8 +154,15 @@
 
 <script>
 
-    // CHAMA A TABELA DE USUÁRIOS CADASTRADOS
-    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+    window.onload = function(){
+
+        // CHAMA A TABELA DE USUÁRIOS CADASTRADOS
+        $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+
+        // CARREGA TODAS AS EMPRESAS NO SELECT
+        $('#empresa').load('funcoes/ajax_carregar_empresas.php');
+
+    }
 
     function adicionar_usuario() {
         let form = document.getElementById('form');
@@ -163,9 +177,16 @@
             processData: false,
             contentType: false,
             success(resp) {
-                
+
                 // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
                 $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+
+                //MENSAGEM            
+                var_ds_msg = 'Usuário%20cadastrado%20com%20sucesso!';
+                //var_tp_msg = 'alert-success';
+                var_tp_msg = 'alert-success';
+                //var_tp_msg = 'alert-primary';
+                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
             }
 
@@ -205,6 +226,17 @@
         $('#modal_edicao').modal('show');
 
         $('#conteudo_modal').load("funcoes/ajax_modal_editar_usuario.php?id=" + id_usuario);
+
+    }
+
+    function mensagem_ok(){
+
+        //MENSAGEM            
+        var_ds_msg = 'Usuário%20cadastrado%20com%20sucesso!';
+        //var_tp_msg = 'alert-success';
+        var_tp_msg = 'alert-success';
+        //var_tp_msg = 'alert-primary';
+        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
     }
 

@@ -12,11 +12,16 @@
     <div class="div_br"></div>
     
     <!-- BOTÕES -->
-    <a href="cadastro_usuario.php"><button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Usuários</button></a>
+    <a href="cadastro_usuario.php"><button class="botao_home_adm"><i class="fa-solid fa-user-plus"></i> Usuários</button></a>
         
     <span class="espaco_pequeno"></span>
+
+    <a href="grupo.php"><button class="botao_home_adm"><i class="fa-solid fa-folder-tree"></i> Grupo</button></a>
+
+    <span class="espaco_pequeno"></span>
         
-    <a href="empresa.php"><button class="btn btn-primary"><i class="fa-solid fa-building"></i> Empresa</button></a>
+    <a href="empresa.php"><button class="botao_home_adm"><i class="fa-solid fa-building"></i> Empresa</button></a>
+
 
 <?php
 
