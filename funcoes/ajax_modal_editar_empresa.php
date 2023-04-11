@@ -25,7 +25,7 @@
         <div class="col-md">
 
             Empresa:
-            <input value="<?php echo $empresa_editavel['DS_EMPRESA']; ?>" id="nome" name="ds_empresa" type="text" class="form form-control" placeholder="Novo nome da empresa">
+            <input value="<?php echo $empresa_editavel['DS_EMPRESA']; ?>" id="nome_edicao" name="ds_empresa" type="text" class="form form-control" placeholder="Novo nome da empresa">
 
         </div>
 
@@ -45,32 +45,50 @@
 
     function ajax_editar_empresa(event) {
 
-        let form_edicao = document.getElementById('form_edicao');
-        let formDataEdicao = new FormData(form_edicao);
+        var empresa_nova = document.getElementById('nome_edicao').value;
+        var form_edicao = document.getElementById('form_edicao');
+        var formDataEdicao = new FormData(form_edicao);
 
-        $.ajax({
-            url: "funcoes/ajax_editar_empresa.php",
-            type: "POST",
-            data: formDataEdicao,
-            processData: false,
-            contentType: false,
-            success(resp) {
+        // VERIFICA SE O CAMPO ESTÁ VAZIO
+        if (empresa_nova != '') {
 
-                // RECARREGA A TEBELA DE EMPRESAS NA PÁGINA
-                $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+            $.ajax({
+                url: "funcoes/ajax_editar_empresa.php",
+                type: "POST",
+                data: formDataEdicao,
+                processData: false,
+                contentType: false,
+                success(resp) {
+    
+                    // RECARREGA A TEBELA DE EMPRESAS NA PÁGINA
+                    $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+    
+                    //MENSAGEM            
+                    var_ds_msg = 'Empresa%20editada%20com%20sucesso!';
+    
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-success';
+                    
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+    
+                }
+    
+            });
 
-                //MENSAGEM            
-                var_ds_msg = 'Empresa%20editada%20com%20sucesso!';
+        } else {
 
-                //var_tp_msg = 'alert-success';
-                var_tp_msg = 'alert-success';
-                
-                //var_tp_msg = 'alert-primary';
-                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            //MENSAGEM            
+            var_ds_msg = 'Necessário%20preencher%20os%20campos!';
+    
+            //var_tp_msg = 'alert-success';
+            var_tp_msg = 'alert-danger';
+            
+            //var_tp_msg = 'alert-primary';
+            $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-            }
+        }
 
-        });
 
     };
 

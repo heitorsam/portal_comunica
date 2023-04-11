@@ -45,4 +45,13 @@
     
     mysqli_query($conn, $cons_edita_usuario);
 
+    // VERIFICA SE O USUÁRIO DE EDIÇÃO É O USUÁRIO EM QUE ESTÁ LOGADO PARA ALTERAR OS DADOS NA SESSÃO
+    if ($id_usuario == $cd_usu_logado) {
+
+        $_SESSION['nomeusuario'] = $nm_usuario;
+        $_SESSION['cd_empresa_usuario_logado'] = $empresa;
+
+    }
+    
+    
 ?>

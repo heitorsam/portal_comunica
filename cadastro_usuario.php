@@ -2,7 +2,10 @@
     include 'cabecalho.php';
 ?>
 
+    <h11><i class="fa-solid fa-user-plus"></i> Usuários</h11>
+        <div class='espaco_pequeno'></div>
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
+
     <div class="div_br"></div>
 
     <div id="mensagem_acao"></div>
@@ -16,7 +19,7 @@
             <div class="col-md">
 
                 Nome:
-                <input id="nome" name="nome" type="text" class="form form-control" placeholder="Nome completo">
+                <input id="nome" name="nome" type="text" class="form form-control" placeholder="Nome completo" required>
 
             </div>
 
@@ -52,7 +55,7 @@
 
             </div>
 
-            <div class="col-md">
+            <div class="col-md-3">
                 
                 Senha:
                 <input id="senha" name="senha" type="text" class="form form-control" placeholder="Senha">
@@ -72,24 +75,6 @@
             </div>
 
             <div class="col-md-3">
-                Foto:
-                <div style="background-color: #d5d5d5cc; border: dashed 1px #cbced1; text-align: center;">  
-                    <label style="padding-top: 10px;"class="btn btn-default btn-sm center-block btn-file">
-
-                        <i class="fa fa-upload fa-1x" aria-hidden="true"></i>
-                            Selecine um Arquivo!
-                        <input type="file" id="foto_usuario" name="foto_usuario" style="display: none;">
-
-                    </label>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-10">
 
                 E-mail:
                 <input id="email" name="email" class="form form-control" type="email" placeholder="Informe o e-mail">
@@ -103,7 +88,6 @@
 
             </div>
 
-           
         </div>
 
 </form>
@@ -165,32 +149,57 @@
     }
 
     function adicionar_usuario() {
-        let form = document.getElementById('form');
 
-        // INICIALIZA COM OS DADOS DO FORM
-        let formData = new FormData(form);
+        //VALIDACOES
+        var frm_email = document.getElementById('email'); if(frm_email.value == ''){ frm_email.focus(); }
+        var frm_senha = document.getElementById('senha'); if(frm_senha.value == ''){ frm_senha.focus(); }
+        var frm_nasc = document.getElementById('data_nasc'); if(frm_nasc.value == ''){ frm_nasc.focus(); }
+        var frm_cpf = document.getElementById('cpf'); if(frm_cpf.value == ''){ frm_cpf.focus(); }
+        var frm_nome = document.getElementById('nome'); if(frm_nome.value == ''){ frm_nome.focus(); }
+        
+        if(frm_nome.value != '' && frm_cpf.value != '' && frm_nasc.value != '' && frm_senha.value != '' && frm_email.value != ''){
+        
+            let form = document.getElementById('form');
 
-        $.ajax({
-            url: "funcoes/ajax_cadastro_usuario.php",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success(resp) {
+            // INICIALIZA COM OS DADOS DO FORM
+            let formData = new FormData(form);
 
-                // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+            $.ajax({
+                url: "funcoes/ajax_cadastro_usuario.php",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success(resp) {
 
-                //MENSAGEM            
-                var_ds_msg = 'Usuário%20cadastrado%20com%20sucesso!';
-                //var_tp_msg = 'alert-success';
-                var_tp_msg = 'alert-success';
-                //var_tp_msg = 'alert-primary';
-                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                    // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
+                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
 
-            }
+                    //MENSAGEM            
+                    var_ds_msg = 'Usuário%20cadastrado%20com%20sucesso!';
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-success';
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
-        });
+                    // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
+                    frm_nome.value = ''; frm_cpf.value = ''; frm_nasc.value = ''; frm_senha.value = ''; frm_email.value = '';
+
+                }   
+
+            });
+
+        }else{
+
+            //MENSAGEM            
+            var_ds_msg = 'Preencha%20todos%20os%20campos!';
+            //var_tp_msg = 'alert-success';
+            //var_tp_msg = 'alert-success';
+            var_tp_msg = 'alert-danger';
+            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+
+        }
 
     }
 
@@ -210,11 +219,25 @@
                 cache: false,
                 success(resp) {
 
-                    // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
-
+                    // EXECUTA A QUERY PARA EXCLUIR TODAS AS LIGAÇÕES DO USUÁRIO NO GRUPO/USUARIO
+                    $.ajax({
+                        type: "POST",
+                        url: "funcoes/excluir_usuario_grupos.php",
+                        data: {
+                            id_usuario: id_usuario
+                        }
+                    });
                 }
             });
+
+            
+            // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
+            $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+
+            //MENSAGEM            
+            var_ds_msg = 'Usuário%20excluido%20com%20sucesso!';
+            var_tp_msg = 'alert-success';
+            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
         }
 

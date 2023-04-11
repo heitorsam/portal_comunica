@@ -6,7 +6,7 @@
 
     <div class="div_br"></div>
 
-    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Novo chamado</button>
+    <a href="abertura_chamado.php" class="botao_home"><i class="fa-solid fa-plus"></i> Novo chamado</a>
 
     <div class="div_br"></div>
     <div class="div_br"></div>

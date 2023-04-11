@@ -8,13 +8,13 @@
 
 	$consulta_login_qtd = " SELECT COUNT(*) AS QTD 
 							FROM portal_comunica.USUARIO usu 
-							WHERE usu.NM_USUARIO = '$cd_usu' 
+							WHERE usu.CPF = '$cd_usu' 
 							AND usu.SENHA = '$cd_senha'";
 							
 	$consulta_login = " SELECT * 
 						FROM portal_comunica.USUARIO usu 
-						WHERE usu.NM_USUARIO = '$cd_usu' 
-						AND senha = '$cd_senha'";
+						WHERE usu.CPF = '$cd_usu' 
+						AND usu.SENHA = '$cd_senha'";
 
 	$result_login_qtd = mysqli_query($conn, $consulta_login_qtd);
 	$result_login = mysqli_query($conn, $consulta_login);
@@ -24,8 +24,9 @@
 	$_SESSION['nomeusuario'] = $row_login['NM_USUARIO'];
 
 	if($row_qtd['QTD'] == '1') {
-
+		
 		$_SESSION['cd_usu'] = $row_login['CD_USUARIO'];
+		$_SESSION['cd_empresa_usuario_logado'] = $row_login['CD_EMPRESA'];
 
 		header("Location: home.php");
 		exit;

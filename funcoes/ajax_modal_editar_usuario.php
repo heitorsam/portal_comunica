@@ -25,7 +25,7 @@
         <div class="col-md">
 
             Nome:
-            <input value="<?php echo $usuario_editavel['NM_USUARIO']; ?>" id="nome" name="nome" type="text" class="form form-control" placeholder="Nome completo">
+            <input value="<?php echo $usuario_editavel['NM_USUARIO']; ?>" id="nome_editar" name="nome" type="text" class="form form-control" placeholder="Nome completo">
 
         </div>
 
@@ -33,7 +33,7 @@
         <div class="col-md-3 esconde">
 
             CPF:
-            <input value="<?php echo $usuario_editavel['CPF']; ?>" id="cpf" name="cpf" type="text" class="form form-control" placeholder="CPF">
+            <input value="<?php echo $usuario_editavel['CPF']; ?>" id="cpf_editar" name="cpf" type="text" class="form form-control" placeholder="CPF">
 
         </div>
 
@@ -43,7 +43,7 @@
 
     <div class="row">
 
-        <div class="col-md-2">
+        <div class="col-md-3">
 
             Empresa:
             <select id="empresa_edicao" name="empresa" class="form form-control">
@@ -55,10 +55,10 @@
 
         </div>
 
-        <div class="col-md">
+        <div class="col-md-3">
             
             Senha:
-            <input value="<?php echo $usuario_editavel['SENHA']; ?>" id="senha" name="senha" type="text" class="form form-control" placeholder="Senha">
+            <input value="<?php echo $usuario_editavel['SENHA']; ?>" id="senha_editar" name="senha" type="text" class="form form-control" placeholder="Senha">
 
         </div>
 
@@ -74,28 +74,10 @@
 
         </div>
 
-        <div class="col-md-3">
-            Foto:
-            <div style="background-color: #d5d5d5cc; border: dashed 1px #cbced1; text-align: center;">  
-                <label style="padding-top: 10px;"class="btn btn-default btn-sm center-block btn-file">
-
-                    <i class="fa fa-upload fa-1x" aria-hidden="true"></i>
-                        Selecine um Arquivo!
-                    <input type="file" id="foto_usuario" name="foto_usuario" style="display: none;">
-
-                </label>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md">
+        <div class="col-md-4">
 
             E-mail:
-            <input value="<?php echo $usuario_editavel['EMAIL']; ?>" id="email" name="email" class="form form-control" type="email" placeholder="Informe o e-mail">
+            <input value="<?php echo $usuario_editavel['EMAIL']; ?>" id="email_editar" name="email" class="form form-control" type="email" placeholder="Informe o e-mail">
 
         </div>
 
@@ -103,11 +85,11 @@
 
 </form>
 
-<div class="modal-footer">
+<div class="modal-footer" style="margin-top: 20px;">
 
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Fechar</button>
 
-    <button onclick="ajax_editar_usuario()" id="btn_salvar_edicao" type="button" class="btn btn-primary">Salvar</button>
+    <button onclick="ajax_editar_usuario()" id="btn_salvar_edicao" type="button" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
 
 </div>
 
@@ -118,32 +100,52 @@
 
     function ajax_editar_usuario(event) {
 
-        let form_edicao = document.getElementById('form_edicao');
-        let formDataEdicao = new FormData(form_edicao);
+        // VALIDAÇÕES
+        var frm_email_editar = document.getElementById('email_editar'); if(frm_email_editar.value == ''){ frm_email_editar.focus(); }
+        var frm_senha_editar = document.getElementById('senha_editar'); if(frm_senha_editar.value == ''){ frm_senha_editar.focus(); }
+        var frm_cpf_editar = document.getElementById('cpf_editar'); if(frm_cpf_editar.value == ''){ frm_cpf_editar.focus(); }
+        var frm_nome_editar = document.getElementById('nome_editar'); if(frm_nome_editar.value == ''){ frm_nome_editar.focus(); }
 
-        $.ajax({
-            url: "funcoes/ajax_editar_usuario.php",
-            type: "POST",
-            data: formDataEdicao,
-            processData: false,
-            contentType: false,
-            success(resp) {
 
-                // RECARREGA A TEBELA DE USUÁRIOS NA PÁGINA
-                $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+        if(frm_nome_editar.value != '' && frm_cpf_editar.value != '' && frm_senha_editar.value != '' && frm_email_editar.value != '') {
 
-                //MENSAGEM            
-                var_ds_msg = 'Usuário%20editado%20com%20sucesso!';
+            let form_edicao = document.getElementById('form_edicao');
+            let formDataEdicao = new FormData(form_edicao);
 
-                //var_tp_msg = 'alert-success';
-                var_tp_msg = 'alert-success';
-                
-                //var_tp_msg = 'alert-primary';
-                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            $.ajax({
+                url: "funcoes/ajax_editar_usuario.php",
+                type: "POST",
+                data: formDataEdicao,
+                processData: false,
+                contentType: false,
+                success(resp) {
 
-            }
+                    // RECARREGA A TEBELA DE USUÁRIOS NA PÁGINA
+                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
 
-        });
+                    //MENSAGEM            
+                    var_ds_msg = 'Usuário%20editado%20com%20sucesso!';
+
+                    //var_tp_msg = 'alert-success';
+                    var_tp_msg = 'alert-success';
+                    
+                    //var_tp_msg = 'alert-primary';
+                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }
+
+            });
+
+        } else {
+
+            //MENSAGEM            
+            var_ds_msg = 'Preencha%20todos%20os%20campos!';
+            //var_tp_msg = 'alert-success';
+            //var_tp_msg = 'alert-success';
+            var_tp_msg = 'alert-danger';
+            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+        }
 
     };
 
