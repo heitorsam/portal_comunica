@@ -74,6 +74,9 @@
 
                             <!--MENU-->      
                             <a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <a class="dropdown-item" href="cadastro_usuario.php"><i class="fa-solid fa-users"></i> Usuários</a>
+                            <a class="dropdown-item" href="grupo.php"><i class="fa-solid fa-folder-tree"></i> Grupos</a>
+                            <a class="dropdown-item" href="empresa.php"><i class="fa-solid fa-building"></i> Empresas</a>
                         
                         </div>
                     </li>

@@ -27,6 +27,7 @@
 		
 		$_SESSION['cd_usu'] = $row_login['CD_USUARIO'];
 		$_SESSION['cd_empresa_usuario_logado'] = $row_login['CD_EMPRESA'];
+		$_SESSION['tp_usuario'] = $row_login['TP_USUARIO'];
 
 		header("Location: home.php");
 		exit;

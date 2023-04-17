@@ -48,9 +48,6 @@
             Empresa:
             <select id="empresa_edicao" name="empresa" class="form form-control">
 
-                <option value="1">Santa Casa</option>
-                <option value="2">Associação</option>
-
             </select>
 
         </div>

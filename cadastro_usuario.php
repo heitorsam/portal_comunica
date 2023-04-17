@@ -227,17 +227,18 @@
                             id_usuario: id_usuario
                         }
                     });
+
+                    // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
+                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Usuário%20excluido%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
                 }
+
             });
-
-            
-            // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-            $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
-
-            //MENSAGEM            
-            var_ds_msg = 'Usuário%20excluido%20com%20sucesso!';
-            var_tp_msg = 'alert-success';
-            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
         }
 

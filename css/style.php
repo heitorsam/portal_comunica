@@ -1039,6 +1039,18 @@ tbody{
     vertical-align: top !important;
 }
 
+.lista_home_itens {
+
+    width: 100%;
+    background-color: #ffffff !important;
+    border-radius: 5px 5px 5px 5px;
+    border: solid 1px #46a5d4;
+    padding: 4px;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+
 /*ANIMACOES*/
 
 @keyframes example {
