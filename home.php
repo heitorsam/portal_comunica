@@ -102,9 +102,9 @@
 
     }
 
-    function abrir_modal_chamado(id_chamado) {
+    function redirecionar_detalhe_chamado(id_chamado) {
 
-        alert(id_chamado);
+        window.location.href = "detalhe_chamado.php?id=" + id_chamado;
 
     }
 

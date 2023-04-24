@@ -125,6 +125,7 @@
                 contentType: false,
                 success(resp) {
 
+                    console.log(resp);
                     //MENSAGEM            
                     var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
                     var_tp_msg = 'alert-success';

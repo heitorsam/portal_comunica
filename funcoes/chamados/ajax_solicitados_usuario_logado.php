@@ -34,7 +34,7 @@
 
     if (mysqli_num_rows($res_abertos) > 0) {
 
-        echo '<div class="fnd_azul"><i class="fa-regular fa-clipboard"></i> Pendentes</div>';
+        echo '<div class="fnd_azul"><i class="fa-solid fa-exclamation"></i> Pendentes</div>';
 
         echo '<div class="div_br"></div>';
 
@@ -42,7 +42,7 @@
 
             while ($row = mysqli_fetch_array($res_abertos)) {
 
-                echo '<div onclick="abrir_modal_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
 
                     echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
@@ -72,7 +72,7 @@
 
             while ($row = mysqli_fetch_array($res_execucao)) {
 
-                echo '<div onclick="abrir_modal_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
 
                     echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
@@ -94,7 +94,7 @@
 
     if (mysqli_num_rows($res_concluidos) > 0) {
         
-        echo '<div class="fnd_azul"><i class="fa-regular fa-clipboard"></i> Concluídos</div>';
+        echo '<div class="fnd_azul"><i class="fa-solid fa-check"></i> Concluídos</div>';
 
         echo '<div class="div_br"></div>';
 
@@ -102,7 +102,7 @@
 
             while ($row = mysqli_fetch_array($res_concluidos)) {
 
-                echo '<div onclick="abrir_modal_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
 
                     echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
