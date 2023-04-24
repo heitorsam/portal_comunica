@@ -53,7 +53,6 @@
 
     <div class="div_br"></div>
 
-
         <div class="row">
 
             <div class="col-md-6" style="word-wrap: break-word;">
@@ -124,10 +123,16 @@
 
         <div class="row">
 
-            <div class="col-md-12" style="word-wrap: break-word;">
+            <div class="col-md-9" style="word-wrap: break-word;">
 
                 <b>Observação:</b>
                 <?php echo $row[7]; ?>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <button class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visualizar anexo</button>
 
             </div>
 

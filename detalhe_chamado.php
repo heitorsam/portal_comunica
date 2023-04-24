@@ -63,15 +63,23 @@
 
     // BUSCA TODAS AS MENSAGENS DO CHAMADO
     $cons_mensagens_chamado = "SELECT itch.DS_MENSAGEM,
-                                      itch.CD_USUARIO_CADASTRO AS USUARIO_CADASTRO_MENSAGEM,
-                                      ch.CD_USUARIO_CADASTRO AS USUARIO_CADASTRO_CHAMADO,
-                                      ch.TP_STATUS
+                                        itch.CD_USUARIO_CADASTRO AS USUARIO_CADASTRO_MENSAGEM,
+                                        ch.CD_USUARIO_CADASTRO AS USUARIO_CADASTRO_CHAMADO,
+                                        ch.TP_STATUS,
+                                        usu.NM_USUARIO,
+                                        DATE_FORMAT(itch.HR_CADASTRO, '%d/%m/%Y') AS DATA_MENSAGEM,
+                                        TIME(itch.HR_CADASTRO) AS HORA_MENSAGEM
                                     FROM portal_comunica.CHAMADO ch
                                     INNER JOIN portal_comunica.ITCHAMADO itch
                                     ON ch.CD_CHAMADO = itch.CD_CHAMADO
+                                    INNER JOIN portal_comunica.USUARIO usu
+                                    ON itch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
                                     WHERE ch.CD_CHAMADO = $id_chamado";
 
     $res = mysqli_query($conn, $cons_mensagens_chamado);
+
+    // PEGA A QUANTIDADE DE LINHAS NA CONSULTA DAS MENSAGENS ACIMA
+    $row_mensagens = mysqli_num_rows($res);
 
     // PEGA O TP STATUS DO CHAMADO E O GRUPO PARA QUAL FOI SOLICITADO
     $cons_tp_status_grupo = "SELECT TP_STATUS, 
@@ -97,6 +105,12 @@
     $cd_grupo_chamado_usuario = mysqli_fetch_row($res_cons_grupo);
 
 ?>
+
+<div id="mensagem_acoes"></div>
+
+<h11><i class="fa-solid fa-clipboard-list"></i> Detalhes chamado</h11>
+        <div class='espaco_pequeno'></div>
+    <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
 
 <div>
     <!-- ARMAZENA O ID DO CHAMADO -->
@@ -128,11 +142,22 @@
 
             echo '<div style="width: 100%; text-align: center;">';
     
-                echo '<button class="botao_home"><i class="fa-brands fa-get-pocket"></i> Receber chamado</button>';
+                echo '<button onclick="chamar_update_status_execucao()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Receber chamado</button>';
     
             echo '</div>';
 
         } else if ($status_grupo[0] != 'A') {
+
+            // 
+            if ($status_grupo[0] == 'E' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]) {
+
+                echo '<div style="width: 100%; text-align: center;">';
+        
+                    echo '<button onclick="chamar_update_status_finalizado()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Finalizar chamado</button>';
+        
+                echo '</div>';
+    
+            }
 
             // CHAT
             echo '<div class="modal-footer" style="border: none !important; padding: 0px;">';
@@ -144,38 +169,52 @@
                     // LINHA HORIZONTAL
                     echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';       
 
-                    while ($row = mysqli_fetch_array($res)) {
-        
-                        if ($row['USUARIO_CADASTRO_MENSAGEM'] == $row['USUARIO_CADASTRO_CHAMADO']) {
-        
-                            // CABEÇALHO DA MENSAGEM
-                            echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;
-                            margin: 0 auto;"> DATA HORA - NOME COMPLETO <div style="background-color: #ffd9ac; width: 45%; margin: 0 auto; border-radius: 5px;"> SOLICITANTE </div></div>';
-                
-                            echo '<div class="div_br"> </div>';
-                            echo '<div class="div_br"> </div>';
-                
-                            // MENSAGEM
-                            echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:right; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
-                            echo '<div class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';     
-        
-                        } else {
-        
-                            echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;
-                            margin: 0 auto;"> DATA HORA - NOME COMPLETO <div style="background-color: #ffd9ac; width: 45%; margin: 0 auto; border-radius: 5px;"> ATENDENTE </div></div>';
-                
-                            echo '<div class="div_br"> </div>';
-                            echo '<div class="div_br"> </div>';
-                
-                            // MENSAGEM
-                            echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:left; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
-                            echo '<div style="float:left;" class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';   
-        
+                    // VERIFICA SE TEM ALGUMA MENSAGEM NO CHAT
+                    if ($row_mensagens > 0) {
+
+                        while ($row = mysqli_fetch_array($res)) {
+            
+                            if ($row['USUARIO_CADASTRO_MENSAGEM'] == $row['USUARIO_CADASTRO_CHAMADO']) {
+            
+                                // CABEÇALHO DA MENSAGEM
+                                echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;
+                                margin: 0 auto;"> '. $row['DATA_MENSAGEM'] .' '. $row['HORA_MENSAGEM'] .' - '. $row['NM_USUARIO'] .' <div style="background-color: #ffd9ac; width: 45%; margin: 0 auto; border-radius: 5px;"> SOLICITANTE </div></div>';
+                    
+                                echo '<div class="div_br"> </div>';
+                                echo '<div class="div_br"> </div>';
+                    
+                                // MENSAGEM
+                                echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:right; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
+                                echo '<div class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';     
+            
+                            } else {
+            
+                                // CABEÇALHO DA MENSAGEM
+                                echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;
+                                margin: 0 auto;"> '. $row['DATA_MENSAGEM'] .' '. $row['HORA_MENSAGEM'] .' - '. $row['NM_USUARIO'] .'<div style="background-color: #ffd9ac; width: 45%; margin: 0 auto; border-radius: 5px;"> ATENDENTE </div></div>';
+                    
+                                echo '<div class="div_br"> </div>';
+                                echo '<div class="div_br"> </div>';
+                    
+                                // MENSAGEM
+                                echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:left; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
+                                echo '<div style="float:left;" class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';   
+            
+                            }
+            
+                            // LINHA HORIZONTAL
+                            echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';  
+            
                         }
-        
-                        // LINHA HORIZONTAL
-                        echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';  
-        
+
+                    } else {
+                        
+                        echo '<div style="text-align: center; padding: 55px 0px 55px 0px; color: #B3B4AF;">';
+
+                            echo 'Nenhuma mensagem no momento.';
+
+                        echo '</div>';
+
                     }
         
                 echo '</div>';
@@ -186,18 +225,41 @@
 
     ?>
 
-    <!-- INPUT ENVIAR -->
     <?php
 
         if ($status_grupo[0] != 'A' && $status_grupo[0] != 'C') {
-
-            echo '<center>';
-
-                echo '<input id="input_msg" onclick="stop_interval()" class="btn_msg" type="text">';
-
-                echo '<img class="btn_msg_enviar" src="img/botoes/enviar_msg.png" onclick="cad_msg(<?php echo $var_cd_os; ?>)">';
             
-            echo '</center>';
+            // INPUT ARQUIVO FILE
+            echo '<div class="row" style="margin-left: 2px; width: 100%;">';
+
+                echo '<div style="width: 30%; padding-right: 30px;">';
+
+                    echo '<div style="width: 70%%; height: 30px; background-color: #46a5d4; border: dashed 1px #46a5d4; text-align: center; float: right;">';
+                
+                    echo '<label style="color: white;" class="btn btn-default btn-sm center-block btn-file">';
+        
+                        echo '<i class="fa fa-upload fa-1x" aria-hidden="true"></i>';
+
+                            echo 'Selecine um Arquivo!';
+
+                        echo '<input name="arquivo" type="file" id="frm_arquivo_mensagem" style="display: none;">';
+
+                    echo '</label>';
+    
+                echo '</div>';
+
+                echo '</div>';
+
+                // INPUT ENVIAR
+                echo '<center style="width: 70%;">';
+
+                    echo '<input style="float: left;" id="input_msg" onclick="stop_interval()" class="btn_msg" type="text">';
+
+                    echo '<img style="float: left;" class="btn_msg_enviar" src="img/botoes/enviar_msg.png" onclick="enviar_mensagem()">';
+                
+                echo '</center>';
+            
+            echo '</div>';
 
         }
 
@@ -214,11 +276,76 @@
 
 <script>
 
+    var id_chamado = document.getElementById('id_chamado').value;
+
     window.onload = function ajax_tabela_cabecalho_chamado() {
 
-        var id_chamado = document.getElementById('id_chamado').value;
-
         $('#res_cabecalho_chamado').load('funcoes/chamados/ajax_cabecalho_chamado.php?id=' + id_chamado);
+
+    }
+
+    function chamar_update_status_execucao() {
+
+        $.ajax({
+            url: "funcoes/chamados/update_status_chamado_execucao.php",
+            method: "POST",
+            data: {
+                id_chamado: id_chamado
+            },
+            cache: false,
+            success(resp) {
+
+                //MENSAGEM            
+                var_ds_msg = 'Chamado%20recebido%20com%20sucesso!';
+                var_tp_msg = 'alert-success';
+    
+                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+            }
+        })
+
+    }
+
+    function chamar_update_status_finalizado() {
+
+        $.ajax({
+            url: "funcoes/chamados/update_status_chamado_finalizado.php",
+            method: "POST",
+            data: {
+                id_chamado: id_chamado
+            },
+            cache: false,
+            success(resp) {
+
+                //MENSAGEM            
+                var_ds_msg = 'Chamado%20finalizado%20com%20sucesso!';
+                var_tp_msg = 'alert-success';
+    
+                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+            }
+        })
+
+    }
+
+    function enviar_mensagem() {
+
+        var input_mensagem = document.getElementById('input_msg');
+
+        $.ajax({
+            url: "funcoes/chamados/inserir_mensagem_chamado.php",
+            method: "POST",
+            data: {
+                id_chamado: id_chamado,
+                mensagem: input_mensagem.value
+            },
+            cache: false,
+            success(resp) {
+
+                input_mensagem.value = "";
+
+            }
+        })
 
     }
 
