@@ -1,5 +1,16 @@
 <style>
-
+/* ESTILIZAÇÃO DO SCROLL*/
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #dad7d7;
+}
+ 
     .btn_msg{
 
         width: 60%;
@@ -164,7 +175,7 @@
         
                 echo '<div class="div_br"> </div>';
         
-                echo '<div style="width: 100%; margin: 0 auto;">';
+                echo '<div id="chat" style="width: 100%; margin: 0 auto; overflow: auto; height: 300px;">';
         
                     // LINHA HORIZONTAL
                     echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';       
@@ -277,6 +288,11 @@
 <script>
 
     var id_chamado = document.getElementById('id_chamado').value;
+    var chat = document.getElementById('chat');
+
+    tamanho_chat = chat.scrollHeight;
+
+    chat.scrollTo(0, tamanho_chat);
 
     window.onload = function ajax_tabela_cabecalho_chamado() {
 
