@@ -32,18 +32,3 @@
   </div>
 
 </div>
-
-<script>
-
-  var periodo = document.getElementById('periodo').value;
-
-  $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
-
-  function chamar_abertura_chamado() {
-
-      $('#modal_abertura_chamado').modal('show');
-      $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
-
-  }
-
-</script>

@@ -4,6 +4,8 @@
 
 ?>
 
+<input id="inpt_pag_atual" hidden>
+
     <div class="row">
 
         <div style="width: content; float: left;">
@@ -12,7 +14,7 @@
         
         <div style="width: content; float: left; padding-left: 20px;">
 
-            <input onchange="chama_paginas(pagina_atual)" id="periodo" class="form form-control" type="month">
+            <input onchange="chama_paginas('x')" id="periodo" class="form form-control" type="month">
 
         </div>
 
@@ -55,7 +57,6 @@
 
 <script>
     // VARIAVEL USADA PARA PASSAR COMO PARAMETRO NO MOMENTO DE CHAMAR A FUNC chama_paginas PARA FILTROS
-    var pagina_atual = 1;
 
     chama_paginas('1');
     ajax_style('1');
@@ -102,24 +103,52 @@
 
     function chama_paginas(pagina) {
 
+        var periodo = document.getElementById('periodo').value;
+
+        if(pagina == 'x'){
+            pagina = document.getElementById('inpt_pag_atual').value;
+        }
+
         if (pagina == '1') {
 
             pagina_atual = 1;
-            $('#resultados_ajax').load('solicitacoes.php');          
+            document.getElementById('inpt_pag_atual').value = pagina_atual;  
+ 
+            $("#resultados_ajax").load("solicitacoes.php", function() {
+                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
+            });
+
+
 
         } else if (pagina == '2') {
 
             pagina_atual = 2;
-            $('#resultados_ajax').load('meus_chamados.php');
+            document.getElementById('inpt_pag_atual').value = pagina_atual;  
+
+            $("#resultados_ajax").load("meus_chamados.php", function() {
+                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo);
+            });
+
 
         } else {
 
             pagina_atual = 3;
-            $('#resultados_ajax').load('dashboard.php');
+            document.getElementById('inpt_pag_atual').value = pagina_atual;  
+            $("#resultados_ajax").load("meus_chamados.php", function() {
+                alert('rafa lindo');
+            });
 
         }
 
     }
+
+    function chamar_abertura_chamado() {
+
+        $('#modal_abertura_chamado').modal('show');
+        $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
+
+    }
+
 
     function redirecionar_detalhe_chamado(id_chamado) {
 
