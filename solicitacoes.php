@@ -1,6 +1,14 @@
 <button onclick="chamar_abertura_chamado()" class="botao_home"><i class="fa-solid fa-plus"></i> Chamado</button>
 
 <div class="div_br"></div>
+<?php
+
+  $inicio = $_GET["inicio"];
+  $fim = $_GET["fim"];
+  
+  echo '<input value="" type="text">';
+  echo '<input value="" type="text">';
+?>
 
 <div id="carrega_chamados"></div>
 

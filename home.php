@@ -4,7 +4,18 @@
 
 ?>
 
-    <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
+    <div class="row">
+        <div class="col-md-2">
+            <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
+        </div>
+        
+        <h11>Período:</h11>
+        <div class="col-md-2">
+
+            <input id="periodo_ini" class="form form-control" type="month">
+
+        </div>
+    </div>
 
     <div class="div_br"></div>
     <div class="div_br"></div>
@@ -62,7 +73,6 @@
 
         } else if (btn == '2') {
 
-            
             document.getElementById('chamados').setAttribute("style", "border-bottom: solid 2px #17a2b8; cursor: pointer;");
 
             document.getElementById('solic').removeAttribute("style");
@@ -89,14 +99,34 @@
 
     function chama_paginas(pagina) {
 
+        // PEGAR O PERÍODO DE DATAS PARA USAR COMO FILTROS
+        var data_inicio = document.getElementById('periodo_ini').value;
+        var data_fim = document.getElementById('periodo_fim').value;
+
         if (pagina == '1') {
 
-            $('#resultados_ajax').load('solicitacoes.php');
+            if (data_inicio && data_fim) {
+
+                $('#resultados_ajax').load('solicitacoes.php?inicio=' + data_inicio + '&fim=' + data_fim);
+
+            } else {
+
+                $('#resultados_ajax').load('solicitacoes.php');
+
+            }
 
         } else if (pagina == '2') {
 
-            $('#resultados_ajax').load('meus_chamados.php');    
- 
+            if (data_inicio && data_fim) {
+
+                $('#resultados_ajax').load('meus_chamados.php?inicio=' + data_inicio + '&fim=' + data_fim);
+
+            } else {
+
+                $('#resultados_ajax').load('meus_chamados.php');
+
+            }
+
         } else {
 
             $('#resultados_ajax').load('dashboard.php');

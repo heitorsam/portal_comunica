@@ -39,6 +39,7 @@
 ?>
 
 <?php
+    
 
     if (mysqli_num_rows($res_abertos) > 0) {
 
