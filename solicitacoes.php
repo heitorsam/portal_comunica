@@ -1,14 +1,6 @@
 <button onclick="chamar_abertura_chamado()" class="botao_home"><i class="fa-solid fa-plus"></i> Chamado</button>
 
 <div class="div_br"></div>
-<?php
-
-  $inicio = $_GET["inicio"];
-  $fim = $_GET["fim"];
-  
-  echo '<input value="" type="text">';
-  echo '<input value="" type="text">';
-?>
 
 <div id="carrega_chamados"></div>
 
@@ -43,13 +35,15 @@
 
 <script>
 
-    $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php');
+  var periodo = document.getElementById('periodo').value;
 
-    function chamar_abertura_chamado() {
+  $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
 
-        $('#modal_abertura_chamado').modal('show');
-        $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
+  function chamar_abertura_chamado() {
 
-    }
+      $('#modal_abertura_chamado').modal('show');
+      $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
+
+  }
 
 </script>

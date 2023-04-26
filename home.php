@@ -5,16 +5,17 @@
 ?>
 
     <div class="row">
-        <div class="col-md-2">
+
+        <div style="width: content; float: left;">
             <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
         </div>
         
-        <h11>Período:</h11>
-        <div class="col-md-2">
+        <div style="width: content; float: left; padding-left: 20px;">
 
-            <input id="periodo_ini" class="form form-control" type="month">
+            <input onchange="chama_paginas(pagina_atual)" id="periodo" class="form form-control" type="month">
 
         </div>
+
     </div>
 
     <div class="div_br"></div>
@@ -53,6 +54,8 @@
 ?>
 
 <script>
+    // VARIAVEL USADA PARA PASSAR COMO PARAMETRO NO MOMENTO DE CHAMAR A FUNC chama_paginas PARA FILTROS
+    var pagina_atual = 1;
 
     chama_paginas('1');
     ajax_style('1');
@@ -99,36 +102,19 @@
 
     function chama_paginas(pagina) {
 
-        // PEGAR O PERÍODO DE DATAS PARA USAR COMO FILTROS
-        var data_inicio = document.getElementById('periodo_ini').value;
-        var data_fim = document.getElementById('periodo_fim').value;
-
         if (pagina == '1') {
 
-            if (data_inicio && data_fim) {
-
-                $('#resultados_ajax').load('solicitacoes.php?inicio=' + data_inicio + '&fim=' + data_fim);
-
-            } else {
-
-                $('#resultados_ajax').load('solicitacoes.php');
-
-            }
+            pagina_atual = 1;
+            $('#resultados_ajax').load('solicitacoes.php');          
 
         } else if (pagina == '2') {
 
-            if (data_inicio && data_fim) {
-
-                $('#resultados_ajax').load('meus_chamados.php?inicio=' + data_inicio + '&fim=' + data_fim);
-
-            } else {
-
-                $('#resultados_ajax').load('meus_chamados.php');
-
-            }
+            pagina_atual = 2;
+            $('#resultados_ajax').load('meus_chamados.php');
 
         } else {
 
+            pagina_atual = 3;
             $('#resultados_ajax').load('dashboard.php');
 
         }

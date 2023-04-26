@@ -4,25 +4,31 @@
 
     include '../../conexao.php';
 
+    // PEGA O PERIODO REGISTRADO NO INPUT DA HOME PARA TOMAR COMO FILTRO DAS CONSULTAS
+    $periodo = $_GET['periodo'];
+
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
     $cons_chamados_abertos = "SELECT ch.CD_CHAMADO,
                                      ch.DS_CHAMADO
                                 FROM portal_comunica.CHAMADO ch
                                 WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                                AND ch.TP_STATUS = 'A'";
+                                AND ch.TP_STATUS = 'A'
+                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
 
     $cons_chamados_execucao = "SELECT ch.CD_CHAMADO,
                                      ch.DS_CHAMADO
                                     FROM portal_comunica.CHAMADO ch
                                     WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                                    AND ch.TP_STATUS = 'E'";
+                                    AND ch.TP_STATUS = 'E'
+                                    AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
     $cons_chamados_concluidos = "SELECT ch.CD_CHAMADO,
                                      ch.DS_CHAMADO
                                     FROM portal_comunica.CHAMADO ch
                                     WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                                    AND ch.TP_STATUS = 'C'";
+                                    AND ch.TP_STATUS = 'C'
+                                    AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
@@ -129,4 +135,3 @@
     }
     
 ?>
-
