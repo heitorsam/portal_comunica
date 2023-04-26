@@ -232,15 +232,13 @@
             // INPUT ARQUIVO FILE
             echo '<div class="row" style="margin-left: 2px; width: 100%;">';
 
-                echo '<div style="width: 30%; padding-right: 30px;">';
+                echo '<div style="width: 30%; padding-right: 10px;">';
 
-                    echo '<div style="width: 30%; border-radius: 2%; height: 30px; background-color: #46a5d4; border: dashed 1px #46a5d4; text-align: center; float: right;">';
+                    echo '<div style="border-radius: 5px; height: 30px; float: right;">';
                 
-                    echo '<label style="color: white;" class="btn btn-default btn-sm center-block btn-file">';
+                    echo '<label style="color: white;" class="btn btn-primary">';
         
-                        echo '<i class="fa fa-upload fa-1x" aria-hidden="true"></i>';
-
-                            
+                        echo '<i class="fa fa-upload fa-1x" aria-hidden="true"></i>';                            
 
                         echo '<input name="arquivo" type="file" id="frm_arquivo_mensagem" style="display: none;">';
 
@@ -255,7 +253,7 @@
 
                     echo '<input style="float: left;" id="input_msg" onclick="stop_interval()" class="btn_msg" type="text">';
 
-                    echo '<img style="float: left;" class="btn_msg_enviar" src="img/botoes/enviar_msg.png" onclick="enviar_mensagem()">';
+                    echo '<img style="float: left; margin-left: 4px; margin-top: 2px;" class="btn_msg_enviar" src="img/botoes/enviar_msg.png" onclick="enviar_mensagem()">';
                 
                 echo '</center>';
             

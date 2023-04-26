@@ -31,7 +31,7 @@ $row_mensagens = mysqli_num_rows($res);
         
     echo '<div class="div_br"> </div>';
 
-    echo '<div id="chat" style="width: 100%; margin: 0 auto; overflow: auto; height: 440px; padding: 10px;">';
+    echo '<div id="chat" style="width: 100%; margin: 0 auto; overflow: auto; max-height: 440px; padding: 10px;">';
 
         // LINHA HORIZONTAL
         echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';       
