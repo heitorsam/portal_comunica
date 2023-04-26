@@ -45,7 +45,7 @@ $row_mensagens = mysqli_num_rows($res);
 
                     // CABEÇALHO DA MENSAGEM
                     echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;
-                    margin: 0 auto;"> '. $row['DATA_MENSAGEM'] .' '. $row['HORA_MENSAGEM'] .' - '. $row['NM_USUARIO'] .' <div style="background-color: #ffd9ac; width: 45%; margin: 0 auto; border-radius: 5px;"> SOLICITANTE </div></div>';
+                    margin: 0 auto;"> '. $row['DATA_MENSAGEM'] .' '. $row['HORA_MENSAGEM'] .' - '. $row['NM_USUARIO'] .' <div style="background-color: rgba(70,165,212,0.2); width: 45%; margin: 0 auto; border-radius: 5px;"> SOLICITANTE </div></div>';
         
                     echo '<div class="div_br"> </div>';
                     echo '<div class="div_br"> </div>';
