@@ -58,6 +58,19 @@
 <script>
     // VARIAVEL USADA PARA PASSAR COMO PARAMETRO NO MOMENTO DE CHAMAR A FUNC chama_paginas PARA FILTROS
 
+    js_agora = new Date();
+
+    if((js_agora.getMonth()+1) <= 9){
+
+        js_agora_format = js_agora.getFullYear() + "-0" + (js_agora.getMonth()+1);
+
+    }else{
+
+        js_agora_format = js_agora.getFullYear() + "-" + js_agora.getMonth();
+    }
+    
+    document.getElementById('periodo').value = js_agora_format;
+
     chama_paginas('1');
     ajax_style('1');
 
@@ -118,8 +131,6 @@
                 $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
             });
 
-
-
         } else if (pagina == '2') {
 
             pagina_atual = 2;
@@ -135,7 +146,7 @@
             pagina_atual = 3;
             document.getElementById('inpt_pag_atual').value = pagina_atual;  
             $("#resultados_ajax").load("meus_chamados.php", function() {
-                alert('rafa lindo');
+                //alert('rafa lindo');
             });
 
         }
@@ -148,7 +159,6 @@
         $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
 
     }
-
 
     function redirecionar_detalhe_chamado(id_chamado) {
 
