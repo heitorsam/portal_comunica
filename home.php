@@ -43,6 +43,9 @@
 
 <script>
 
+    chama_paginas('1');
+    ajax_style('1');
+
     // APLICAR EFEITO AZUL E MANTER APÓS CLICAR
     function ajax_style(btn){
 

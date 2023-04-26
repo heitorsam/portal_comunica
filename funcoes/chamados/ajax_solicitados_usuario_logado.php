@@ -34,27 +34,29 @@
 
     if (mysqli_num_rows($res_abertos) > 0) {
 
-        echo '<div class="fnd_azul"><i class="fa-solid fa-exclamation"></i> Pendentes</div>';
+        echo '<div class="fnd_azul_dinamico"><i class="fa-regular fa-clock"></i> Pendentes</div>';
 
-        echo '<div class="div_br"></div>';
+        echo '<div class="caixa_lista_chamados">';
 
-        echo '<div class="row">';
+            echo '<div class="row">';
 
-            while ($row = mysqli_fetch_array($res_abertos)) {
+                while ($row = mysqli_fetch_array($res_abertos)) {
 
-                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
-                    echo '<div class="lista_home_itens" style="cursor:pointer;">';
+                        echo '<div class="lista_home_itens_pend" style="cursor:pointer;">';
 
-                        echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                        echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                        echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
+                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
+                            echo '<br> '. $row['DS_CHAMADO'] .'';
 
+                        echo '</div>';
+                            
                     echo '</div>';
-                        
-                echo '</div>';
 
-            }
+                }
+
+            echo '</div>';
 
         echo '</div>';
 
@@ -64,27 +66,29 @@
 
     if (mysqli_num_rows($res_execucao) > 0) {
 
-        echo '<div class="fnd_azul"><i class="fa-regular fa-clipboard"></i> Em execução</div>';
+        echo '<div class="fnd_azul_dinamico"><i class="fa-regular fa-clipboard"></i> Em execução</div>';
 
-        echo '<div class="div_br"></div>';
+        echo '<div class="caixa_lista_chamados">';
 
-        echo '<div class="row">';
+            echo '<div class="row">';
 
-            while ($row = mysqli_fetch_array($res_execucao)) {
+                while ($row = mysqli_fetch_array($res_execucao)) {
 
-                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
 
-                    echo '<div class="lista_home_itens" style="cursor:pointer;">';
+                        echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
-                        echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                        echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                        echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
+                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
+                            echo '<br> '. $row['DS_CHAMADO'] .'';
 
+                        echo '</div>';
+                            
                     echo '</div>';
-                        
-                echo '</div>';
 
-            }
+                }
+
+            echo '</div>';
 
         echo '</div>';
 
@@ -94,27 +98,29 @@
 
     if (mysqli_num_rows($res_concluidos) > 0) {
         
-        echo '<div class="fnd_azul"><i class="fa-solid fa-check"></i> Concluídos</div>';
+        echo '<div class="fnd_azul_dinamico"><i class="fa-solid fa-check"></i> Concluídos</div>';
 
-        echo '<div class="div_br"></div>';
+        echo '<div class="caixa_lista_chamados">';
 
-        echo '<div class="row">';
+            echo '<div class="row">';
 
-            while ($row = mysqli_fetch_array($res_concluidos)) {
+                while ($row = mysqli_fetch_array($res_concluidos)) {
 
-                echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
 
-                    echo '<div class="lista_home_itens" style="cursor:pointer;">';
+                        echo '<div class="lista_home_itens_ok" style="cursor:pointer;">';
 
-                        echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                        echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                        echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
+                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
+                            echo '<br> '. $row['DS_CHAMADO'] .'';
 
+                        echo '</div>';
+                            
                     echo '</div>';
-                        
-                echo '</div>';
 
-            }
+                }
+
+            echo '</div>';
 
         echo '</div>';
 

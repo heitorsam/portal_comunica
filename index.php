@@ -60,7 +60,7 @@
 
                                 <div class="div_br"> </div>
 
-                                <label for="login"><h12>Login:</h12></label>
+                                <label for="login"><h12>CPF:</h12></label>
                                 <input type="text" class="form-control" id="login" name="login" required autocomplete="off">
                             </div>
                             <div class="form-group">

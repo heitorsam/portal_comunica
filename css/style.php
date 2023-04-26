@@ -818,6 +818,18 @@ h99{
     margin-bottom: 10px !important;
 }
 
+.fnd_azul_dinamico{
+
+    background-color: #46A5D4 !important;
+    color: #fff !important;
+    border-radius: 3px !important;
+    padding: 8px 16px 8px 16px !important;
+    font-size: 20px !important;
+    margin-bottom: 0px !important;
+    width: max-content;
+
+}
+
 
 /*WORKFLOW*/
 
@@ -1048,6 +1060,36 @@ tbody{
     padding: 4px;
     font-size: 13px;
     margin-bottom: 8px;
+}
+
+.lista_home_itens_pend {
+
+width: 100%;
+background-color: #ffffff !important;
+border-radius: 5px 5px 5px 5px;
+border: solid 1px #ff834c;
+padding: 4px;
+font-size: 13px;
+margin-bottom: 8px;
+}
+
+.lista_home_itens_ok {
+
+width: 100%;
+background-color: #ffffff !important;
+border-radius: 5px 5px 5px 5px;
+border: solid 1px #3BD4B4;
+padding: 4px;
+font-size: 13px;
+margin-bottom: 8px;
+}
+
+.caixa_lista_chamados{
+
+    border: solid 1px #46a5d4; 
+    padding: 20px 20px 10px 20px; 
+    border-radius: 5px;
+    
 }
 
 
