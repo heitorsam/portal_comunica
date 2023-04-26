@@ -108,19 +108,87 @@
     <input style="display: none;" id="id_chamado" type="text" value="<?php echo $id_chamado; ?>">
 
     <!-- CABEÇALHO -->
-    <div class="modal-header" style="border: none !important;">
 
-        <h5 class="modal-title" id="exampleModalLabel" style="border: none !important;">
+    <div style="width: 100%;">
 
-            <div style="background-color: #ffd9ac; border-radius: 10px; padding: 3px;">
+        <div style="width: 30%; float: left;">
+    
+            <div class="modal-header" style="border: none !important;">
 
-                <?php echo 'OS: ' . $id_chamado; ?>
+                <h5 class="modal-title" id="exampleModalLabel" style="border: none !important;">
+
+                        <div style="border-radius: 10px; padding: 3px 8px 3px 8px;
+                        
+                        <?php 
+
+                            if($status_grupo[0] == 'A'){
+
+                                echo 'background-color: rgba(255,131,76,0.3)'; 
+
+                            }else if($status_grupo[0] == 'E'){
+
+                                echo 'background-color: rgba(70,165,212,0.2)'; 
+
+                            }else if($status_grupo[0] == 'C'){
+
+                                echo 'background-color: rgba(59,212,180,0.2)'; 
+
+
+                            }else{
+
+                                echo 'background-color: white'; 
+                            }
+                        ?>            
+                                    
+                        ">
+
+                            <?php echo 'OS: ' . $id_chamado; ?>
+
+                        </div>            
+                </h5>
 
             </div>
-        
-        </h5>
+            
+        </div>
+
+        <div style="width: 70%; float: left;">
+
+            <div class="modal-header" style="border: none !important;">
+
+                <?php 
+
+                    if($status_grupo[0] == 'A'){
+
+                        echo '<div style="width: 100%; text-align: right;">';
+    
+                            echo '<button onclick="chamar_update_status_execucao()" class="btn btn-primary"><i class="fa-regular fa-thumbs-up"></i> Receber</button>';
+                
+                        echo '</div>'; 
+
+                    }else if($status_grupo[0] == 'E'){
+
+                        echo '<div style="width: 100%; text-align: right;">';
+                
+                            echo '<button onclick="chamar_update_status_finalizado()" class="btn btn-primary"><i class="fa-solid fa-check"></i> Finalizar</button>';
+                
+                        echo '</div>';
+
+                    }else if($status_grupo[0] == 'C'){
+
+                        
+                    }else{
+
+                       
+                    }
+                ?> 
+
+            </div>
+     
+        </div>
 
     </div>
+
+    <div style="clear: both;"></div>
 
     <div id="res_cabecalho_chamado"></div>
 
@@ -131,22 +199,22 @@
         LOGADO TROUXE ALGO E CRIA UM BOTÃO PARA RECEBER */
         if ($status_grupo[0] == 'A' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]) {
 
-            echo '<div style="width: 100%; text-align: center;">';
+            //echo '<div style="width: 100%; text-align: center;">';
     
-                echo '<button onclick="chamar_update_status_execucao()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Receber chamado</button>';
+                //echo '<button onclick="chamar_update_status_execucao()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Receber chamado</button>';
     
-            echo '</div>';
+            //echo '</div>';
 
         } else if ($status_grupo[0] != 'A') {
 
             // 
             if ($status_grupo[0] == 'E' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]) {
 
-                echo '<div style="width: 100%; text-align: center;">';
+                //echo '<div style="width: 100%; text-align: center;">';
         
-                    echo '<button onclick="chamar_update_status_finalizado()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Finalizar chamado</button>';
+                    //echo '<button onclick="chamar_update_status_finalizado()" class="botao_home"><i class="fa-brands fa-get-pocket"></i> Finalizar chamado</button>';
         
-                echo '</div>';
+                //echo '</div>';
     
             }
 
@@ -239,7 +307,12 @@
                 var_ds_msg = 'Chamado%20recebido%20com%20sucesso!';
                 var_tp_msg = 'alert-success';
     
-                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+
+                setTimeout(function(){
+                window.location.reload();
+                }, 4000);
+                               
 
             }
         })
@@ -263,6 +336,12 @@
     
                 $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
+
+                setTimeout(function(){
+                window.location.reload();
+                }, 4000);
+                                
+                
             }
         })
 

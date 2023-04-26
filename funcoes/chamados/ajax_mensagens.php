@@ -1,5 +1,7 @@
 <?php
 
+    session_start();	
+
     include '../../conexao.php';
 
     $id_chamado = $_GET['id'];
@@ -17,7 +19,8 @@
     ON ch.CD_CHAMADO = itch.CD_CHAMADO
     INNER JOIN portal_comunica.USUARIO usu
     ON itch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
-    WHERE ch.CD_CHAMADO = $id_chamado";
+    WHERE ch.CD_CHAMADO = $id_chamado
+    ORDER BY itch.HR_CADASTRO ASC";
 
 $res = mysqli_query($conn, $cons_mensagens_chamado);
 
@@ -28,7 +31,7 @@ $row_mensagens = mysqli_num_rows($res);
         
     echo '<div class="div_br"> </div>';
 
-    echo '<div id="chat" style="width: 100%; margin: 0 auto; overflow: auto; height: 300px;">';
+    echo '<div id="chat" style="width: 100%; margin: 0 auto; overflow: auto; height: 440px; padding: 10px;">';
 
         // LINHA HORIZONTAL
         echo '<div style="margin: 0 auto; width: 98%; height: 20px; clear: both; border-bottom: 1px solid #dee2e6; margin-top: -35px !important; margin-bottom: 10px; "></div><div style="clear: both;"> </div><div class="div_br"></div>';       
@@ -38,7 +41,7 @@ $row_mensagens = mysqli_num_rows($res);
 
             while ($row = mysqli_fetch_array($res)) {
 
-                if ($row['USUARIO_CADASTRO_MENSAGEM'] == $row['USUARIO_CADASTRO_CHAMADO']) {
+                if ($row['USUARIO_CADASTRO_MENSAGEM'] == $_SESSION['cd_usu']) {
 
                     // CABEÇALHO DA MENSAGEM
                     echo '<div style="clear: both; width: 80%; height: 30px; font-size: 14px; text-align: center;

@@ -132,7 +132,7 @@
 
             <div class="col-md-3">
 
-                <button class="btn btn-primary"><i class="fa-solid fa-eye"></i> Visualizar anexo</button>
+                <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Anexo</button>
 
             </div>
 
