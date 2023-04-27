@@ -24,7 +24,8 @@
                                             ON ch.CD_GRUPO = grp.CD_GRUPO
                                         WHERE ch.CD_CHAMADO = $id_chamado) AS GRUPO_SOLICITADO,
                                         date_format(ch.DT_PREVISTA, '%d/%m/%Y') AS DATA_PREVISTA,
-                                        ch.OBS_MENSAGEM
+                                        ch.OBS_MENSAGEM,
+                                        ch.ANEXO
                                     FROM portal_comunica.CHAMADO ch
                                     INNER JOIN portal_comunica.USUARIO usu
                                     ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
@@ -132,8 +133,16 @@
 
             <div class="col-md-3">
 
-                <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Anexo</button>
+                <?php if(isset($row[8])){ ?>
 
+                    <a target="_blank" href="<?php echo $diretorio_arquivos_ftp . $row[8]; ?>" class="btn btn-primary"><i class="fa-solid fa-download"></i> Anexo</a>
+
+                <?php }else{ ?>
+
+                    <a class="btn btn-secondary"><i class="fa-solid fa-download"></i> Anexo</a>
+
+                <?php } ?>
+                
             </div>
 
         </div>

@@ -300,6 +300,8 @@ p,li{
 
 
 .btn-secondary { 
+    background-color: #a6a6a6 !important;
+    border: solid 1px #a6a6a6 !important;
     font-size: 0.875rem !important;
 }
 
