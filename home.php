@@ -6,23 +6,40 @@
 
 <input id="inpt_pag_atual" hidden>
 
+
+    <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
+    <div class='espaco_pequeno'></div>
+    <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27>
+
+    
     <div class="row">
 
-        <div style="width: content; float: left;">
-            <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
-        </div>
-        
-        <div style="width: content; float: left; padding-left: 20px;">
+        <div class="col-10 col-md-3" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
 
-            <input onchange="chama_paginas('x')" id="periodo" class="form form-control" type="month">
+            Período:</br>            
+            <input onchange="chama_paginas('x')" id="periodo" class="form form-control" type="month">       
+
+        </div>
+
+        <div class="col-10 col-md-4" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
+
+            Prestador:</br>            
+            <select class="form-control" id="sel_prestador">
+                <option value=""> =D </option>
+            </select>    
+
+        </div>
+
+        <div class="col-4 col-md-1" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
+
+            OS:</br>            
+            <input class="form-control" id="txt_os">
 
         </div>
 
     </div>
 
     <div class="div_br"></div>
-    <div class="div_br"></div>
-
     <div class="row">
 
         <div class="col-sm-4">
