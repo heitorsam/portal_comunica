@@ -46,7 +46,7 @@
 
         <div class="col-md-12">
 
-            <i class="fa-solid fa-user fa-xl"></i> <h11> <?php echo $row[2]; ?> </h11>
+            <i class="fa-solid fa-user fa-xl"></i> <h11 style="font-size: 18px !important;"> <?php echo $row[2]; ?> </h11>
 
         </div>
         
@@ -54,7 +54,7 @@
 
     <div class="div_br"></div>
 
-        <div class="row">
+        <div class="row" style="font-size: 15px !important;">
 
             <div class="col-md-6" style="word-wrap: break-word;">
 
@@ -94,7 +94,7 @@
 
         <div class="div_br"></div>
 
-        <div class="row">
+        <div class="row" style="font-size: 15px !important;">
 
             <div class="col-md-6" style="word-wrap: break-word;">
 
@@ -122,14 +122,24 @@
 
         <div class="div_br"></div>
 
-        <div class="row">
+        <div class="row" style="font-size: 15px !important;">
 
-            <div class="col-md-9" style="word-wrap: break-word;">
+            <div class="col-md-12" style="word-wrap: break-word;">
 
-                <b>Observação:</b>
-                <?php echo $row[7]; ?>
+                <b>Observação:</b></br>
+                <textarea rows="3" 
+                style = "width: 100%; background-color: rgba(255,255,255,0.3); border-color: #dadada;
+                         padding: 10px; border-radius: 5px;"><?php echo $row[7]; ?></textarea>
+                
 
             </div>
+
+
+        </div>
+
+        <div class="div_br"></div>
+
+        <div class="row">
 
             <div class="col-md-3">
 
