@@ -129,7 +129,7 @@
                 <b>Observação:</b></br>
                 <textarea rows="3" 
                 style = "width: 100%; background-color: rgba(255,255,255,0.3); border-color: #dadada;
-                         padding: 10px; border-radius: 5px;"><?php echo $row[7]; ?></textarea>
+                         padding: 10px; border-radius: 5px;" disabled><?php echo $row[7]; ?></textarea>
                 
 
             </div>
