@@ -104,9 +104,6 @@
     <h27><a href="home.php" style="color: #444444; text-decoration: none;"><i class="fa fa-reply efeito-zoom" aria-hidden="true"></i> Voltar</a></h27>
 
 <div>
-    <!-- ARMAZENA O ID DO CHAMADO -->
-    <input style="display: none;" id="id_chamado" type="text" value="<?php echo $id_chamado; ?>">
-
     <!-- CABEÇALHO -->
 
     <div style="width: 100%;">
@@ -225,6 +222,11 @@
 
     ?>
 
+    <form method="POST" id="frm_mensagem" enctype='multipart/form-data'>
+
+        <!-- ARMAZENA O ID DO CHAMADO -->
+        <input style="display: none;" name="id_chamado" id="id_chamado" type="text" value="<?php echo $id_chamado; ?>">
+
     <?php
 
         if ($status_grupo[0] != 'A' && $status_grupo[0] != 'C') {
@@ -240,7 +242,7 @@
         
                         echo '<i class="fa fa-upload fa-1x" aria-hidden="true"></i>';                            
 
-                        echo '<input name="arquivo" type="file" id="frm_arquivo_mensagem" style="display: none;">';
+                        echo '<input name="arquivo_mensagem" type="file" id="frm_arquivo_mensagem" style="display: none;">';
 
                     echo '</label>';
     
@@ -251,7 +253,7 @@
                 // INPUT ENVIAR
                 echo '<center style="width: 70%;">';
 
-                    echo '<input style="float: left;" id="input_msg" onclick="stop_interval()" class="btn_msg" type="text">';
+                    echo '<input name="mensagem" style="float: left;" id="input_msg" onclick="stop_interval()" class="btn_msg" type="text">';
 
                     echo '<img style="float: left; margin-left: 4px; margin-top: 2px;" class="btn_msg_enviar" src="img/botoes/enviar_msg.png" onclick="enviar_mensagem()">';
                 
@@ -262,6 +264,8 @@
         }
 
     ?>
+
+    </form>
 
 
 </div>   
@@ -347,17 +351,20 @@
 
     function enviar_mensagem() {
 
+        var form = document.getElementById('frm_mensagem');
+        var formData = new FormData(form);
+
         var input_mensagem = document.getElementById('input_msg');
 
         $.ajax({
             url: "funcoes/chamados/inserir_mensagem_chamado.php",
             method: "POST",
-            data: {
-                id_chamado: id_chamado,
-                mensagem: input_mensagem.value
-            },
-            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
             success(resp) {
+
+                alert(resp);
 
                 input_mensagem.value = "";
                 $('#carrega_mensagens').load('funcoes/chamados/ajax_mensagens.php?id=' + id_chamado);
