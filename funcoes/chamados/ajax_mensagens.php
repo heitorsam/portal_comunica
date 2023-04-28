@@ -13,6 +13,7 @@
         ch.TP_STATUS,
         usu.NM_USUARIO,
         DATE_FORMAT(itch.HR_CADASTRO, '%d/%m/%Y') AS DATA_MENSAGEM,
+        itch.ANEXO,
         TIME(itch.HR_CADASTRO) AS HORA_MENSAGEM
     FROM portal_comunica.CHAMADO ch
     INNER JOIN portal_comunica.ITCHAMADO itch
@@ -52,7 +53,12 @@ $row_mensagens = mysqli_num_rows($res);
         
                     // MENSAGEM
                     echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:right; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
-                    echo '<div class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';     
+                    echo '<div class="mensagem_chat_usu">' . $row['DS_MENSAGEM'];
+
+                    echo '</br><a style="color: #3185c1; font-size: 12px; text-decoration: none;" href="'. $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
+                                        
+                    echo '</div>';     
+
 
                 } else {
 
@@ -65,7 +71,11 @@ $row_mensagens = mysqli_num_rows($res);
         
                     // MENSAGEM
                     echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:left; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
-                    echo '<div style="float:left;" class="mensagem_chat_usu">' . $row['DS_MENSAGEM'] . '</div>';   
+                    echo '<div style="float:left;" class="mensagem_chat_usu">' . $row['DS_MENSAGEM'];
+                    
+                    echo '</br><a style="color: #3185c1; font-size: 12px; text-decoration: none;" href="'. $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
+                    
+                    echo '</div>';   
 
                 }
 
