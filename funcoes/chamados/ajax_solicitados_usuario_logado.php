@@ -10,22 +10,43 @@
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
     $cons_chamados_abertos = "SELECT ch.CD_CHAMADO,
-                                     ch.DS_CHAMADO
+                                    ch.DS_CHAMADO,
+                                    usu.NM_USUARIO,
+                                    DATE_FORMAT(ch.HR_CADASTRO, '%d/%m/%Y') AS DATA_CHAMADO,
+                                    emp.DS_EMPRESA
                                 FROM portal_comunica.CHAMADO ch
+                                INNER JOIN portal_comunica.USUARIO usu
+                                ON ch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
+                                INNER JOIN portal_comunica.EMPRESA emp
+                                ON usu.CD_EMPRESA = emp.CD_EMPRESA
                                 WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
                                 AND ch.TP_STATUS = 'A'
                                 AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
 
     $cons_chamados_execucao = "SELECT ch.CD_CHAMADO,
-                                     ch.DS_CHAMADO
-                                    FROM portal_comunica.CHAMADO ch
-                                    WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                                    AND ch.TP_STATUS = 'E'
-                                    AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+                                    ch.DS_CHAMADO,
+                                    usu.NM_USUARIO,
+                                    DATE_FORMAT(ch.HR_CADASTRO, '%d/%m/%Y') AS DATA_CHAMADO,
+                                    emp.DS_EMPRESA
+                                FROM portal_comunica.CHAMADO ch
+                                INNER JOIN portal_comunica.USUARIO usu
+                                ON ch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
+                                INNER JOIN portal_comunica.EMPRESA emp
+                                ON usu.CD_EMPRESA = emp.CD_EMPRESA
+                                WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
+                                AND ch.TP_STATUS = 'E'
+                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
     $cons_chamados_concluidos = "SELECT ch.CD_CHAMADO,
-                                     ch.DS_CHAMADO
+                                        ch.DS_CHAMADO,
+                                        usu.NM_USUARIO,
+                                        DATE_FORMAT(ch.HR_CADASTRO, '%d/%m/%Y') AS DATA_CHAMADO,
+                                        emp.DS_EMPRESA
                                     FROM portal_comunica.CHAMADO ch
+                                    INNER JOIN portal_comunica.USUARIO usu
+                                    ON ch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
+                                    INNER JOIN portal_comunica.EMPRESA emp
+                                    ON usu.CD_EMPRESA = emp.CD_EMPRESA
                                     WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
                                     AND ch.TP_STATUS = 'C'
                                     AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
@@ -48,13 +69,13 @@
 
                 while ($row = mysqli_fetch_array($res_abertos)) {
 
-                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
+                     echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens_pend" style="cursor:pointer;">';
 
-                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                            echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<b> OS: '. $row['CD_CHAMADO'] .' </b>'; 
+                            echo '<a style="float: right; font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
+                            echo '<br> '. $row['DS_CHAMADO'];
 
                         echo '</div>';
                             
