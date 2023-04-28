@@ -128,7 +128,8 @@
                 $query_update_itchamado = "UPDATE portal_comunica.ITCHAMADO itch
                                         SET itch.ANEXO = '$diretorio_final',
                                             itch.EXT = '$extensao_arquivo'
-                                        WHERE itch.CD_CHAMADO = '$id_chamado'";
+                                        WHERE itch.CD_CHAMADO = '$id_chamado'
+                                              AND itch.CD_ITCHAMADO = '$var_cd_itchamado'";
             
                 mysqli_query($conn, $query_update_itchamado); 
 
