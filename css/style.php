@@ -1064,6 +1064,13 @@ tbody{
     margin-bottom: 8px;
 }
 
+
+.lista_home_itens:hover {
+
+background-color: rgba(70,165,212,0.2) !important;
+
+}
+
 .lista_home_itens_pend {
 
 width: 100%;
@@ -1075,6 +1082,12 @@ font-size: 13px;
 margin-bottom: 8px;
 }
 
+.lista_home_itens_pend:hover {
+
+    background-color: rgba(255,131,76,0.2) !important;
+
+}
+
 .lista_home_itens_ok {
 
 width: 100%;
@@ -1084,6 +1097,24 @@ border: solid 1px #3BD4B4;
 padding: 4px;
 font-size: 13px;
 margin-bottom: 8px;
+}
+
+.lista_home_itens_ok:hover {
+
+background-color: rgba(59,212,180,0.2) !important;
+
+}
+
+.mini_caixa_chamado{
+
+    background-color: #ffffff;
+    margin-top: 2px; 
+    margin-left: 2px; 
+    border: solid 1px #dadada; 
+    width: max-content; 
+    border-radius: 3px;
+    padding: 2px 6px 2px 6px; float: left;
+
 }
 
 .caixa_lista_chamados{

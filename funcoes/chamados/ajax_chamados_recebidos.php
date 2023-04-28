@@ -9,34 +9,46 @@
     // PEGA O PERIODO REGISTRADO NO INPUT DA HOME PARA TOMAR COMO FILTRO DAS CONSULTAS
     $periodo = $_GET['periodo'];
 
-    $cons_chamados_abertos = "SELECT ch.CD_CHAMADO,
-                                     ch.DS_CHAMADO
-                                FROM portal_comunica.CHAMADO ch
-                                WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                                FROM portal_comunica.GRUPO_USUARIO grpusu
-                                                WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                AND ch.TP_STATUS = 'A'
-                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+    $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
+                              DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+                              FROM portal_comunica.CHAMADO ch
+                              INNER JOIN portal_comunica.USUARIO usu
+                              ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                              INNER JOIN portal_comunica.EMPRESA emp
+                              ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                              WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                              FROM portal_comunica.GRUPO_USUARIO grpusu
+                                              WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                              AND ch.TP_STATUS = 'A'
+                              AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
-    $cons_chamados_execucao = "SELECT ch.CD_CHAMADO,
-                                      ch.DS_CHAMADO
-                                FROM portal_comunica.CHAMADO ch
-                                WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                            FROM portal_comunica.GRUPO_USUARIO grpusu
-                                            WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                AND ch.TP_STATUS = 'E'
-                                AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+    $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
+                               DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+                               FROM portal_comunica.CHAMADO ch
+                               INNER JOIN portal_comunica.USUARIO usu
+                               ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                               INNER JOIN portal_comunica.EMPRESA emp
+                               ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                               WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                           FROM portal_comunica.GRUPO_USUARIO grpusu
+                                           WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                               AND ch.TP_STATUS = 'E'
+                               AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
+                               AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
-    $cons_chamados_concluidos = "SELECT ch.CD_CHAMADO,
-                                        ch.DS_CHAMADO
-                                FROM portal_comunica.CHAMADO ch
-                                WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                            FROM portal_comunica.GRUPO_USUARIO grpusu
-                                            WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                AND ch.TP_STATUS = 'C'
-                                AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+    $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
+                                 DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+                                 FROM portal_comunica.CHAMADO ch
+                                 INNER JOIN portal_comunica.USUARIO usu
+                                 ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                                 INNER JOIN portal_comunica.EMPRESA emp
+                                 ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                                 WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                             FROM portal_comunica.GRUPO_USUARIO grpusu
+                                             WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                                 AND ch.TP_STATUS = 'C'
+                                 AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
+                                 AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
     
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
@@ -57,13 +69,27 @@
 
                 while ($row = mysqli_fetch_array($res_abertos)) {
 
-                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens_pend" style="cursor:pointer;">';
 
-                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                            echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+
+                            echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
+
+                            echo '<div class="mini_caixa_chamado">' . $row['HR_CADASTRO_FORMAT'] . '</div>';                          
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word !important">' . $row['NM_USUARIO'] . '</div>';                                                    
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word; border: none;">' . $row['DS_CHAMADO'] . '</div>';
+                            
+                            echo '<div style="clear: both;"></div>';
+                            
+                            //echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
 
                         echo '</div>';
                             
@@ -89,13 +115,27 @@
 
                 while ($row = mysqli_fetch_array($res_execucao)) {
 
-                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
-                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                            echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+
+                            echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
+
+                            echo '<div class="mini_caixa_chamado">' . $row['HR_CADASTRO_FORMAT'] . '</div>';                          
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word !important">' . $row['NM_USUARIO'] . '</div>';                                                    
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word; border: none;">' . $row['DS_CHAMADO'] . '</div>';
+                            
+                            echo '<div style="clear: both;"></div>';
+                            
+                            //echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
 
                         echo '</div>';
                             
@@ -121,13 +161,27 @@
 
                 while ($row = mysqli_fetch_array($res_concluidos)) {
 
-                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-4" style="background-color: #f9f9f9 !important; padding-top: 0px; padding-bottom: 0px;">';
+                    echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens_ok" style="cursor:pointer;">';
 
-                            echo '<b> Código: '. $row['CD_CHAMADO'] .' </b>';
-                            echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
-                            echo '<br> '. $row['DS_CHAMADO'] .'';
+                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+
+                            echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
+
+                            echo '<div class="mini_caixa_chamado">' . $row['HR_CADASTRO_FORMAT'] . '</div>';                          
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word !important">' . $row['NM_USUARIO'] . '</div>';                                                    
+
+                            echo '<div style="clear: both;"></div>';
+
+                            echo '<div class="mini_caixa_chamado" style="width: auto; word-wrap: break-word; border: none;">' . $row['DS_CHAMADO'] . '</div>';
+                            
+                            echo '<div style="clear: both;"></div>';
+                            
+                            //echo '<a style="font-size: 12px; text-decoration: none; cursor: pointer; color: #6ba4e1;" class="fa-solid fa-magnifying-glass"></a>';
 
                         echo '</div>';
                             
