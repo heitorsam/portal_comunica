@@ -364,8 +364,6 @@
             contentType: false,
             success(resp) {
 
-                alert(resp);
-
                 input_mensagem.value = "";
                 $('#carrega_mensagens').load('funcoes/chamados/ajax_mensagens.php?id=' + id_chamado);
 

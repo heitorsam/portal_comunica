@@ -95,7 +95,7 @@
             //}
     
             //CRIANDO NOVO DIRETORIO
-            echo $diretorio_os = $caminho . $var_cd_itchamado . '/';
+            //echo $diretorio_os = $caminho . $var_cd_itchamado . '/';
             
             if (@ftp_mkdir($conexao_ftp, $diretorio_os)) {
 
@@ -112,7 +112,7 @@
             $nome_arquivo = $var_cd_itchamado . '_' . $nome_arquivo;
 
             //DESTINO FINAL DIRETORIO + ARQUIVO
-            echo $diretorio_final = $diretorio_os . $nome_arquivo;
+            echo $diretorio_final = $caminho . $nome_arquivo;
 
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {
@@ -120,7 +120,7 @@
                 echo "Arquivo enviado com sucesso!";
                                 
                 //RENOMEANDO ARQUIVO	
-                $renomear_diretorio_final = $diretorio_os . $nome_arquivo;	
+                $renomear_diretorio_final = $caminho . $nome_arquivo;	
                 ftp_rename($conexao_ftp, $diretorio_final, $renomear_diretorio_final);
             
                 //ATUALIZA CHAMADO COM DADOS DO ANEXO
