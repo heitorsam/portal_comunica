@@ -109,7 +109,7 @@
             }
 
             //AJUSTE PARA ESSE PROJETO EM ESPECIFICO (PORTAL COMUNICA)
-            $nome_arquivo = $var_cd_itchamado . '_' . $nome_arquivo;
+            $nome_arquivo = 'IT_' . $var_cd_itchamado . '_' . $nome_arquivo;
 
             //DESTINO FINAL DIRETORIO + ARQUIVO
             $diretorio_final = $caminho . $nome_arquivo;
