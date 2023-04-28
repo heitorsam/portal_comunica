@@ -154,7 +154,7 @@
 
                 <?php 
 
-                    if($status_grupo[0] == 'A'){
+                    if($status_grupo[0] == 'A' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]){
 
                         echo '<div style="width: 100%; text-align: right;">';
     
@@ -162,7 +162,7 @@
                 
                         echo '</div>'; 
 
-                    }else if($status_grupo[0] == 'E'){
+                    }else if($status_grupo[0] == 'E' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]){
 
                         echo '<div style="width: 100%; text-align: right;">';
                 

@@ -112,7 +112,8 @@
             $nome_arquivo = $var_cd_itchamado . '_' . $nome_arquivo;
 
             //DESTINO FINAL DIRETORIO + ARQUIVO
-            echo $diretorio_final = $caminho . $nome_arquivo;
+            $diretorio_final = $caminho . $nome_arquivo;
+
 
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {
@@ -124,12 +125,14 @@
                 ftp_rename($conexao_ftp, $diretorio_final, $renomear_diretorio_final);
             
                 //ATUALIZA CHAMADO COM DADOS DO ANEXO
-                $query_update_chamado = "UPDATE portal_comunica.ITCHAMADO itch
+                $query_update_itchamado = "UPDATE portal_comunica.ITCHAMADO itch
                                         SET itch.ANEXO = '$diretorio_final',
                                             itch.EXT = '$extensao_arquivo'
-                                        WHERE itch.CD_CHAMADO = '$var_cd_itchamado'";
+                                        WHERE itch.CD_CHAMADO = '$id_chamado'";
             
-                mysqli_query($conn, $query_update_chamado); 
+                mysqli_query($conn, $query_update_itchamado); 
+
+                echo 'CONSULTA: ' . $query_update_itchamado . ' ';
                                                         
             }  else {
                 
