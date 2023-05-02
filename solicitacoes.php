@@ -13,7 +13,7 @@
 
       <div class="modal-header">
 
-        <h5 class="modal-title" id="titulo_modal">Abertura de chamado</h5>
+        <h5 class="modal-title" id="titulo_modal"><i class="fa-solid fa-plus"></i> Abertura de chamado</h5>
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
