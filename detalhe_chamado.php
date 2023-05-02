@@ -154,7 +154,11 @@
 
                 <?php 
 
-                    if($status_grupo[0] == 'A' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]){
+                    //echo 'status: ' . $status_grupo[0] . '</br>'; 
+                    //echo 'grupo usuario: ' . $cd_grupo_chamado_usuario[0] . '</br>'; 
+                    //echo 'grupo chamado: ' . $status_grupo[1] . '</br>'; 
+
+                    if($status_grupo[0] == 'A' && @$cd_grupo_chamado_usuario[0] == $status_grupo[1]){
 
                         echo '<div style="width: 100%; text-align: right;">';
     
@@ -162,7 +166,7 @@
                 
                         echo '</div>'; 
 
-                    }else if($status_grupo[0] == 'E' && isset($cd_grupo_chamado_usuario[0]) == $status_grupo[1]){
+                    }else if($status_grupo[0] == 'E' && @$cd_grupo_chamado_usuario[0] == $status_grupo[1]){
 
                         echo '<div style="width: 100%; text-align: right;">';
                 
