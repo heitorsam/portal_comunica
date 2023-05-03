@@ -70,7 +70,7 @@
     // CARREGA A TEBELA APENAS DEPOIS DA TELA SER CARREGADA
     window.onload = function() {
 
-        $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+        $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
     }
 
@@ -90,7 +90,7 @@
         } else {
 
             $.ajax({
-            url: "funcoes/ajax_cadastro_empresa.php",
+            url: "funcoes/empresa/ajax_cadastro_empresa.php",
             type: "POST",
             data: {
                 ds_nova_empresa,
@@ -102,7 +102,7 @@
                 document.getElementById('ds_nova_empresa').value = '';
 
                 // CHAMA NOVAMENTE A TEBELA DE EMPRESAS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+                $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
                 var_ds_msg = 'Empresa%20cadastrada%20com%20sucesso!';
                 var_tp_msg = 'alert-success';
