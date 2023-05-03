@@ -4,8 +4,6 @@
 
 ?>
 
-<div id="mensagem_acoes"></div>
-
 <div class="row">
 
     <!-- INPUT PARA O JAVASCRIPT PEGAR O ID DO GRUPO PELO VALUE -->
@@ -60,20 +58,32 @@
                 id_grupo: id_grupo
             },
             cache: false,
-            success(resp) {
+            success(res) {
 
                 // CARREGA NOVAMENTE AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
-                $('#carrega_membros').load('funcoes/empresa/ajax_tabela_usuarios_empresa.php?idgrupo='+id_grupo);
+                $('#carrega_membros').load('funcoes/grupo/ajax_tabela_usuarios_membros.php?idgrupo='+id_grupo);
 
                 // CARREGA NOVAMENTO NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
                 $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
 
-                // LIMPA O CAMPO APÓS INCLUIR COM SUCESSO
-                document.getElementById('tp_status_edit').value = '';
+                if(res == 'sucesso'){
 
-                var_ds_msg = 'Membro%20incluído%20com%20sucesso!';
-                var_tp_msg = 'alert-success';
-                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                    //MENSAGEM            
+                    var_ds_msg = 'Membro%20cadastrado%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }else{
+
+                    console.log(res);
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }
                 
             }
         });       
@@ -91,13 +101,7 @@
             },
             cache: false,
             success(res) {
-
-                // CARREGA NOVAMENTE AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
-                $('#carrega_membros').load('funcoes/empresa/ajax_tabela_usuarios_empresa.php?idgrupo='+id_grupo+'&idusuario='+id_usuario);
-
-                // CARREGA NOVAMENTO NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
-                $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
-
+                
                 if (res == 'sucesso') {
 
                     //MENSAGEM            
@@ -115,6 +119,12 @@
                     $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
                 }
+                // CARREGA NOVAMENTE AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
+                $('#carrega_membros').load('funcoes/empresa/ajax_tabela_usuarios_empresa.php?idgrupo='+id_grupo+'&idusuario='+id_usuario);
+
+                // CARREGA NOVAMENTO NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
+                $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
+
 
             }
         })
