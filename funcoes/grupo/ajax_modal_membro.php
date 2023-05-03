@@ -42,7 +42,7 @@
     var id_grupo = document.getElementById('id_grupo').value;
 
     // CARREGA AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
-    $('#carrega_membros').load('funcoes/grupo/ajax_tabela_usuarios_membros.php.php?idgrupo='+id_grupo);
+    $('#carrega_membros').load('funcoes/grupo/ajax_tabela_usuarios_membros.php?idgrupo='+id_grupo);
 
     // CARREGA NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
     $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
