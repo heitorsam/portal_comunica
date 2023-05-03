@@ -12,17 +12,17 @@
     <div id="mensagem_acao"></div>
 
     <div class="row">
-
-        <div class="col-md-3">
+   
+        <div class="col-md-3 col-6" style="background-color: rgba(1,1,1,0) !important; 
+        padding-top: 0px !important; padding-bottom: 0px !important;">
 
             Empresa
-            <input id="ds_nova_empresa" class="form form-control" type="text">
-
-        </div>
-
-        <div class="col-md-1">
-
-            <button onclick="ajax_cadastro_empresa()" class="mt-4 btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+            <div class="input-group mb-3">
+                <input id="ds_nova_empresa" class="form form-control" type="text">
+                <div class="input-group-append">
+                    <a onclick="ajax_cadastro_empresa()" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+                </div>
+            </div>
 
         </div>
 
@@ -48,7 +48,7 @@
                 </div>
 
                 <div id="conteudo_modal" class="modal-body">
-                ...
+                
                 </div>
 
             </div>
