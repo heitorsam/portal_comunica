@@ -12,17 +12,17 @@
     <div id="mensagem_acao"></div>
 
     <div class="row">
-
-        <div class="col-md-3">
+   
+        <div class="col-md-3 col-6" style="background-color: rgba(1,1,1,0) !important; 
+        padding-top: 0px !important; padding-bottom: 0px !important;">
 
             Empresa
-            <input id="ds_nova_empresa" class="form form-control" type="text">
-
-        </div>
-
-        <div class="col-md-1">
-
-            <button onclick="ajax_cadastro_empresa()" class="mt-4 btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+            <div class="input-group mb-3">
+                <input id="ds_nova_empresa" class="form form-control" type="text">
+                <div class="input-group-append">
+                    <a onclick="ajax_cadastro_empresa()" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+                </div>
+            </div>
 
         </div>
 
@@ -48,7 +48,7 @@
                 </div>
 
                 <div id="conteudo_modal" class="modal-body">
-                ...
+                
                 </div>
 
             </div>
@@ -70,7 +70,7 @@
     // CARREGA A TEBELA APENAS DEPOIS DA TELA SER CARREGADA
     window.onload = function() {
 
-        $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+        $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
     }
 
@@ -90,7 +90,7 @@
         } else {
 
             $.ajax({
-            url: "funcoes/ajax_cadastro_empresa.php",
+            url: "funcoes/empresa/ajax_cadastro_empresa.php",
             type: "POST",
             data: {
                 ds_nova_empresa,
@@ -102,7 +102,7 @@
                 document.getElementById('ds_nova_empresa').value = '';
 
                 // CHAMA NOVAMENTE A TEBELA DE EMPRESAS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+                $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
                 var_ds_msg = 'Empresa%20cadastrada%20com%20sucesso!';
                 var_tp_msg = 'alert-success';
