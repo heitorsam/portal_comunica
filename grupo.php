@@ -110,6 +110,14 @@
 
     }
 
+    function etapa_fecha_modal(var_cd_usu,var_cd_grupo){
+
+        $('#modal_membros').modal('hide');
+
+        ajax_alert('Deseja excluir o usuário do grupo?', 'excluir_usuario_grupo('+var_cd_usu+','+var_cd_grupo+')');
+
+    }
+
     function ajax_chamar_modal_membro(id_grupo) {
 
         $('#modal_membros').modal('show');

@@ -10,6 +10,17 @@
                                    WHERE CD_USUARIO = $cd_usuario_do_grupo
                                          AND CD_GRUPO = $cd_grupo";
 
-    mysqli_query($conn, $query_exclui_usuario_grupo);
+    $valida = mysqli_query($conn, $query_exclui_usuario_grupo);
+
+    if(!$valida){
+    
+        echo $query_exclui_usuario_grupo;
+
+   }else{
+    
+        echo 'sucesso';
+
+   }
+
 
 ?>

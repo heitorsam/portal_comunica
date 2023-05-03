@@ -33,7 +33,7 @@
         <div class="col-4 col-md-1" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
 
             OS:</br>            
-            <input class="form-control" id="txt_os">
+            <input onkeyup="chama_paginas('x')" class="form-control" id="txt_os">
 
         </div>
 
@@ -133,7 +133,9 @@
 
     function chama_paginas(pagina) {
 
+        // VARIAVEIS PARA UTILIZAR COMO FILTRO DE BUSCA DOS CHAMADOS
         var periodo = document.getElementById('periodo').value;
+        var os = document.getElementById('txt_os').value;
 
         if(pagina == 'x'){
             pagina = document.getElementById('inpt_pag_atual').value;
@@ -151,12 +153,24 @@
         } else if (pagina == '2') {
 
             pagina_atual = 2;
-            document.getElementById('inpt_pag_atual').value = pagina_atual;  
+            document.getElementById('inpt_pag_atual').value = pagina_atual;
 
-            $("#resultados_ajax").load("meus_chamados.php", function() {
-                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo);
-            });
+            
 
+            // VERIFICA SE EXISTE FILTRO DE CHAMADO
+            if (os == '') {
+
+                $("#resultados_ajax").load("meus_chamados.php", function() {
+                    $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo);
+                });
+
+            } else {
+
+                $("#resultados_ajax").load("meus_chamados.php", function() {
+                    $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&os=' + os);
+                });
+
+            }
 
         } else {
 

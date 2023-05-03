@@ -15,19 +15,21 @@
 
         <!-- Membro
         <input id="ds_novo_grupo" class="form form-control" type="text"> -->
-        <div class="div_br"></div>
+        <div class="col-md-10 col-6" style="background-color: rgba(1,1,1,0) !important; 
+            padding-top: 0px !important; padding-bottom: 0px !important;">
 
-        <select class="form-control" id="tp_status_list">
-            
-        </select>
+            Prestador:
+            <div class="input-group mb-3">
+                <select class="form-control" id="tp_status_list"></select>               
+                <div class="input-group-append">
+                    <a onclick="ajax_incluir_usuario_grupo()" id="btn_incluir_membro_grupo" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="col-md-1">
-
-        <a onclick="ajax_incluir_usuario_grupo()" id="btn_incluir_membro_grupo" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
-
-    </div>
 
 </div>
 
@@ -48,7 +50,7 @@
     function ajax_incluir_usuario_grupo() {
 
         // PEGA O VALOR DOS OPTIONS GERADOS
-        id_usuario_grupo =document.getElementById('tp_status_list').value;
+        id_usuario_grupo = document.getElementById('tp_status_list').value;
 
         $.ajax({
             url: "funcoes/grupo/incluir_usuario_grupo.php",
@@ -80,34 +82,44 @@
 
     function excluir_usuario_grupo(id_usuario, id_grupo) {
 
-        $resposta_confirmacao = confirm('Deseja realmente excluir o usuário do grupo?');
+        $.ajax({
+            url: "funcoes/grupo/excluir_usuario_grupo.php",
+            type: "POST",
+            data: {
+                id_usuario: id_usuario,
+                id_grupo: id_grupo
+            },
+            cache: false,
+            success(res) {
 
-        if ($resposta_confirmacao) {
+                // CARREGA NOVAMENTE AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
+                $('#carrega_membros').load('funcoes/empresa/ajax_tabela_usuarios_empresa.php?idgrupo='+id_grupo+'&idusuario='+id_usuario);
 
-            $.ajax({
-                url: "funcoes/grupo/excluir_usuario_grupo.php",
-                type: "POST",
-                data: {
-                    id_usuario: id_usuario,
-                    id_grupo: id_grupo
-                },
-                cache: false,
-                success(resp) {
+                // CARREGA NOVAMENTO NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
+                $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
 
-                    // CARREGA NOVAMENTE AJAX DA TABELA DE MEMBROS DO GRUPO REFERENCIADO
-                    $('#carrega_membros').load('funcoes/empresa/ajax_tabela_usuarios_empresa.php?idgrupo='+id_grupo);
+                if (res == 'sucesso') {
 
-                    // CARREGA NOVAMENTO NO INPUT TODOS OS USUARIOS QUE NÃO PERTENCEM AO GRUPO PARA REALIZAR AUTOCOMPLETE
-                    $('#tp_status_list').load('funcoes/empresa/consulta_usuarios_empresa.php?idgrupo='+id_grupo);
-
+                    //MENSAGEM            
                     var_ds_msg = 'Membro%20excluído%20com%20sucesso!';
                     var_tp_msg = 'alert-success';
                     $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                }
-            })
+                } else {
 
-        }
+                    console.log(res);
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }
+
+            }
+        })
+
+        
 
     }
 

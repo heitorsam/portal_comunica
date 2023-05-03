@@ -34,7 +34,7 @@
 
                 echo '<tr style="text-align: center">';
 
-                    echo '<td>'. $row['NM_USUARIO'] .'</td>';
+                    echo '<td class="align-middle">'. $row['NM_USUARIO'] .'</td>';
                     echo '<td>
                         <button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>      
                     </td>';
