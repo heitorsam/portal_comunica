@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     // CONSULTA DE USUÁRIOS CADASTRADOS
     $consulta = "SELECT usu.CD_USUARIO,

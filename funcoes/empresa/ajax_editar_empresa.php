@@ -8,7 +8,7 @@
     $cd_usu_logado = $_SESSION['cd_usu'];
 
     //CONEXÃO
-    include '../conexao.php';
+    include '../../conexao.php';
 
     //VARIAVEL DA MODAL DE EDIÇÃO
     $id_empresa = $_POST['id_empresa'];

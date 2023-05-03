@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $id_grupo = $_GET['idgrupo'];
 

@@ -2,7 +2,7 @@
 
     session_start();
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $ds_empresa_nova = $_POST['ds_nova_empresa'];
     $cd_usu_logado = $_SESSION['cd_usu'];

@@ -2,6 +2,11 @@
 
     include 'cabecalho.php';
 
+    //echo 'cd_empresa: ' . $_SESSION['cd_empresa_usuario_logado'];
+
+    //AJAX ALERTA
+    include 'config/mensagem/ajax_mensagem_alert.php';
+
 ?>
 
     <h11><i class="fa-solid fa-folder-tree"></i> Grupo</h11>
@@ -13,17 +18,17 @@
     <div class="div_br"></div>
 
     <div class="row">
-
-        <div class="col-md-3">
+   
+        <div class="col-md-3 col-6" style="background-color: rgba(1,1,1,0) !important; 
+        padding-top: 0px !important; padding-bottom: 0px !important;">
 
             Grupo
-            <input id="ds_novo_grupo" class="form form-control" type="text">
-
-        </div>
-
-        <div class="col-md-1">
-
-            <a onclick="incluir_grupo()" class="mt-4 btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+            <div class="input-group mb-3">
+                <input id="ds_novo_grupo" class="form form-control" type="text">
+                <div class="input-group-append">
+                    <a onclick="incluir_grupo()" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
+                </div>
+            </div>
 
         </div>
 
@@ -101,7 +106,7 @@
 
     window.onload = function() {
 
-        $('#carrega_grupos').load('funcoes/ajax_tabela_grupos.php');
+        $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
 
     }
 
@@ -109,7 +114,7 @@
 
         $('#modal_membros').modal('show');
 
-        $('#conteudo_modal').load('funcoes/ajax_modal_membro.php?idgrupo='+id_grupo);
+        $('#conteudo_modal').load('funcoes/grupo/ajax_modal_membro.php?idgrupo='+id_grupo);
 
     }
 
@@ -118,7 +123,7 @@
         var ds_novo_grupo = document.getElementById('ds_novo_grupo').value;
 
         $.ajax({
-            url: "funcoes/incluir_grupo.php",
+            url: "funcoes/grupo/incluir_grupo.php",
             method: "POST",
             data: {
                 novo_grupo: ds_novo_grupo
@@ -130,13 +135,27 @@
                 document.getElementById('ds_novo_grupo').value = '';
 
                 // RECARREGA A TABELA DOS GRUPOS
-                $('#carrega_grupos').load('funcoes/ajax_tabela_grupos.php');
+                $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
 
-                //MENSAGEM            
-                var_ds_msg = 'Grupo%20incluído%20com%20sucesso!';
-                var_tp_msg = 'alert-success';
-                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                if(res == 'sucesso'){
 
+                    //MENSAGEM            
+                    var_ds_msg = 'Grupo%20incluído%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }else{
+
+                    
+                    console.log(res);
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }
+                               
             }
         });
 
@@ -146,18 +165,16 @@
 
         $('#modal_edicao_grupo').modal('show');
 
-        $('#conteudo_modal_edicao').load('funcoes/ajax_modal_edicao_grupo.php?id='+id_grupo);
+        $('#conteudo_modal_edicao').load('funcoes/grupo/ajax_modal_edicao_grupo.php?id='+id_grupo);
 
     }
 
+    
+
     function excluir_grupo(id_grupo) {
 
-        $excluir_grupo = confirm('Deseja mesmo excluir este grupo?');
-
-        if ($excluir_grupo == true) {
-
             $.ajax({
-                url: "funcoes/excluir_grupo.php",
+                url: "funcoes/grupo/excluir_grupo.php",
                 method: "POST",
                 data: {
                     id_grupo: id_grupo
@@ -166,20 +183,29 @@
                 success(res) {
     
                     // RECARREGA A TABELA DOS GRUPOS
-                    $('#carrega_grupos').load('funcoes/ajax_tabela_grupos.php');
+                    $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
 
-                    //MENSAGEM            
-                    var_ds_msg = 'Grupo%20excluído%20com%20sucesso!';
-                    var_tp_msg = 'alert-success';
-                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-    
+                    if(res == 'sucesso'){
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Grupo%20excluído%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    }else{
+
+                        console.log(res);
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Ocorreu%20um%20erro!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    }
+
                 }
             });
 
-        }
-
-
-    }
-    
+        }   
 
 </script>

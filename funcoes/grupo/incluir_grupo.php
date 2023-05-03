@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $nome_novo_grupo = $_POST['novo_grupo'];
 
@@ -20,6 +20,16 @@
                                                                     $cd_usuario_logado,
                                                                     NOW())";
 
-   mysqli_query($conn, $query_inclui_novo_grupo);
+   $valida = mysqli_query($conn, $query_inclui_novo_grupo);
+
+   if(!$valida){
+    
+        echo $query_inclui_novo_grupo;
+
+   }else{
+    
+        echo 'sucesso';
+
+   }
 
 ?>

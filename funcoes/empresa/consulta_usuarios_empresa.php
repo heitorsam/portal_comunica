@@ -2,7 +2,7 @@
 
     session_start();
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $empresa_usuario_logado = $_SESSION['cd_empresa_usuario_logado'];
     $id_grupo = $_GET['idgrupo'];
@@ -25,7 +25,7 @@
 
     while($row = mysqli_fetch_array($res)){
 
-        echo '<option data-value="'. $row['CD_USUARIO'] .'">' . $row['NM_USUARIO'] . '</option>';
+        echo '<option value="'. $row['CD_USUARIO'] .'">' . $row['NM_USUARIO'] . '</option>';
 
     }
 

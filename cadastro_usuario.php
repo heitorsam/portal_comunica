@@ -141,7 +141,7 @@
     window.onload = function(){
 
         // CHAMA A TABELA DE USUÁRIOS CADASTRADOS
-        $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+        $('#resultado_usuarios').load('funcoes/usuario/ajax_tabela_usuarios.php');
 
         // CARREGA TODAS AS EMPRESAS NO SELECT
         $('#empresa').load('funcoes/ajax_carregar_empresas.php');
@@ -165,7 +165,7 @@
             let formData = new FormData(form);
 
             $.ajax({
-                url: "funcoes/ajax_cadastro_usuario.php",
+                url: "funcoes/usuario/ajax_cadastro_usuario.php",
                 type: "POST",
                 data: formData,
                 processData: false,
@@ -173,7 +173,7 @@
                 success(resp) {
 
                     // CHAMA NOVAMENTE A TEBELA DE USUÁRIOS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+                    $('#resultado_usuarios').load('funcoes/usuario/ajax_tabela_usuarios.php');
 
                     //MENSAGEM            
                     var_ds_msg = 'Usuário%20cadastrado%20com%20sucesso!';
@@ -211,7 +211,7 @@
         if ($deseja_excluir) {
 
             $.ajax({
-                url: "funcoes/ajax_exclui_usuario.php",
+                url: "funcoes/usuario/ajax_exclui_usuario.php",
                 type: "POST",
                 data: {
                     id_usuario: id_usuario
@@ -222,7 +222,7 @@
                     // EXECUTA A QUERY PARA EXCLUIR TODAS AS LIGAÇÕES DO USUÁRIO NO GRUPO/USUARIO
                     $.ajax({
                         type: "POST",
-                        url: "funcoes/excluir_usuario_grupos.php",
+                        url: "funcoes/usuario/excluir_usuario_grupos.php",
                         data: {
                             id_usuario: id_usuario
                         }

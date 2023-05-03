@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $id_grupo = $_GET['id'];
 
@@ -52,24 +52,41 @@
         if (empresa_nova != '') {
 
             $.ajax({
-                url: "funcoes/editar_grupo.php",
+                url: "funcoes/grupo/editar_grupo.php",
                 type: "POST",
                 data: {
                     id_empresa_selecionada: id_empresa_selecionada,
                     ds_empresa_nova: empresa_nova
                 },
                 cache: false, 
-                success(resp) {
+                success(res) {
+
+                    if(res == 'sucesso'){
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Grupo%20alterado%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                    
+                        $('#mensagem_acoes_grupo_edicao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+        
+                    }else{
+
+                        console.log(res);
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Ocorreu%20um%20erro!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    }
+
+
+
 
                     // RECARREGA A TEBELA DE GRUPOS NA PÁGINA
-                    $('#carrega_grupos').load('funcoes/ajax_tabela_grupos.php');
+                    $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
     
-                    //MENSAGEM            
-                    var_ds_msg = 'Grupo%20alterado%20com%20sucesso!';
-                    var_tp_msg = 'alert-success';
                    
-                    $('#mensagem_acoes_grupo_edicao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-    
                 }
     
             });

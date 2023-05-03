@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     // QUERY PARA EXCLUIR O USUÁRIO DO GRUPO SELECIONADO
     $cd_grupo = $_POST['id_grupo'];

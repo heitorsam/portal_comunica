@@ -4,7 +4,7 @@
 
     $var_cd_usu = $_SESSION['cd_usu'];
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     echo $cons_listar_empresas = "SELECT emp.CD_EMPRESA, emp.DS_EMPRESA 
                              FROM portal_comunica.EMPRESA emp

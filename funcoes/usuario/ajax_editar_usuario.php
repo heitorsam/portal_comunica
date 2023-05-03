@@ -8,7 +8,7 @@
     $cd_usu_logado = $_SESSION['cd_usu'];
 
     //CONEXÃO
-    include '../conexao.php';
+    include '../../conexao.php';
 
     //VERIFICA SE O ARQUIVO FOI ENVIADO
     if(isset($_FILES['foto_usuario']) && $_FILES['foto_usuario']['error'] === UPLOAD_ERR_OK) {
@@ -30,6 +30,18 @@
     $cpf = $_POST['cpf'];
     $foto = base64_encode($conteudo_foto);
     $id_usuario = $_POST['id_usuario'];
+
+    //CONSULTANDO A EMPRESA ATUAL
+    $cons_emp_atual = "SELECT usu.CD_EMPRESA 
+                       FROM portal_comunica.USUARIO usu
+                       WHERE usu.CD_USUARIO = $id_usuario";
+
+    $result_emp_atual = mysqli_query($conn, $cons_emp_atual);
+
+    $row_emp_atual = mysqli_fetch_array($result_emp_atual);
+
+    //FAZENDO TODOS OS UPDATES
+    $var_cd_emp_atual = $row_emp_atual['CD_EMPRESA'];
     
     $cons_edita_usuario = "UPDATE portal_comunica.USUARIO usu
                             SET usu.NM_USUARIO = '$nm_usuario',
@@ -44,6 +56,19 @@
                             WHERE usu.CD_USUARIO = $id_usuario";
     
     mysqli_query($conn, $cons_edita_usuario);
+
+    echo 'Empresa: ' . $empresa . '</br>';
+    echo 'Empresa Atual: ' . $var_cd_emp_atual . '</br>';
+
+    //EXCLUE GRUPOS EXISTENTES DE OUTRA EMPRESA
+    if($empresa <> $var_cd_emp_atual){
+
+        echo $cons_delete_hist_grupo = "DELETE FROM portal_comunica.GRUPO_USUARIO
+                                        WHERE CD_USUARIO = $id_usuario";
+
+        mysqli_query($conn, $cons_delete_hist_grupo);
+
+    }
 
     // VERIFICA SE O USUÁRIO DE EDIÇÃO É O USUÁRIO EM QUE ESTÁ LOGADO PARA ALTERAR OS DADOS NA SESSÃO
     if ($id_usuario == $cd_usu_logado) {

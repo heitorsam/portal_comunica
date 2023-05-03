@@ -8,7 +8,7 @@
     $cd_usu_logado = $_SESSION['cd_usu'];
 
     //CONEXÃO
-    include '../conexao.php';
+    include '../../conexao.php';
 
     //VERIFICA SE O ARQUIVO FOI ENVIADO
     if(isset($_FILES['foto_usuario']) && $_FILES['foto_usuario']['error'] === UPLOAD_ERR_OK) {

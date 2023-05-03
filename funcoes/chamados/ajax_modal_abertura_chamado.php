@@ -132,7 +132,7 @@
                     $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
                     setTimeout(function(){
-                        window.location.reload();
+                        window.location.reload(); 
                     }, 4000);                            
 
                     // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO

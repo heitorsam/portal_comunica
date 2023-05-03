@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $id_empresa = $_POST['id_empresa'];
 

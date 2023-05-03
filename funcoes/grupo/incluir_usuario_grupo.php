@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $cd_usuairo_logado = $_SESSION['cd_usu'];
 

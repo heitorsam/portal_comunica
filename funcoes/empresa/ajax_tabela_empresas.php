@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $consulta_empresas = "SELECT CD_EMPRESA,
                                  DS_EMPRESA                                 
@@ -30,9 +30,9 @@
 
                 echo '<tr style="text-align: center">';
 
-                    echo '<td>'. $row['CD_EMPRESA'] .'</td>';
-                    echo '<td>'. $row['DS_EMPRESA'] .'</td>';
-                    echo '<td>
+                    echo '<td class="align-middle">'. $row['CD_EMPRESA'] .'</td>';
+                    echo '<td class="align-middle">'. $row['DS_EMPRESA'] .'</td>';
+                    echo '<td class="align-middle">
                             <button onclick="ajax_modal_alterar_empresa('. $row['CD_EMPRESA'] .')" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>
                             <button onclick="ajax_exclui_empresa('. $row['CD_EMPRESA'] .')" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                         </td>';

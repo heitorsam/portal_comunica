@@ -1,6 +1,6 @@
 <?php
 
-    include '../conexao.php';
+    include '../../conexao.php';
 
     $id_usuario = $_GET['id'];
 
@@ -116,6 +116,8 @@
                 processData: false,
                 contentType: false,
                 success(resp) {
+
+                    console.log(resp);
 
                     // RECARREGA A TEBELA DE USUÁRIOS NA PÁGINA
                     $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
