@@ -89,7 +89,7 @@
 <script>
 
     // CARREGA TODAS AS EMPRESAS NO SELECT
-    $('#frm_empresa').load('funcoes/ajax_carregar_empresas.php');
+    $('#frm_empresa').load('funcoes/empresa/ajax_carregar_empresas.php');
 
     document.getElementById('frm_observacao').value = '';
 
@@ -97,7 +97,7 @@
 
         var id_empresa = document.getElementById('frm_empresa').value;
         
-        $('#frm_grupo').load('funcoes/ajax_carregar_grupos.php?id='+id_empresa);
+        $('#frm_grupo').load('funcoes/grupo/ajax_carregar_grupos.php?id='+id_empresa);
 
     }
 
@@ -118,7 +118,7 @@
             var formData = new FormData(form);
 
             $.ajax({
-                url: "funcoes/insert_abrir_chamado.php",
+                url: "funcoes/chamados/insert_abrir_chamado.php",
                 type: "POST",
                 data: formData,
                 processData: false,

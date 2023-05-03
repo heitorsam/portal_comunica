@@ -187,7 +187,7 @@
     function chamar_abertura_chamado() {
 
         $('#modal_abertura_chamado').modal('show');
-        $('#conteudo_modal_abertura_chamado').load('funcoes/ajax_modal_abertura_chamado.php');
+        $('#conteudo_modal_abertura_chamado').load('funcoes/chamados/ajax_modal_abertura_chamado.php');
 
     }
 
