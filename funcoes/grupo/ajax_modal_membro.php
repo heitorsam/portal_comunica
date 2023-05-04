@@ -84,6 +84,8 @@
                     $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
                 }
+
+                $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
                 
             }
         });       
