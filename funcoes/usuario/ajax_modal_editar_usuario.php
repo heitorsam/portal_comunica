@@ -93,7 +93,7 @@
 <script>
 
     // CARREGA TODAS AS EMPRESAS NO SELECT
-    $('#empresa_edicao').load('funcoes/empresa/ajax_carregar_empresas.php');
+    $('#empresa_edicao').load('funcoes/empresa/ajax_carregar_empresas_editar.php?cd_usu_edicao=' + <?php echo $id_usuario; ?>);
 
     function ajax_editar_usuario(event) {
 

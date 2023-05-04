@@ -64,7 +64,7 @@
     if($usu <> ''){
 
         $cons_chamados_abertos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
-        echo $cons_chamados_execucao .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
+        $cons_chamados_execucao .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
         $cons_chamados_concluidos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
 
     }

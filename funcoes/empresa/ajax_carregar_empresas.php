@@ -11,8 +11,6 @@
                                   ORDER BY emp.CD_EMPRESA DESC";
 
     $res = mysqli_query($conn, $cons_listar_empresas);
-
-    echo '<option value="" data-default disabled selected></option>';
         
     while ($row = mysqli_fetch_array($res)){
   
