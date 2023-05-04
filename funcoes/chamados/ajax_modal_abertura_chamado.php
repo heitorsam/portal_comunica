@@ -89,7 +89,7 @@
 <script>
 
     // CARREGA TODAS AS EMPRESAS NO SELECT
-    $('#frm_empresa').load('funcoes/empresa/ajax_carregar_empresas.php');
+    $('#frm_empresa').load('funcoes/empresa/ajax_carregar_empresas_chamados.php');
 
     document.getElementById('frm_observacao').value = '';
 
