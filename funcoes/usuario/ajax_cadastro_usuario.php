@@ -58,4 +58,14 @@
 
     $valida = mysqli_query($conn, $cons_insere_usuario);
 
+    if(!$valida){
+    
+        echo $cons_insere_usuario;
+
+    }else{
+    
+        echo 'sucesso';
+
+    }
+
 ?>

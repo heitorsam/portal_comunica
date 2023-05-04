@@ -36,47 +36,82 @@
                        FROM portal_comunica.USUARIO usu
                        WHERE usu.CD_USUARIO = $id_usuario";
 
-    $result_emp_atual = mysqli_query($conn, $cons_emp_atual);
+    $valida = $result_emp_atual = mysqli_query($conn, $cons_emp_atual);
 
-    $row_emp_atual = mysqli_fetch_array($result_emp_atual);
+    if (!$valida) {
 
-    //FAZENDO TODOS OS UPDATES
-    $var_cd_emp_atual = $row_emp_atual['CD_EMPRESA'];
+        echo $cons_emp_atual;
+
+    } else {
+
+        $row_emp_atual = mysqli_fetch_array($result_emp_atual);
     
-    $cons_edita_usuario = "UPDATE portal_comunica.USUARIO usu
-                            SET usu.NM_USUARIO = '$nm_usuario',
-                                usu.EMAIL = '$email',
-                                usu.FOTO = '$foto',
-                                usu.CD_EMPRESA = $empresa,
-                                usu.TP_USUARIO = '$tp_usuario',
-                                usu.CPF = '$cpf',
-                                usu.SENHA = '$senha',
-                                usu.CD_USUARIO_ULT_ALT = $cd_usu_logado,
-                                usu.HR_ULT_ALT = NOW()
-                            WHERE usu.CD_USUARIO = $id_usuario";
+        //FAZENDO TODOS OS UPDATES
+        $var_cd_emp_atual = $row_emp_atual['CD_EMPRESA'];
+        
+        $cons_edita_usuario = "UPDATE portal_comunica.USUARIO usu
+                                SET usu.NM_USUARIO = '$nm_usuario',
+                                    usu.EMAIL = '$email',
+                                    usu.FOTO = '$foto',
+                                    usu.CD_EMPRESA = $empresa,
+                                    usu.TP_USUARIO = '$tp_usuario',
+                                    usu.CPF = '$cpf',
+                                    usu.SENHA = '$senha',
+                                    usu.CD_USUARIO_ULT_ALT = $cd_usu_logado,
+                                    usu.HR_ULT_ALT = NOW()
+                                WHERE usu.CD_USUARIO = $id_usuario";
+        
+        $valida2 = mysqli_query($conn, $cons_edita_usuario);
+
+        if (!$valida2) {
+
+            echo $cons_edita_usuario;
+
+        } else {
     
-    mysqli_query($conn, $cons_edita_usuario);
+            //EXCLUE GRUPOS EXISTENTES DE OUTRA EMPRESA
+            if($empresa <> $var_cd_emp_atual){
+        
+                $cons_delete_hist_grupo = "DELETE FROM portal_comunica.GRUPO_USUARIO
+                                                WHERE CD_USUARIO = $id_usuario";
+        
+                $valida3 = mysqli_query($conn, $cons_delete_hist_grupo);
 
-    echo 'Empresa: ' . $empresa . '</br>';
-    echo 'Empresa Atual: ' . $var_cd_emp_atual . '</br>';
+                if (!$valida3) {
 
-    //EXCLUE GRUPOS EXISTENTES DE OUTRA EMPRESA
-    if($empresa <> $var_cd_emp_atual){
+                    echo $cons_delete_hist_grupo;
 
-        echo $cons_delete_hist_grupo = "DELETE FROM portal_comunica.GRUPO_USUARIO
-                                        WHERE CD_USUARIO = $id_usuario";
+                } else {
 
-        mysqli_query($conn, $cons_delete_hist_grupo);
+                    if ($id_usuario == $cd_usu_logado) {
+        
+                        $_SESSION['nomeusuario'] = $nm_usuario;
+                        $_SESSION['cd_empresa_usuario_logado'] = $empresa;
+                
+                    }
 
+                    echo 'sucesso';
+
+                }
+        
+            } else {
+
+                // VERIFICA SE O USUÁRIO DE EDIÇÃO É O USUÁRIO EM QUE ESTÁ LOGADO PARA ALTERAR OS DADOS NA SESSÃO
+                if ($id_usuario == $cd_usu_logado) {
+            
+                    $_SESSION['nomeusuario'] = $nm_usuario;
+                    $_SESSION['cd_empresa_usuario_logado'] = $empresa;
+
+                    echo 'sucesso';
+            
+                }
+
+            }
+
+            echo 'sucesso';
+        
+        }
+    
     }
-
-    // VERIFICA SE O USUÁRIO DE EDIÇÃO É O USUÁRIO EM QUE ESTÁ LOGADO PARA ALTERAR OS DADOS NA SESSÃO
-    if ($id_usuario == $cd_usu_logado) {
-
-        $_SESSION['nomeusuario'] = $nm_usuario;
-        $_SESSION['cd_empresa_usuario_logado'] = $empresa;
-
-    }
-    
     
 ?>

@@ -45,7 +45,7 @@
                         if($row['QTD_CHAMADOS'] == 0){
         ?>
 
-                            <button onclick="ajax_alert('Deseja excluiro grupo?','excluir_grupo(<?php echo $row['CD_GRUPO']; ?>)')" class="btn btn-adm"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="ajax_alert('Deseja excluir grupo?','excluir_grupo(<?php echo $row['CD_GRUPO']; ?>)')" class="btn btn-adm"><i class="fa-solid fa-trash-can"></i></button>
 
         <?php 
                         }else{

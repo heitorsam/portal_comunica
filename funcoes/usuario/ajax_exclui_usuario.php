@@ -7,6 +7,16 @@
     $sql_exclusao_usuario = "DELETE FROM portal_comunica.USUARIO
                              WHERE CD_USUARIO = '$id_usuario'";
 
-    mysqli_query($conn ,$sql_exclusao_usuario);
+    $valida = mysqli_query($conn ,$sql_exclusao_usuario);
+
+    if(!$valida){
+    
+        echo $sql_exclusao_usuario;
+
+    }else{
+    
+        echo 'sucesso';
+
+    }
 
 ?>

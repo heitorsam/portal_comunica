@@ -93,7 +93,7 @@
 <script>
 
     // CARREGA TODAS AS EMPRESAS NO SELECT
-    $('#empresa_edicao').load('funcoes/ajax_carregar_empresas.php');
+    $('#empresa_edicao').load('funcoes/empresa/ajax_carregar_empresas.php');
 
     function ajax_editar_usuario(event) {
 
@@ -110,26 +110,42 @@
             let formDataEdicao = new FormData(form_edicao);
 
             $.ajax({
-                url: "funcoes/ajax_editar_usuario.php",
+                url: "funcoes/usuario/ajax_editar_usuario.php",
                 type: "POST",
                 data: formDataEdicao,
                 processData: false,
                 contentType: false,
-                success(resp) {
+                success(res) {
 
-                    console.log(resp);
+                    if (res == 'sucesso') {
 
-                    // RECARREGA A TEBELA DE USUÁRIOS NA PÁGINA
-                    $('#resultado_usuarios').load('funcoes/ajax_tabela_usuarios.php');
+                        // RECARREGA A TEBELA DE USUÁRIOS NA PÁGINA
+                        $('#resultado_usuarios').load('funcoes/usuario/ajax_tabela_usuarios.php');
+    
+                        //MENSAGEM            
+                        var_ds_msg = 'Usuário%20editado%20com%20sucesso!';
+    
+                        //var_tp_msg = 'alert-success';
+                        var_tp_msg = 'alert-success';
+                        
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                    //MENSAGEM            
-                    var_ds_msg = 'Usuário%20editado%20com%20sucesso!';
+                    } else {
 
-                    //var_tp_msg = 'alert-success';
-                    var_tp_msg = 'alert-success';
-                    
-                    //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                        console.log(res);
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Ocorreu%20um%20erro!';
+    
+                        //var_tp_msg = 'alert-success';
+                        var_tp_msg = 'alert-danger';
+    
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    }
+
 
                 }
 

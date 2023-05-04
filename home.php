@@ -155,8 +155,6 @@
             pagina_atual = 2;
             document.getElementById('inpt_pag_atual').value = pagina_atual;
 
-            
-
             // VERIFICA SE EXISTE FILTRO DE CHAMADO
             if (os == '') {
 
