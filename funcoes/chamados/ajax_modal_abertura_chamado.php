@@ -123,9 +123,10 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success(resp) {
+                success(res) {
 
-                    console.log(resp);
+                    console.log(res);
+
                     //MENSAGEM            
                     var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
                     var_tp_msg = 'alert-success';
@@ -137,8 +138,6 @@
 
                     // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
                     frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
-
-                }   
 
             });
 

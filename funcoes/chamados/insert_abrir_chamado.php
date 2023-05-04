@@ -4,7 +4,7 @@
 
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
-    include '../conexao.php';
+    include '../../conexao.php';
     
     // $destino_foto = null;
     // $extensao = null;
@@ -42,7 +42,7 @@
 
     if(!$valida){
 
-        echo 'Erro na consulta';
+        echo $query_insere_chamado;
 
     }else{
 
