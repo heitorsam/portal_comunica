@@ -90,8 +90,6 @@
                 
                     }
 
-                    echo 'sucesso';
-
                 }
         
             } else {
