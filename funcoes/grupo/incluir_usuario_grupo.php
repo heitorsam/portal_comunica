@@ -20,6 +20,16 @@
                                                                                 $cd_usuairo_logado,
                                                                                 NOW())";
     
-    mysqli_query($conn, $query_inserir_usuario_grupo);
+    $valida = mysqli_query($conn, $query_inserir_usuario_grupo);
+
+    if(!$valida){
+    
+        echo $query_inserir_usuario_grupo;
+
+    }else{
+    
+        echo 'sucesso';
+
+   }
                              
 ?>
