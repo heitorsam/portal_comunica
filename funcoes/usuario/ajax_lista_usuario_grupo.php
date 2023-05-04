@@ -24,6 +24,7 @@
                    ON usu.CD_USUARIO = gu.CD_USUARIO
                  WHERE gu.CD_GRUPO IN (SELECT grpusu.CD_GRUPO FROM portal_comunica.GRUPO_USUARIO grpusu WHERE grpusu.CD_USUARIO = $cd_usu)
                  AND gu.CD_USUARIO <> $cd_usu
+                 ORDER BY usu.NM_USUARIO ASC
                  ) res
                  
                  ";
