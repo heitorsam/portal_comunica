@@ -73,7 +73,10 @@
                         <i class="fa fa-bars" aria-hidden="true"></i> Menu</a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
-                            <!--MENU-->      
+                            <!--MENU-->    
+                            
+                            <!--ADM-->    
+                            <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> Administrativo</a> 
                             <a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
                             <a class="dropdown-item" href="cadastro_usuario.php"><i class="fa-solid fa-users"></i> Usuários</a>
                             <a class="dropdown-item" href="grupo.php"><i class="fa-solid fa-folder-tree"></i> Grupos</a>

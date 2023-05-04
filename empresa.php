@@ -1,6 +1,10 @@
 <?php
 
     include 'cabecalho.php';
+
+    //AJAX ALERTA
+    include 'config/mensagem/ajax_mensagem_alert.php';
+    
 ?>
 
     <h11><i class="fa-solid fa-building"></i> Empresa</h11>
@@ -96,7 +100,7 @@
                 ds_nova_empresa,
             },
             cache: false,
-            success(resp) {
+            success(res) {
                 
                 // LIMPA O CAMPO DE NOVA EMPRESA
                 document.getElementById('ds_nova_empresa').value = '';
@@ -104,9 +108,22 @@
                 // CHAMA NOVAMENTE A TEBELA DE EMPRESAS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
                 $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
-                var_ds_msg = 'Empresa%20cadastrada%20com%20sucesso!';
-                var_tp_msg = 'alert-success';
-                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                if(res == 'sucesso'){
+
+                    var_ds_msg = 'Empresa%20cadastrada%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }else{
+
+                    console.log(res);
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                }
 
             }
 
@@ -121,63 +138,46 @@
     // EXCLUIR EMPRESA
     function ajax_exclui_empresa(id_empresa) {
 
-        $deseja_excluir = confirm('Deseja realmente excluir?');
-        
-        if ($deseja_excluir) {
+        $.ajax({
+            url: "funcoes/empresa/ajax_exclui_empresa.php",
+            type: "POST",
+            data: {
+                id_empresa: id_empresa
+            },
+            cache: false,
+            success(res) {
 
-            // AJAX PARA VERIFICAR SE EXISTE USUÁRIOS NA EMPRESA, ANTES DE EXCLUIR
-            $.ajax({
-                url: "funcoes/quantidade_usuarios_empresa.php",
-                type: "POST",
-                data: {
-                    id: id_empresa
-                },
-                cache: false,
-                success(quantidade) {
+                // CHAMA NOVAMENTE A TEBELA DE EMPRESAS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
+                $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
 
-                    if (quantidade == 0) {
+                if(res == 'sucesso'){
 
-                        $.ajax({
-                            url: "funcoes/ajax_exclui_empresa.php",
-                            type: "POST",
-                            data: {
-                                id_empresa: id_empresa
-                            },
-                            cache: false,
-                            success(resp) {
+                    //MENSAGEM            
+                    var_ds_msg = 'Empresa%20excluída%20com%20sucesso!';
+                    var_tp_msg = 'alert-success';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
-                                // CHAMA NOVAMENTE A TEBELA DE EMPRESAS PARA ATUALIZAR A TEBELA APOS CADA CADASTRO NOVO
-                                $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+                }else{
 
-                                //MENSAGEM            
-                                var_ds_msg = 'Empresa%20excluído%20com%20sucesso!';
-                                var_tp_msg = 'alert-success';
-                                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-    
-                            }
-                        });
+                    console.log(res);
 
-                    } else {
-
-                        var_ds_msg = 'Existe%20usuários%20nesta%20empresa!';
-                        var_tp_msg = 'alert-danger';
-
-                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-                    };
+                    //MENSAGEM            
+                    var_ds_msg = 'Ocorreu%20um%20erro!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
                 }
-            });
 
-        }
+            }
+        });
 
-    }
+    }  
 
     function ajax_modal_alterar_empresa(id_empresa) {
 
         $('#modal_edicao').modal('show');
 
-        $('#conteudo_modal').load("funcoes/ajax_modal_editar_empresa.php?id=" + id_empresa);
+        $('#conteudo_modal').load("funcoes/empresa/ajax_modal_editar_empresa.php?id=" + id_empresa);
 
     }
 
