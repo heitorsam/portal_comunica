@@ -8,115 +8,67 @@
 
     // PEGA AS VARIAVEIS VIA GET PARA UTILIZAR COMO FILTROS NAS CONSULTAS
     $periodo = $_GET['periodo'];
-
-    // VERIFICA SE EXISTE FILTRO DE CHAMADO, SE TIVER APLICA COM O FILTRO
-    if (isset($_GET['os'])) {
-
-        $os = $_GET['os'];
-
-        $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
-                                            DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+    $os = $_GET['os'];
+    $usu = $_GET['usu'];
+   
+    $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
+                                DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+                                FROM portal_comunica.CHAMADO ch
+                                INNER JOIN portal_comunica.USUARIO usu
+                                ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                                INNER JOIN portal_comunica.EMPRESA emp
+                                ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                                WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                                FROM portal_comunica.GRUPO_USUARIO grpusu
+                                                WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                                AND ch.TP_STATUS = 'A'
+                                AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo'";
+    
+    $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
+                                DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
+                                FROM portal_comunica.CHAMADO ch
+                                INNER JOIN portal_comunica.USUARIO usu
+                                ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                                INNER JOIN portal_comunica.EMPRESA emp
+                                ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                                WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                            FROM portal_comunica.GRUPO_USUARIO grpusu
+                                            WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                                AND ch.TP_STATUS = 'E'
+                                AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
+                                AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo'";
+    
+    $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
+                                    DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
                                     FROM portal_comunica.CHAMADO ch
                                     INNER JOIN portal_comunica.USUARIO usu
-                                        ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
+                                    ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
                                     INNER JOIN portal_comunica.EMPRESA emp
-                                        ON emp.CD_EMPRESA = usu.CD_EMPRESA
-                                    WHERE ch.CD_CHAMADO LIKE '$os%'
-                                        AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'
-                                        AND ch.TP_STATUS = 'A'
-                                        AND (CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                            OR (ch.CD_GRUPO IN (SELECT grp.CD_GRUPO
-                                                                FROM portal_comunica.USUARIO usu
-                                                                INNER JOIN portal_comunica.EMPRESA emp
-                                                                    ON usu.CD_EMPRESA = emp.CD_EMPRESA
-                                                                INNER JOIN portal_comunica.GRUPO grp
-                                                                    ON emp.CD_EMPRESA = grp.CD_EMPRESA
-                                                                WHERE usu.CD_USUARIO = $cd_usuario_logado)))";
-                                                            
+                                    ON emp.CD_EMPRESA = ch.CD_EMPRESA
+                                    WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
+                                                FROM portal_comunica.GRUPO_USUARIO grpusu
+                                                WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
+                                    AND ch.TP_STATUS = 'C'
+                                    AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
+                                    AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo'";
 
-        $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
-                                            DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                    FROM portal_comunica.CHAMADO ch
-                                    INNER JOIN portal_comunica.USUARIO usu
-                                        ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                    INNER JOIN portal_comunica.EMPRESA emp
-                                        ON emp.CD_EMPRESA = usu.CD_EMPRESA
-                                    WHERE ch.CD_CHAMADO LIKE '$os%'
-                                        AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'
-                                        AND ch.TP_STATUS = 'E'
-                                        AND (CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                            OR (ch.CD_GRUPO IN (SELECT grp.CD_GRUPO
-                                                                FROM portal_comunica.USUARIO usu
-                                                                INNER JOIN portal_comunica.EMPRESA emp
-                                                                    ON usu.CD_EMPRESA = emp.CD_EMPRESA
-                                                                INNER JOIN portal_comunica.GRUPO grp
-                                                                    ON emp.CD_EMPRESA = grp.CD_EMPRESA
-                                                                WHERE usu.CD_USUARIO = $cd_usuario_logado)))";
 
-        $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
-                                            DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                    FROM portal_comunica.CHAMADO ch
-                                    INNER JOIN portal_comunica.USUARIO usu
-                                        ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                    INNER JOIN portal_comunica.EMPRESA emp
-                                        ON emp.CD_EMPRESA = usu.CD_EMPRESA
-                                    WHERE ch.CD_CHAMADO LIKE '$os%'
-                                        AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'
-                                        AND ch.TP_STATUS = 'C'
-                                        AND (CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                            OR (ch.CD_GRUPO IN (SELECT grp.CD_GRUPO
-                                                                FROM portal_comunica.USUARIO usu
-                                                                INNER JOIN portal_comunica.EMPRESA emp
-                                                                    ON usu.CD_EMPRESA = emp.CD_EMPRESA
-                                                                INNER JOIN portal_comunica.GRUPO grp
-                                                                    ON emp.CD_EMPRESA = grp.CD_EMPRESA
-                                                                WHERE usu.CD_USUARIO = $cd_usuario_logado)))";
-        
+    if($os <> ''){
 
-    } else {
-
-        $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
-                                  DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                  FROM portal_comunica.CHAMADO ch
-                                  INNER JOIN portal_comunica.USUARIO usu
-                                  ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                  INNER JOIN portal_comunica.EMPRESA emp
-                                  ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                                  WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                                  FROM portal_comunica.GRUPO_USUARIO grpusu
-                                                  WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                  AND ch.TP_STATUS = 'A'
-                                  AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
-        
-        $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
-                                   DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                   FROM portal_comunica.CHAMADO ch
-                                   INNER JOIN portal_comunica.USUARIO usu
-                                   ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                   INNER JOIN portal_comunica.EMPRESA emp
-                                   ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                                   WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                               FROM portal_comunica.GRUPO_USUARIO grpusu
-                                               WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                   AND ch.TP_STATUS = 'E'
-                                   AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                   AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
-        
-        $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
-                                     DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                     FROM portal_comunica.CHAMADO ch
-                                     INNER JOIN portal_comunica.USUARIO usu
-                                     ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                     INNER JOIN portal_comunica.EMPRESA emp
-                                     ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                                     WHERE ch.CD_GRUPO IN (SELECT grpusu.CD_GRUPO
-                                                 FROM portal_comunica.GRUPO_USUARIO grpusu
-                                                 WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
-                                     AND ch.TP_STATUS = 'C'
-                                     AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                     AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+        $cons_chamados_abertos .= " AND ch.CD_OS = $os ";
+        $cons_chamados_execucao .= " AND ch.CD_OS = $os ";
+        $cons_chamados_concluidos .= " AND ch.CD_OS = $os ";
 
     }
+
+    if($usu <> ''){
+
+        $cons_chamados_abertos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
+        echo $cons_chamados_execucao .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
+        $cons_chamados_concluidos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
+
+    }
+
 
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
