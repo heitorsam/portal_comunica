@@ -24,8 +24,7 @@
         <div class="col-10 col-md-4" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
 
             Prestador:</br>            
-            <select class="form-control" id="sel_prestador">
-                <option value=""> =D </option>
+            <select class="form-control" id="sel_prestador" onchange="ajax_lista_prestador_grupo('filtro')">
             </select>    
 
         </div>
@@ -40,21 +39,21 @@
     </div>
 
     <div class="div_br"></div>
-    <div class="row">
+    <div class="row justify-content-center" style="margin-bottom: 10px;">
 
-        <div class="col-sm-4">
+        <div class="col-4" style="text-align: center; background-color: rgba(1,1,1,0) !important; padding: 0px !important;">
 
             <h11 id="solic" onclick="chama_paginas('1'), ajax_style('1')" style="cursor: pointer;"><i class="fa-solid fa-phone-volume"></i> Solicitações</h11>
 
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-4" style="text-align: center; background-color: rgba(1,1,1,0) !important; padding: 0px !important;">
 
             <h11  id="chamados" onclick="chama_paginas('2'), ajax_style('2')" style="cursor: pointer;"><i class="fa-solid fa-headset"></i> Meus chamados</h11>
 
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-4" style="text-align: center; background-color: rgba(1,1,1,0) !important; padding: 0px !important;">
 
             <h11 id="dash" onclick="chama_paginas('3'), ajax_style('3')" style="cursor: pointer;"><i class="fa-solid fa-chart-line"></i> Dashboard</h11>
 
@@ -73,6 +72,7 @@
 ?>
 
 <script>
+
     // VARIAVEL USADA PARA PASSAR COMO PARAMETRO NO MOMENTO DE CHAMAR A FUNC chama_paginas PARA FILTROS
 
     js_agora = new Date();
@@ -88,8 +88,49 @@
     
     document.getElementById('periodo').value = js_agora_format;
 
+    chama_paginas('x');
     chama_paginas('1');
     ajax_style('1');
+    ajax_lista_prestador_grupo('acesso');
+
+    function ajax_lista_prestador_grupo(var_acao){
+
+        //TRABALHANDO AS SESSOES
+        var js_sessao_cd_usu = sessionStorage.getItem("cd_usu_sel");
+
+        if(var_acao == 'acesso'){            
+
+            if(js_sessao_cd_usu != null){
+
+                var js_var_cd_usu = js_sessao_cd_usu;
+            
+            }else{
+
+                var js_var_cd_usu = <?php echo $_SESSION['cd_usu']; ?>;
+
+            }
+            
+
+        }
+
+        if(var_acao == 'filtro'){
+
+            var js_var_cd_usu = document.getElementById('sel_prestador').value;
+
+            //TRABALHANDO AS SESSOES
+            sessionStorage.setItem("cd_usu_sel", js_var_cd_usu);
+
+            //alert('valor filtro ' + js_var_cd_usu);
+
+        }
+
+        //alert('valor sessao ' + js_sessao_cd_usu);
+
+        $('#sel_prestador').load('funcoes/usuario/ajax_lista_usuario_grupo.php?var_cd_usu='+js_var_cd_usu);
+
+        chama_paginas('x');
+
+    }
 
     // APLICAR EFEITO AZUL E MANTER APÓS CLICAR
     function ajax_style(btn){
@@ -135,48 +176,61 @@
 
         // VARIAVEIS PARA UTILIZAR COMO FILTRO DE BUSCA DOS CHAMADOS
         var periodo = document.getElementById('periodo').value;
+        var usu = document.getElementById('sel_prestador').value;
         var os = document.getElementById('txt_os').value;
 
         if(pagina == 'x'){
+
+            //FILTRO REALIZADO 
             pagina = document.getElementById('inpt_pag_atual').value;
+
+            //TRABALHANDO AS SESSOES
+            sessionStorage.setItem("sessao_periodo", periodo);
+
+            //alert('inclue ' + periodo);
+
+        }else{
+
+            //APENAS MUDANCA DE PAGINA
+            document.getElementById('inpt_pag_atual').value = pagina;  
+
+            //TRABALHANDO AS SESSOES
+            periodo = sessionStorage.getItem("sessao_periodo", periodo);
+
+            document.getElementById('periodo').value = periodo;
+
+            //alert('coleta ' + periodo);
+
         }
 
-        if (pagina == '1') {
-
-            pagina_atual = 1;
-            document.getElementById('inpt_pag_atual').value = pagina_atual;  
+        if (pagina == '1') {    
+            
+            //SOLICITACOES
  
             $("#resultados_ajax").load("solicitacoes.php", function() {
                 $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
             });
 
-        } else if (pagina == '2') {
+        }
 
-            pagina_atual = 2;
-            document.getElementById('inpt_pag_atual').value = pagina_atual;
+        if (pagina == '2') {
 
-            // VERIFICA SE EXISTE FILTRO DE CHAMADO
-            if (os == '') {
+            //MEUS CHAMADOS
 
-                $("#resultados_ajax").load("meus_chamados.php", function() {
-                    $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo);
-                });
-
-            } else {
-
-                $("#resultados_ajax").load("meus_chamados.php", function() {
-                    $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&os=' + os);
-                });
-
-            }
-
-        } else {
-
-            pagina_atual = 3;
-            document.getElementById('inpt_pag_atual').value = pagina_atual;  
             $("#resultados_ajax").load("meus_chamados.php", function() {
-                //alert('rafa lindo');
+                //alert(periodo + ' | ' + usu + ' | ' + os)
+                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os);
             });
+
+        }
+        
+        if (pagina == '3') {
+
+            //DASHBOARD
+
+            $("#resultados_ajax").load("meus_chamados.php", function() {
+            });
+
 
         }
 
