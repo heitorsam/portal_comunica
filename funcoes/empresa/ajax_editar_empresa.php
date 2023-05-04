@@ -20,6 +20,19 @@
                                 emp.HR_ULT_ALT = NOW()
                             WHERE emp.CD_EMPRESA = $id_empresa";
     
-    mysqli_query($conn, $cons_edita_empresa);
+    $valida = mysqli_query($conn, $cons_edita_empresa);
+
+    if(!$valida){
+
+        echo $cons_edita_empresa;
+
+    }else{
+
+        echo 'sucesso';
+
+
+    }
+
+    
 
 ?>

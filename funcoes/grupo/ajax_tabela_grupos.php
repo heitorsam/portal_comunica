@@ -45,12 +45,12 @@
                         if($row['QTD_CHAMADOS'] == 0){
         ?>
 
-                            <button onclick="ajax_alert('Deseja excluiro grupo?','excluir_grupo(<?php echo $row['CD_GRUPO']; ?>)')" class="btn btn-adm"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="ajax_alert('Deseja excluir o grupo?','excluir_grupo(<?php echo $row['CD_GRUPO']; ?>)')" class="btn btn-adm"><i class="fa-solid fa-trash-can"></i></button>
 
         <?php 
                         }else{
 
-                            echo ' <button class="btn btn-secondary"><i class="fa-solid fa-trash-can"></i></button>';
+                            echo '<button class="btn btn-secondary"><i class="fa-solid fa-trash-can"></i></button>';
 
                         }
 

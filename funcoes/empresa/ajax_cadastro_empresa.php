@@ -19,6 +19,16 @@
                                         $cd_usu_logado,
                                         NOW())";
                         
-    mysqli_query($conn, $cons_cad_empresa);
+    $valida = mysqli_query($conn, $cons_cad_empresa);
+
+    if(!$valida){
+
+        echo $cons_cad_empresa;
+
+    }else{
+
+        echo 'sucesso';
+
+    }
 
 ?>

@@ -35,9 +35,9 @@
 
 <div class="modal-footer">
 
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button onclick="ajax_editar_grupo()" id="btn_salvar_edicao" type="button" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
 
-    <button onclick="ajax_editar_grupo()" id="btn_salvar_edicao" type="button" class="btn btn-primary">Salvar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Fechar</button>
 
 </div>
 
@@ -79,9 +79,6 @@
                         $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
 
                     }
-
-
-
 
                     // RECARREGA A TEBELA DE GRUPOS NA PÁGINA
                     $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');

@@ -35,9 +35,9 @@
 
 <div class="modal-footer">
 
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button onclick="ajax_editar_empresa()" id="btn_salvar_edicao" type="button" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
 
-    <button onclick="ajax_editar_empresa()" id="btn_salvar_edicao" type="button" class="btn btn-primary">Salvar</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Fechar</button>
 
 </div>
 
@@ -53,25 +53,40 @@
         if (empresa_nova != '') {
 
             $.ajax({
-                url: "funcoes/ajax_editar_empresa.php",
+                url: "funcoes/empresa/ajax_editar_empresa.php",
                 type: "POST",
                 data: formDataEdicao,
                 processData: false,
                 contentType: false,
-                success(resp) {
+                success(res) {
     
                     // RECARREGA A TEBELA DE EMPRESAS NA PÁGINA
                     $('#resultado_empresas').load('funcoes/ajax_tabela_empresas.php');
+
+                    if(res == 'sucesso'){
     
-                    //MENSAGEM            
-                    var_ds_msg = 'Empresa%20editada%20com%20sucesso!';
-    
-                    //var_tp_msg = 'alert-success';
-                    var_tp_msg = 'alert-success';
+                        //MENSAGEM            
+                        var_ds_msg = 'Empresa%20editada%20com%20sucesso!';
+        
+                        //var_tp_msg = 'alert-success';
+                        var_tp_msg = 'alert-success';
+                        
+                        //var_tp_msg = 'alert-primary';
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
                     
-                    //var_tp_msg = 'alert-primary';
-                    $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-    
+                    }else{
+
+                        console.log(res);
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Ocorreu%20um%20erro!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                    }
+
+                    $('#resultado_empresas').load('funcoes/empresa/ajax_tabela_empresas.php');
+
                 }
     
             });
