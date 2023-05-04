@@ -139,6 +139,8 @@
                     // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
                     frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
 
+                }   
+
             });
 
         } else {
