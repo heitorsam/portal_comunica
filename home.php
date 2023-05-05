@@ -298,6 +298,10 @@
             //DASHBOARD
 
             $("#resultados_ajax").load("meus_chamados.php", function() {
+
+
+                alert(periodo + ' | ' + usu + ' | ' + os);
+
             });
 
 
