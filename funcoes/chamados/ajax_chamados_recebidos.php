@@ -35,7 +35,6 @@
                                             FROM portal_comunica.GRUPO_USUARIO grpusu
                                             WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
                                 AND ch.TP_STATUS = 'E'
-                                AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
                                 AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo'";
     
     $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
@@ -49,15 +48,14 @@
                                                 FROM portal_comunica.GRUPO_USUARIO grpusu
                                                 WHERE grpusu.CD_USUARIO = $cd_usuario_logado)
                                     AND ch.TP_STATUS = 'C'
-                                    AND ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
-                                    AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo'";
+                                    AND DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$periodo' ";
 
 
     if($os <> ''){
 
-        $cons_chamados_abertos .= " AND ch.CD_OS = $os ";
-        $cons_chamados_execucao .= " AND ch.CD_OS = $os ";
-        $cons_chamados_concluidos .= " AND ch.CD_OS = $os ";
+        $cons_chamados_abertos .= " AND ch.CD_CHAMADO = $os ";
+        $cons_chamados_execucao .= " AND ch.CD_CHAMADO = $os ";
+        $cons_chamados_concluidos .= " AND ch.CD_CHAMADO = $os ";
 
     }
 
@@ -68,7 +66,6 @@
         $cons_chamados_concluidos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
 
     }
-
 
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);

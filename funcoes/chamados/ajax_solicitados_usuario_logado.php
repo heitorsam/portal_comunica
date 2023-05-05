@@ -4,8 +4,13 @@
 
     include '../../conexao.php';
 
-    // PEGA O PERIODO REGISTRADO NO INPUT DA HOME PARA TOMAR COMO FILTRO DAS CONSULTAS
+    $cd_usuario_logado = $_SESSION['cd_usu'];
+
+    // PEGA AS VARIAVEIS VIA GET PARA UTILIZAR COMO FILTROS NAS CONSULTAS
     $periodo = $_GET['periodo'];
+    $os = $_GET['os'];
+    $usu = $_GET['usu'];
+   
 
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
@@ -16,9 +21,8 @@
                                 ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
                               INNER JOIN portal_comunica.EMPRESA emp
                                 ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                              WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                              AND ch.TP_STATUS = 'A'
-                              AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+                              WHERE ch.TP_STATUS = 'A'
+                              AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";
 
     $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
                                DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
@@ -27,9 +31,8 @@
                                  ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
                                INNER JOIN portal_comunica.EMPRESA emp
                                  ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                               WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                               AND ch.TP_STATUS = 'E'
-                               AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
+                               WHERE ch.TP_STATUS = 'E'
+                               AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";
     
     $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
                                  DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
@@ -38,10 +41,25 @@
                                  ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
                                  INNER JOIN portal_comunica.EMPRESA emp
                                  ON emp.CD_EMPRESA = ch.CD_EMPRESA
-                                 WHERE ch.CD_USUARIO_CADASTRO = $cd_usuario_logado
-                                 AND ch.TP_STATUS = 'C'
-                                 AND DATE(ch.HR_CADASTRO) LIKE '$periodo%'";
-    
+                                 WHERE ch.TP_STATUS = 'C'
+                                 AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";
+
+    if($os <> ''){
+
+        $cons_chamados_abertos .= " AND ch.CD_CHAMADO = $os ";
+        $cons_chamados_execucao .= " AND ch.CD_CHAMADO = $os ";
+        $cons_chamados_concluidos .= " AND ch.CD_CHAMADO = $os ";
+
+    }
+
+    if($usu <> ''){
+
+        $cons_chamados_abertos .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
+        $cons_chamados_execucao .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
+        $cons_chamados_concluidos .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
+
+    }
+        
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
     $res_concluidos = mysqli_query($conn, $cons_chamados_concluidos);

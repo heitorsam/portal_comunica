@@ -59,7 +59,6 @@ $row_mensagens = mysqli_num_rows($res);
                                         
                     echo '</div>';     
 
-
                 } else {
 
                     // CABEÇALHO DA MENSAGEM

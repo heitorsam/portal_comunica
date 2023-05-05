@@ -126,7 +126,7 @@
 
         //alert('valor sessao ' + js_sessao_cd_usu);
 
-        $('#sel_prestador').load('funcoes/usuario/ajax_lista_usuario_grupo.php?var_cd_usu='+js_var_cd_usu);
+        $('#sel_prestador').load('funcoes/usuario/ajax_lista_usuario_grupo_filtro.php?var_cd_usu='+js_var_cd_usu);
 
         chama_paginas('x');
 
@@ -179,6 +179,11 @@
         var usu = document.getElementById('sel_prestador').value;
         var os = document.getElementById('txt_os').value;
 
+        if(usu == ''){
+
+            usu = sessionStorage.getItem("cd_usu_sel");
+        }
+
         if(pagina == 'x'){
 
             //FILTRO REALIZADO 
@@ -208,7 +213,8 @@
             //SOLICITACOES
  
             $("#resultados_ajax").load("solicitacoes.php", function() {
-                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo);
+                //alert(periodo + ' | ' + usu + ' | ' + os)
+                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os);
             });
 
         }
