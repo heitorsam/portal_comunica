@@ -3,6 +3,9 @@
     include '../../conexao.php';
 
     $id_usuario = $_GET['id'];
+    $ch_abertos = $_GET['ch_abertos'];
+    $ch_recebidos = $_GET['ch_recebidos'];
+    $qtd_grupos = $_GET['qtd_grupos'];
 
     $cons_buscar_usuario = "SELECT *
                             FROM portal_comunica.USUARIO usu
@@ -46,9 +49,25 @@
         <div class="col-md-3">
 
             Empresa:
-            <select id="empresa_edicao" name="empresa" class="form form-control">
 
-            </select>
+            <?php 
+
+                if ($ch_abertos == 0 && $ch_recebidos == 0 && $qtd_grupos == 0) {
+
+                    echo '<select id="empresa_edicao" name="empresa" class="form form-control">';
+    
+                    echo '</select>';
+
+                } else {
+
+                    echo '<select id="empresa_edicao" name="empresa" class="form form-control" disabled>';
+    
+                    echo '</select>';
+
+                }
+
+
+            ?>
 
         </div>
 
@@ -97,6 +116,11 @@
 
     function ajax_editar_usuario(event) {
 
+        empresa = document.getElementById('empresa_edicao')
+
+        // REMOVE O DISABLED PARA PODER ENVIAR O FORM COM A EMPRESA ATUAL
+        empresa.removeAttribute('disabled');
+
         // VALIDAÇÕES
         var frm_email_editar = document.getElementById('email_editar'); if(frm_email_editar.value == ''){ frm_email_editar.focus(); }
         var frm_senha_editar = document.getElementById('senha_editar'); if(frm_senha_editar.value == ''){ frm_senha_editar.focus(); }
@@ -116,6 +140,8 @@
                 processData: false,
                 contentType: false,
                 success(res) {
+
+                    empresa.setAttribute("disabled", "disabled");
 
                     if (res == 'sucesso') {
 

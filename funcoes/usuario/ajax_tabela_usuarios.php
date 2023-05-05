@@ -62,7 +62,7 @@
                     echo '<td class="align-middle">'. $row['QNTD_CHAMADOS_RECEBIDOS'] .'</td>';
                     echo '<td class="align-middle">'. $row['QNTD_GRUPOS'] .'</td>';
                     echo '<td class="align-middle">
-                        <button onclick="ajax_modal_alterar_usuario('. $row['CD_USUARIO'] .')" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>';
+                        <button onclick="ajax_modal_alterar_usuario('. $row['CD_USUARIO'] .','.$row['QNTD_CHAMADOS_ABERTOS'].','.$row['QNTD_CHAMADOS_RECEBIDOS'].','.$row['QNTD_GRUPOS'].')" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>';
                         if ($row['QNTD_CHAMADOS_ABERTOS'] == 0 && $row['QNTD_CHAMADOS_RECEBIDOS'] == 0 && $row['QNTD_GRUPOS'] == 0) {
 
                             ?>
