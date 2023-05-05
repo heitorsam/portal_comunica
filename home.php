@@ -10,9 +10,9 @@
  
     <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
     <div class='espaco_pequeno'></div>
-    <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27>
-
     
+    <!-- <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27> -->
+   
     <div class="row">
 
         <div class="col-10 col-md-3" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
