@@ -65,7 +65,7 @@
 
             <div class="col-md-3">
 
-                <b>Empresa:</b> <br>
+                <b>Empresa solicitante:</b> <br>
                 <?php echo $row[1]; ?>
 
             </div>
@@ -105,7 +105,7 @@
 
             <div class="col-md-3">
 
-                <b>Grupo solicitante:</b></br>
+                <b>Grupo solicitado:</b></br>
                 <?php echo $row[5]; ?>
 
             </div>

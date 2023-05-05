@@ -260,11 +260,11 @@
     }
 
     // ABRIR MODAL DE ALTERAÇÃO DE USUÁRIO
-    function ajax_modal_alterar_usuario(id_usuario) {
-
+    function ajax_modal_alterar_usuario(id_usuario, qtd_ch_abertos, qtd_ch_recebidos, qtd_grupos) {
+        
         $('#modal_edicao').modal('show');
 
-        $('#conteudo_modal').load("funcoes/usuario/ajax_modal_editar_usuario.php?id=" + id_usuario);
+        $('#conteudo_modal').load("funcoes/usuario/ajax_modal_editar_usuario.php?id=" + id_usuario + "&ch_abertos=" + qtd_ch_abertos + '&ch_recebidos=' + qtd_ch_recebidos + '&qtd_grupos=' + qtd_grupos);
 
     }
 

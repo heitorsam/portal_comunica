@@ -105,6 +105,9 @@
             success(res) {
                 
                 if (res == 'sucesso') {
+                    
+                    // RECARREGA A TABELA DE GRUPOS
+                    $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
 
                     //MENSAGEM            
                     var_ds_msg = 'Membro%20excluído%20com%20sucesso!';

@@ -27,6 +27,7 @@
     <thead>
 
         <th class="p-2" style="text-align: center; white-space: nowrap;">Nome</th>
+        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados em Execução</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Opções</th>
 
     </thead>
@@ -40,6 +41,7 @@
                 echo '<tr style="text-align: center">';
 
                     echo '<td class="align-middle">'. $row['NM_USUARIO'] .'</td>';
+                    echo '<td class="align-middle">'. $row['QNTD_CHAMADOS'] .'</td>';
                     echo '<td>';
 
                     if($row['QNTD_CHAMADOS'] == 0){
