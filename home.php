@@ -6,6 +6,8 @@
 
 <input id="inpt_pag_atual" hidden>
 
+<input id="input_usu_logado" value="<?php echo $_SESSION['cd_usu']; ?>" hidden>
+ 
     <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
     <div class='espaco_pequeno'></div>
     <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27>
@@ -72,43 +74,86 @@
 
 <script>
 
-    // VARIAVEL USADA PARA PASSAR COMO PARAMETRO NO MOMENTO DE CHAMAR A FUNC chama_paginas PARA FILTROS
+    //VERIFICANDO SE EXISTE SESSAO
+    var js_sessao_periodo = sessionStorage.getItem("periodo");
+    var js_sessao_cd_usu_sel = sessionStorage.getItem("cd_usu_sel");
+    var js_pg_at = sessionStorage.getItem("sessao_ult_pg"); 
 
-    js_agora = new Date();
 
-    if((js_agora.getMonth()+1) <= 9){
+    if(js_sessao_periodo == null || js_sessao_periodo == ''){
 
-        js_agora_format = js_agora.getFullYear() + "-0" + (js_agora.getMonth()+1);
+        js_agora = new Date();
+
+        if((js_agora.getMonth()+1) <= 9){
+
+            js_agora_format = js_agora.getFullYear() + "-0" + (js_agora.getMonth()+1);
+
+        }else{
+
+            js_agora_format = js_agora.getFullYear() + "-" + js_agora.getMonth();
+        }
+        
+        document.getElementById('periodo').value = js_agora_format;
+        periodo = sessionStorage.setItem("periodo", js_agora_format);
+
+        ajax_lista_prestador_grupo('acesso');
+        ajax_style('1');
 
     }else{
 
-        js_agora_format = js_agora.getFullYear() + "-" + js_agora.getMonth();
+        document.getElementById('periodo').value = js_sessao_periodo;
+        $('#sel_prestador').load('funcoes/usuario/ajax_lista_usuario_grupo_filtro.php?var_cd_usu='+js_sessao_cd_usu_sel);
+
+        ajax_style(js_pg_at);
+        chama_paginas(js_pg_at);
+
     }
     
-    document.getElementById('periodo').value = js_agora_format;
-
-    chama_paginas('x');
-    chama_paginas('1');
-    ajax_style('1');
-    ajax_lista_prestador_grupo('acesso');
-
     function ajax_lista_prestador_grupo(var_acao){
 
         //TRABALHANDO AS SESSOES
         var js_sessao_cd_usu = sessionStorage.getItem("cd_usu_sel");
 
+        var js_sessao_cd_usu_tamanho = !!js_sessao_cd_usu?.length;
+
+        //alert(js_sessao_cd_usu_tamanho);
+
         if(var_acao == 'acesso'){            
 
-            if(js_sessao_cd_usu != null){
+            if(js_sessao_cd_usu_tamanho == false){
 
-                var js_var_cd_usu = js_sessao_cd_usu;
+                if(//js_sessao_cd_usu.lenght == 'undefined' || js_sessao_cd_usu.lenght == undefined || 
+                js_sessao_cd_usu == 'undefined' || js_sessao_cd_usu == undefined 
+                || js_sessao_cd_usu == 'null' || js_sessao_cd_usu == null){
+
+                    var js_var_cd_usu = document.getElementById('input_usu_logado').value;
+                    sessionStorage.setItem("cd_usu_sel", js_var_cd_usu);             
+                    //alert('1');
+                
+                }else{
+
+                    var js_var_cd_usu = js_sessao_cd_usu;
+                    //alert('2');
+                }     
             
             }else{
 
-                var js_var_cd_usu = <?php echo $_SESSION['cd_usu']; ?>;
+                if(js_sessao_cd_usu.lenght == 'undefined' || js_sessao_cd_usu.lenght == undefined || 
+                js_sessao_cd_usu == 'undefined' || js_sessao_cd_usu == undefined 
+                || js_sessao_cd_usu == 'null' || js_sessao_cd_usu == null){
 
+                    var js_var_cd_usu = document.getElementById('input_usu_logado').value;
+                    sessionStorage.setItem("cd_usu_sel", js_var_cd_usu);             
+                    //alert('3');
+                
+                }else{
+
+                    var js_var_cd_usu = js_sessao_cd_usu;
+                    //alert('4');
+                }     
             }
-            
+
+            chama_paginas('prest_inicio');
 
         }
 
@@ -121,13 +166,15 @@
 
             //alert('valor filtro ' + js_var_cd_usu);
 
-        }
+            chama_paginas('x');
 
-        //alert('valor sessao ' + js_sessao_cd_usu);
+        }     
+
+        //alert(js_var_cd_usu);
 
         $('#sel_prestador').load('funcoes/usuario/ajax_lista_usuario_grupo_filtro.php?var_cd_usu='+js_var_cd_usu);
 
-        chama_paginas('x');
+        
 
     }
 
@@ -178,11 +225,6 @@
         var usu = document.getElementById('sel_prestador').value;
         var os = document.getElementById('txt_os').value;
 
-        if(usu == ''){
-
-            usu = sessionStorage.getItem("cd_usu_sel");
-        }
-
         if(pagina == 'x'){
 
             //FILTRO REALIZADO 
@@ -193,24 +235,41 @@
 
             //alert('inclue ' + periodo);
 
-        }else{
+        }else if(pagina == 'prest_inicio'){
+
+            //APENAS MUDANCA DE PAGINA
+            document.getElementById('inpt_pag_atual').value = 1;  
+            pagina = 1;
+
+            //TRABALHANDO AS SESSOES
+            usu = sessionStorage.getItem("cd_usu_sel");
+
+            //alert('periodo ' + periodo + ' | usu ' + usu);          
+
+        }else{            
 
             //APENAS MUDANCA DE PAGINA
             document.getElementById('inpt_pag_atual').value = pagina;  
 
             //TRABALHANDO AS SESSOES
-            periodo = sessionStorage.getItem("sessao_periodo", periodo);
+            //periodo = sessionStorage.getItem("sessao_periodo");
 
             document.getElementById('periodo').value = periodo;
+            document.getElementById('sel_prestador').value = usu;
 
             //alert('coleta ' + periodo);
 
         }
 
+        //ADICIONA ULTIMA PAGINA SELECIONADA NA SESSAO
+        sessionStorage.setItem("sessao_ult_pg", pagina); 
+        sessionStorage.setItem("periodo", periodo);
+
+
         if (pagina == '1') {    
             
             //SOLICITACOES
- 
+
             $("#resultados_ajax").load("solicitacoes.php", function() {
                 //alert(periodo + ' | ' + usu + ' | ' + os)
                 $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os);
@@ -220,7 +279,7 @@
 
         if (pagina == '2') {
 
-            //MEUS CHAMADOS
+            //MEUS CHAMADOS          
 
             $("#resultados_ajax").load("meus_chamados.php", function() {
                 //alert(periodo + ' | ' + usu + ' | ' + os)

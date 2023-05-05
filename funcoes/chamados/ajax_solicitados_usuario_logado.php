@@ -58,6 +58,8 @@
         $cons_chamados_concluidos .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
 
     }
+
+    //echo $cons_chamados_execucao;
         
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
