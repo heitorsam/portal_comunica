@@ -6,7 +6,6 @@
 
 <input id="inpt_pag_atual" hidden>
 
-
     <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
     <div class='espaco_pequeno'></div>
     <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27>

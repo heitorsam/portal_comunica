@@ -11,7 +11,6 @@
     $os = $_GET['os'];
     $usu = $_GET['usu'];
    
-
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
     $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
