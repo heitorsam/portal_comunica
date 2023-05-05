@@ -30,7 +30,7 @@
 
         <th class="p-2" style="text-align: center; white-space: nowrap;">Código</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Grupo</th>
-        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados</th>
+        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados Recebidos</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Usuários</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Opções</th>
 

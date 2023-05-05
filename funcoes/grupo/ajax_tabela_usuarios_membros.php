@@ -27,7 +27,7 @@
     <thead>
 
         <th class="p-2" style="text-align: center; white-space: nowrap;">Nome</th>
-        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados</th>
+        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados em Execução</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Opções</th>
 
     </thead>
