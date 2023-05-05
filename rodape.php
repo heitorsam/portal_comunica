@@ -28,7 +28,7 @@
                 </div>
             	<div class="col-md-10">
                     <ul class="list">
-                        <li><a href="sair.php">Sair</a></li>
+                        <li><a onclick="remover_sessao_comunica()" href="sair.php">Sair</a></li>
                     </ul>
                 </div>
             </div>

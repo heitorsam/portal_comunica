@@ -92,7 +92,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa-regular fa-circle-user" aria-hidden="true"></i> <?php echo $nome ?></a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
-                        <a class="dropdown-item" href="sair.php"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+                        <a onclick="remover_sessao_comunica()" class="dropdown-item"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
                         </div>
                     </li>
                 <div class="menu_vermelho">
@@ -105,3 +105,18 @@
 
         <div class="conteudo">
             <div class="container">
+
+<script>
+
+    function remover_sessao_comunica() {
+
+        sessionStorage.removeItem("cd_usu_sel");
+        sessionStorage.removeItem("sessao_ult_pg");
+        sessionStorage.removeItem("sessao_periodo");
+        sessionStorage.removeItem("periodo");
+
+        window.location.href = "sair.php";
+
+    }
+
+</script>
