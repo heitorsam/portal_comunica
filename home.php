@@ -79,7 +79,6 @@
     var js_sessao_cd_usu_sel = sessionStorage.getItem("cd_usu_sel");
     var js_pg_at = sessionStorage.getItem("sessao_ult_pg"); 
 
-
     if(js_sessao_periodo == null || js_sessao_periodo == ''){
 
         js_agora = new Date();
@@ -223,6 +222,12 @@
         // VARIAVEIS PARA UTILIZAR COMO FILTRO DE BUSCA DOS CHAMADOS
         var periodo = document.getElementById('periodo').value;
         var usu = document.getElementById('sel_prestador').value;
+
+        if(usu == '' || usu == null){
+
+            usu = sessionStorage.getItem("cd_usu_sel");
+        }
+
         var os = document.getElementById('txt_os').value;
 
         if(pagina == 'x'){
