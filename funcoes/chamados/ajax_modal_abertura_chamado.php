@@ -123,9 +123,10 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success(resp) {
+                success(res) {
 
-                    console.log(resp);
+                    console.log(res);
+
                     //MENSAGEM            
                     var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
                     var_tp_msg = 'alert-success';

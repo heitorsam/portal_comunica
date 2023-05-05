@@ -24,6 +24,7 @@
 
         <th class="p-2" style="text-align: center; white-space: nowrap;">Código</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Grupo</th>
+        <th class="p-2" style="text-align: center; white-space: nowrap;">Chamados</th>
         <th class="p-2" style="text-align: center; white-space: nowrap;">Opções</th>
 
     </thead>
@@ -38,6 +39,7 @@
 
                     echo '<td class="align-middle">'. $row['CD_GRUPO'] .'</td>';
                     echo '<td class="align-middle">'. $row['DS_GRUPO'] .'</td>';
+                    echo '<td class="align-middle">'. $row['QTD_CHAMADOS'] .'</td>';
                     echo '<td class="align-middle">
                         <button onclick="ajax_chamar_modal_edicao('. $row['CD_GRUPO'] .')" class="btn btn-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button onclick="ajax_chamar_modal_membro('. $row['CD_GRUPO'] .')" class="btn btn-primary"><i class="fa-solid fa-people-group"></i></button>';
