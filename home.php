@@ -4,6 +4,7 @@
 
 ?>
 
+
 <input id="inpt_pag_atual" hidden>
 
 <input id="input_usu_logado" value="<?php echo $_SESSION['cd_usu']; ?>" hidden>
@@ -12,7 +13,8 @@
     <div class='espaco_pequeno'></div>
     
     <!-- <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27> -->
-   
+    </br> </br> <button class="btn btn-primary" onclick="ajax_envia_email()"><i class="fa-regular fa-envelope"></i> Teste E-mail</button> </br>
+
     <div class="row">
 
         <div class="col-10 col-md-3" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
@@ -73,6 +75,25 @@
 ?>
 
 <script>
+    
+    function ajax_envia_email(){
+
+        var js_cd_chamado = '456';
+        var js_msg_email = 'Teste email via ajax';
+
+        $.ajax({
+            url:"email/abertura_chamado.php",
+            type: "GET",  
+            data: {
+                cd_chamado : js_cd_chamado,
+                msg_email : js_msg_email
+            },
+            success:function(result){
+                console.log(result);
+            }
+        });
+
+    }
 
     //VERIFICANDO SE EXISTE SESSAO
     var js_sessao_periodo = sessionStorage.getItem("periodo");
