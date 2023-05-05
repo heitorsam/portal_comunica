@@ -102,11 +102,13 @@
 
                     echo 'sucesso';
             
+                } else {
+
+                    echo 'sucesso';
+
                 }
 
             }
-
-            echo 'sucesso';
         
         }
     

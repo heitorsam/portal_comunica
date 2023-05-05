@@ -106,7 +106,7 @@
         // VALIDACOES
         var frm_descricao = document.getElementById('frm_descricao'); if(frm_descricao.value == ''){ frm_descricao.focus(); }
         var frm_empresa = document.getElementById('frm_empresa'); if(frm_empresa.value == ''){ frm_empresa.focus(); }
-        var frm_grupo = document.getElementById('frm_grupo').value; if(frm_grupo.value == ''){ frm_grupo.focus(); }
+        var frm_grupo = document.getElementById('frm_grupo'); if(frm_grupo.value == ''){ frm_grupo.focus(); }
         var frm_prioridade = document.getElementById('frm_prioridade'); if(frm_prioridade.value == ''){ frm_prioridade.focus(); }
         var frm_dt_prevista = document.getElementById('frm_dt_prevista'); if(frm_dt_prevista.value == ''){ frm_dt_prevista.focus(); }
         var frm_observacao = document.getElementById('frm_observacao'); if(frm_observacao.value == ''){ frm_observacao.focus(); }
@@ -127,17 +127,28 @@
 
                     console.log(res);
 
-                    //MENSAGEM            
-                    var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
-                    var_tp_msg = 'alert-success';
-                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+                    if (res == 'sucesso') {
 
-                    setTimeout(function(){
-                        window.location.reload(); 
-                    }, 4000);                            
+                        //MENSAGEM            
+                        var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
-                    // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
-                    frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
+                        // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
+                        frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
+
+                        setTimeout(function(){
+                            window.location.reload(); 
+                        }, 4000);       
+
+                    } else {
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Erro%20ao%20abrir%20chamado!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                    }
 
                 }   
 

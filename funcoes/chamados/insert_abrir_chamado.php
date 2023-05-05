@@ -44,7 +44,7 @@
 
         echo $query_insere_chamado;
 
-    }else{
+    }else {
 
         //DESCOBRINDO OS
         $query_descobre_os = "SELECT MAX(CD_CHAMADO) AS CD_OS
@@ -62,7 +62,7 @@
         ///////////////////////
 
         //CONEXAO FTP
-        include '../conexao_ftp.php'; 
+        include '../../conexao_ftp.php'; 
 
         //EXTENSOES PERMITIDAS
         $extensoes_autorizadas = array('.pdf');
@@ -77,8 +77,8 @@
         $sobrescrever = 0; //0 - NAO 1 - SIM
 
         //VERIFICA SE ALGUM ARQUIVO FOI SELECIONADO
-        if (!isset( $_FILES['arquivo']) ) {
-            echo "Nenhum arquivo selecionado!";
+        if (!empty($_FILES['arquivo']) ) {
+            echo "sucesso";
             //exit();
         }else{
 
@@ -111,11 +111,11 @@
             //}
 
             //CRIANDO NOVO DIRETORIO
-            echo $diretorio_os = $caminho . $var_cd_os . '/';
+            $diretorio_os = $caminho . $var_cd_os . '/';
 
             if (@ftp_mkdir($conexao_ftp, $diretorio_os)) {
 
-                echo 'Novo diretório criado com sucesso!';
+                //echo 'Novo diretório criado com sucesso!';
 
             } else {
 
@@ -133,7 +133,7 @@
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {
 
-                echo "Arquivo enviado com sucesso!";
+                //echo "Arquivo enviado com sucesso!";
                     
                 //RENOMEANDO ARQUIVO	
                 $renomear_diretorio_final = $diretorio_os . $nome_arquivo;	

@@ -26,7 +26,7 @@
 		//exit();	
 	}else{
 
-        echo 'Login efetuado com sucesso!';
+        //echo 'Login efetuado com sucesso!';
     }
 
 ?>
