@@ -8,7 +8,6 @@
     $var_msg = $_GET['msg'];
     $var_titulo = $_GET['titulo'];
     $var_grupo_dest = $_GET['grupo_dest'];
-    $var_dest = $_GET['dest'];
 
 ?>
 
@@ -41,7 +40,7 @@ Projeto desenvolvido pela equipe de Projetos da Santa Casa de São José dos Cam
 
 <br><br><br>
 	
-<img src='https://kpi.santacasasjc.com.br/img/santa_casa_sjc.gif' style='width: 20%; height: 16%;'>
+<img src='https://kpi.santacasasjc.com.br/img/santa_casa_sjc.gif' style='width: 20%; height: 12%;'>
 
 </br></br>";
 
@@ -107,9 +106,9 @@ if($var_grupo_dest == 'r'){
 
     $consulta_emails = "SELECT usu.CD_USUARIO, usu.NM_USUARIO, usu.EMAIL
                         FROM portal_comunica.USUARIO usu
-                        WHERE usu.CD_USUARIO IN (SELECT ch.CD_USUARIO_CADASTRO
+                        WHERE usu.CD_USUARIO IN (SELECT ch.CD_USUARIO_RESPONSAVEL
                                                 FROM portal_comunica.CHAMADO ch 
-                                                WHERE ch.CD_USUARIO_RESPONSAVEL = $var_cd_chamado)";
+                                                WHERE ch.CD_CHAMADO = $var_cd_chamado)";
     
 
     $res_emails = mysqli_query($conn, $consulta_emails);

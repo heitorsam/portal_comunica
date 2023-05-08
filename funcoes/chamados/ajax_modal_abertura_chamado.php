@@ -127,19 +127,32 @@
 
                     console.log(res);
 
-                    if (res == 'sucesso') {
+                    if (res != 'Erro') {
 
+                        ajax_envia_email(res,'Abertura de Chamado','Foi aberto um novo chamado para seu grupo.','g');
+                        
                         //MENSAGEM            
-                        var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
-                        var_tp_msg = 'alert-success';
+                        var_ds_msg = 'Enviando%20e-mail!';
+                        var_tp_msg = 'alert-primary';
                         $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
-                        // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
-                        frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
 
-                        setTimeout(function(){
-                            window.location.reload(); 
-                        }, 4000);       
+                        //AGUARDA 3 SEGUNDOS ANTES DE EXECUTAR OS COMANDOS ABAIXO
+                        setTimeout(function(){                    
+
+                            //MENSAGEM            
+                            var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
+                            var_tp_msg = 'alert-success';
+                            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                            // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
+                            frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
+
+                            setTimeout(function(){
+                                window.location.reload(); 
+                            }, 4000);       
+
+                        }, 3000);
 
                     } else {
 

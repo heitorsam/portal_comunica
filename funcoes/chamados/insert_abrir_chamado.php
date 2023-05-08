@@ -42,7 +42,10 @@
 
     if(!$valida){
 
-        echo $query_insere_chamado;
+        //echo $query_insere_chamado;
+
+        //SE ERRO 
+        $var_result_final = 'ERRO';
 
     }else {
 
@@ -56,6 +59,9 @@
         $row = mysqli_fetch_array($res_cd_os);
 
         $var_cd_os = $row['CD_OS'];
+
+        //SE TUDO OK 
+        $var_result_final = $var_cd_os;
 
         ///////////////////////
         //INICIO INSERCAO FTP//
@@ -78,7 +84,7 @@
 
         //VERIFICA SE ALGUM ARQUIVO FOI SELECIONADO
         if (!empty($_FILES['arquivo']) ) {
-            echo "sucesso";
+            //echo "sucesso";
             //exit();
         }else{
 
@@ -95,13 +101,13 @@
             //////////////
 
             if (!$sobrescrever && file_exists($destino) ) {
-                echo "Arquivo já existe!";
+                //echo "Arquivo já existe!";
                 //exit();
             }
 
             if ($limitar_tamanho && $limitar_tamanho < $tamanho_arquivo) {
                 
-                echo "Arquivo excede tamanho limite!";
+                //echo "Arquivo excede tamanho limite!";
                 //exit();
             }
 
@@ -120,7 +126,7 @@
             } else {
 
                 //NAO FAZ NADA (OBS O @ ANTES DO NOME DA FUNCAO IGNORA OS ERROS)
-                echo 'Erro ao criar diretório!';
+                //echo 'Erro ao criar diretório!';
 
             }	
 
@@ -128,7 +134,7 @@
             $nome_arquivo = $var_cd_os . '_' . $nome_arquivo;
 
             //DESTINO FINAL DIRETORIO + ARQUIVO
-            echo $diretorio_final = $diretorio_os . $nome_arquivo;
+            //echo $diretorio_final = $diretorio_os . $nome_arquivo;
                 
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {
@@ -149,7 +155,11 @@
                                             
             } else {
                 
-                echo "Erro ao enviar o arquivo!";		
+
+                //SE ERRO 
+                $var_result_final = 'ERRO';
+
+                //echo "Erro ao enviar o arquivo!";		
                 //echo 'Erro ao enviar arquivo!'; echo "</br></br>";
                 //echo  $conexao_ftp; echo "</br></br>";
                 //echo  $destino; echo "</br></br>";
@@ -166,5 +176,7 @@
         }
 
     }
+
+    echo $var_result_final;
 
 ?>
