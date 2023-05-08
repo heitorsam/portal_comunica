@@ -83,7 +83,7 @@
         $sobrescrever = 0; //0 - NAO 1 - SIM
 
         //VERIFICA SE ALGUM ARQUIVO FOI SELECIONADO
-        if (!empty($_FILES['arquivo']) ) {
+        if (empty($_FILES['arquivo']) ) {
             //echo "sucesso";
             //exit();
         }else{
@@ -134,7 +134,7 @@
             $nome_arquivo = $var_cd_os . '_' . $nome_arquivo;
 
             //DESTINO FINAL DIRETORIO + ARQUIVO
-            //echo $diretorio_final = $diretorio_os . $nome_arquivo;
+            $diretorio_final = $diretorio_os . $nome_arquivo;
                 
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {

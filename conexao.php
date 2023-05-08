@@ -9,5 +9,6 @@
 
 	//APENAS PARA FACILITAR DIREITORIO FTP
 	$diretorio_arquivos_ftp = "http://kpi.santacasasjc.com.br/";
+	//$diretorio_arquivos_ftp = "https://187.45.195.235/anexo_chamado/";
 	
 ?>
