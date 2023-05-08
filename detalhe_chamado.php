@@ -307,18 +307,41 @@
                 id_chamado: id_chamado
             },
             cache: false,
-            success(resp) {
+            success(res) {
 
-                //MENSAGEM            
-                var_ds_msg = 'Chamado%20recebido%20com%20sucesso!';
-                var_tp_msg = 'alert-success';
-    
-                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+                if (res != 'Erro') {
 
-                setTimeout(function(){
-                window.location.reload();
-                }, 4000);
-                               
+                    ajax_envia_email(res,'Recebimento de Chamado','Seu chamado foi recebido por um colaborador.','a');
+                            
+                    //MENSAGEM            
+                    var_ds_msg = 'Enviando%20e-mail!';
+                    var_tp_msg = 'alert-primary';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+
+                    //AGUARDA 3 SEGUNDOS ANTES DE EXECUTAR OS COMANDOS ABAIXO
+                    setTimeout(function(){     
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Chamado%20recebido%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+            
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+
+                        setTimeout(function(){
+                        window.location.reload();
+                        }, 4000);
+
+                    }, 3000);        
+                    
+                } else {
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20abrir%20chamado!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                }
 
             }
         })
@@ -334,20 +357,41 @@
                 id_chamado: id_chamado
             },
             cache: false,
-            success(resp) {
+            success(res) {
 
-                //MENSAGEM            
-                var_ds_msg = 'Chamado%20finalizado%20com%20sucesso!';
-                var_tp_msg = 'alert-success';
-    
-                $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+                if (res != 'Erro') {
+
+                    ajax_envia_email(res,'Chamado Encerrado','Seu chamado foi finalizado por um colaborador.','a');
+                            
+                    //MENSAGEM            
+                    var_ds_msg = 'Enviando%20e-mail!';
+                    var_tp_msg = 'alert-primary';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
 
-                setTimeout(function(){
-                window.location.reload();
-                }, 4000);
-                                
-                
+                    //AGUARDA 3 SEGUNDOS ANTES DE EXECUTAR OS COMANDOS ABAIXO
+                    setTimeout(function(){     
+
+                        //MENSAGEM            
+                        var_ds_msg = 'Chamado%20finalizado%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+ 
+                        $('#mensagem_acoes').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);                
+
+                        setTimeout(function(){
+                        window.location.reload();
+                        }, 4000);
+
+                    }, 3000);        
+
+                } else {
+
+                    //MENSAGEM            
+                    var_ds_msg = 'Erro%20ao%20abrir%20chamado!';
+                    var_tp_msg = 'alert-danger';
+                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+                }                                    
             }
         })
 
@@ -366,7 +410,15 @@
             data: formData,
             processData: false,
             contentType: false,
-            success(resp) {
+            success(res) {
+
+                console.log(res);
+
+                if(res != 'Erro'){
+
+                    ajax_envia_email(id_chamado,'Nova mensagem','Você recebeu uma nova mensagem no seu chamado.',res);
+
+                }                
 
                 input_mensagem.value = "";
                 $('#carrega_mensagens').load('funcoes/chamados/ajax_mensagens.php?id=' + id_chamado);

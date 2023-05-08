@@ -13,6 +13,15 @@
                               CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
                           WHERE CD_CHAMADO = $id_chamado";
 
-    mysqli_query($conn, $query_muda_status);
+    $valida = mysqli_query($conn, $query_muda_status);
+
+    if(!$valida){
+
+        echo 'Erro';
+        
+    }else{
+
+        echo $id_chamado;
+    }   
 
 ?>

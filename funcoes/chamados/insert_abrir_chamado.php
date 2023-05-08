@@ -45,7 +45,7 @@
         //echo $query_insere_chamado;
 
         //SE ERRO 
-        $var_result_final = 'ERRO';
+        $var_result_final = 'Erro';
 
     }else {
 
@@ -157,7 +157,7 @@
                 
 
                 //SE ERRO 
-                $var_result_final = 'ERRO';
+                //$var_result_final = 'ERRO';
 
                 //echo "Erro ao enviar o arquivo!";		
                 //echo 'Erro ao enviar arquivo!'; echo "</br></br>";

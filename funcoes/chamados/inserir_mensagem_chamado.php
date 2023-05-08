@@ -24,9 +24,27 @@
 
     $valida = mysqli_query($conn, $insert_mensagem_chamado);
 
+    //COLETANDO SE E QUEM ABRIU OU QUEM RECEBEU
+    $cons_tp_envio_email = "SELECT 
+                            CASE 
+                              WHEN ch.CD_USUARIO_CADASTRO = $cd_usuario_logado THEN 'r'
+                              WHEN ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado THEN 'a'
+                            ELSE 'Erro'
+                            END AS TP_ENVIO_EMAIL
+                            FROM portal_comunica.CHAMADO ch 
+                            WHERE ch.CD_CHAMADO = $id_chamado";
+
+    $result_tp_envio_email = mysqli_query($conn, $cons_tp_envio_email);
+
+    $row_tp_envio_email = mysqli_fetch_array($result_tp_envio_email);
+
+    //POR PADRAO OK
+    $var_result_final = $row_tp_envio_email['TP_ENVIO_EMAIL'];
+    
     if(!$valida){
 
-        echo 'Erro na consulta';
+        //ERRO
+        $var_result_final = 'Erro';
 
     } else {
 
@@ -61,8 +79,8 @@
         $sobrescrever = 0; //0 - NAO 1 - SIM
     
         //VERIFICA SE ALGUM ARQUIVO FOI SELECIONADO
-        if (!isset( $_FILES['arquivo_mensagem']) ) {
-            echo "Nenhum arquivo selecionado!";
+        if (!isset($_FILES['arquivo_mensagem']) ) {
+            //echo "Nenhum arquivo selecionado!";
             //exit();
         } else {
     
@@ -79,32 +97,32 @@
             //////////////
     
             if (!$sobrescrever && file_exists($destino) ) {
-                echo "Arquivo já existe!";
+                //echo "Arquivo já existe!";
                 //exit();
             }
     
             if ($limitar_tamanho && $limitar_tamanho < $tamanho_arquivo) {
                     
-                echo "Arquivo excede tamanho limite!";
+                //echo "Arquivo excede tamanho limite!";
                 //exit();
             }
     
             //if (!empty( $extensoes_autorizadas ) && ! in_array($extensao_arquivo,$extensoes_autorizadas) ) {
-                //echo "Tipo de arquivo não permitido!";
+                ////echo "Tipo de arquivo não permitido!";
                 //exit();
             //}
     
             //CRIANDO NOVO DIRETORIO
-            //echo $diretorio_os = $caminho . $var_cd_itchamado . '/';
+            ////echo $diretorio_os = $caminho . $var_cd_itchamado . '/';
             
             if (@ftp_mkdir($conexao_ftp, $diretorio_os)) {
 
-                echo 'Novo diretório criado com sucesso!';
+                //echo 'Novo diretório criado com sucesso!';
 
             } else {
 
                 //NAO FAZ NADA (OBS O @ ANTES DO NOME DA FUNCAO IGNORA OS ERROS)
-                echo 'Erro ao criar diretório!';
+                //echo 'Erro ao criar diretório!';
 
             }
 
@@ -114,11 +132,10 @@
             //DESTINO FINAL DIRETORIO + ARQUIVO
             $diretorio_final = $caminho . $nome_arquivo;
 
-
             //ENVIA O ARQUIVO PARA O FTP
             if (@ftp_put($conexao_ftp, $diretorio_final , $arquivo_temp, FTP_BINARY)) {
 
-                echo "Arquivo enviado com sucesso!";
+                //echo "Arquivo enviado com sucesso!";
                                 
                 //RENOMEANDO ARQUIVO	
                 $renomear_diretorio_final = $caminho . $nome_arquivo;	
@@ -133,15 +150,18 @@
             
                 mysqli_query($conn, $query_update_itchamado); 
 
-                echo 'CONSULTA: ' . $query_update_itchamado . ' ';
+                //echo 'CONSULTA: ' . $query_update_itchamado . ' ';
                                                         
             }  else {
-                
-                echo "Erro ao enviar o arquivo!";		
-                //echo 'Erro ao enviar arquivo!'; echo "</br></br>";
-                //echo  $conexao_ftp; echo "</br></br>";
-                //echo  $destino; echo "</br></br>";
-                //echo  $arquivo_temp; 
+
+                //ERRO
+                //var_result_final = 'Erro';
+
+                //echo "Erro ao enviar o arquivo!";		
+                ////echo 'Erro ao enviar arquivo!'; //echo "</br></br>";
+                ////echo  $conexao_ftp; //echo "</br></br>";
+                ////echo  $destino; //echo "</br></br>";
+                ////echo  $arquivo_temp; 
             }
 
             //ENCERRA CONEXAO FTP
@@ -154,6 +174,9 @@
         }
 
     }
+
+    echo $var_result_final;
+    //echo $cons_tp_envio_email;
 
 
 ?>
