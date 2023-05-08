@@ -8,8 +8,8 @@
     $servidor_ftp = '187.45.195.235';
 
     //USUARIO E SENHA
-    $usuario_ftp = 'portal_kpi@santacasasjc1';
-    $senha_ftp   = 'SJCSantaCasa@789';
+    $usuario_ftp = 'comunica@santacasasjc1';
+    $senha_ftp   = 'Locaweb102030@';
 
     ///////////////
 	//CONEXAO FTP//	
