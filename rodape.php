@@ -72,3 +72,5 @@
  }
 
 </script>
+
+<script src="email/script_envio_email.js"></script>
