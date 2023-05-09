@@ -54,7 +54,7 @@
 
                 if ($ch_abertos == 0 && $ch_recebidos == 0 && $qtd_grupos == 0) {
 
-                    echo '<select id="empresa_edicao" name="empresa" class="form form-control">';
+                    echo '<select edit id="empresa_edicao" name="empresa" class="form form-control">';
     
                     echo '</select>';
 
@@ -116,10 +116,14 @@
 
     function ajax_editar_usuario(event) {
 
-        empresa = document.getElementById('empresa_edicao')
+        var empresa = document.getElementById('empresa_edicao');
 
         // REMOVE O DISABLED PARA PODER ENVIAR O FORM COM A EMPRESA ATUAL
-        empresa.removeAttribute('disabled');
+        if (!empresa.hasAttribute('edit')) {
+
+            empresa.removeAttribute('disabled');
+
+        }
 
         // VALIDAÇÕES
         var frm_email_editar = document.getElementById('email_editar'); if(frm_email_editar.value == ''){ frm_email_editar.focus(); }
@@ -141,7 +145,12 @@
                 contentType: false,
                 success(res) {
 
-                    empresa.setAttribute("disabled", "disabled");
+                    // VERIFICA SE EXISTE O ATRIBUTO 'EDIT', CASO NÃO TENHA DESABILITA A OPÇÃO DE EDIÇÃO APÓS A ALTERAÇÃO
+                    if (!empresa.hasAttribute('edit')) {
+
+                        empresa.setAttribute("disabled", "disabled");
+
+                    }
 
                     if (res == 'sucesso') {
 
@@ -160,6 +169,7 @@
                     } else {
 
                         console.log(res);
+                        //console.log(res);
 
                         //MENSAGEM            
                         var_ds_msg = 'Ocorreu%20um%20erro!';

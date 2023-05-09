@@ -1,7 +1,7 @@
 <?php
 
 //Se o usuário não for admin
-if($_SESSION['tp_usuario'] <> 'A' || $_SESSION['tp_usuario'] <> 'T'){
+if($_SESSION['tp_usuario'] <> 'A' && $_SESSION['tp_usuario'] <> 'T'){
 
 	unset(
 		$_SESSION['nomeusuario'],

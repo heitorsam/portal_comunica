@@ -88,7 +88,9 @@
                         $_SESSION['nomeusuario'] = $nm_usuario;
                         $_SESSION['cd_empresa_usuario_logado'] = $empresa;
                 
-                    }
+                    } 
+
+                    echo 'sucesso';
 
                 }
         
