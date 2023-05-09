@@ -36,7 +36,7 @@
         <div class="col-md-3 esconde">
 
             CPF:
-            <input value="<?php echo $usuario_editavel['CPF']; ?>" id="cpf_editar" name="cpf" type="text" class="form form-control" placeholder="CPF">
+            <input value="<?php echo $usuario_editavel['CPF']; ?>" id="cpf_editar" name="cpf" type="text" class="form form-control" placeholder="CPF" readonly>
 
         </div>
 

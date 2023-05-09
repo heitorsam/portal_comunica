@@ -89,7 +89,7 @@
             <div class="col-md-2">
 
                 <br>
-                <a class="btn btn-primary" onclick="adicionar_usuario()"><i class="fa-solid fa-plus"></i> Adicionar</a>
+                <a class="btn btn-primary" onclick="valida_cpf()"><i class="fa-solid fa-plus"></i> Adicionar</a>
 
             </div>
 
@@ -150,6 +150,44 @@
 
         // CARREGA TODAS AS EMPRESAS NO SELECT
         $('#empresa').load('funcoes/empresa/ajax_carregar_empresas.php');
+
+    }
+
+    function valida_cpf(){
+
+        var js_cpf = document.getElementById('cpf').value;
+
+        
+        $.ajax({
+                url: "funcoes/usuario/ajax_valida_cpf_duplicado.php",
+                type: "GET",
+                data:{
+                    valor_cpf : js_cpf
+                },
+                cache: false,
+                success(res) {
+
+                    if(res == 'S'){
+
+                        adicionar_usuario();
+
+                    }else{
+
+                        //MENSAGEM            
+                        var_ds_msg = 'CPF%20já%20cadastrado!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+
+                        document.getElementById('cpf').value = '';
+
+                        document.getElementById('cpf').focus();
+
+                    }
+
+                }   
+
+            });
+
 
     }
 
