@@ -55,7 +55,8 @@ $row_mensagens = mysqli_num_rows($res);
                     echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:right; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
                     echo '<div class="mensagem_chat_usu">' . $row['DS_MENSAGEM'];
 
-                    echo '</br><a target="_blank" style="color: #3185c1; font-size: 12px; text-decoration: none;" href="' . $diretorio_arquivos_ftp . $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
+                    echo '</br><a target="_blank" style="color: #3185c1; font-size: 12px; text-decoration: none;" 
+                    href="baixar_ftp.php?diretorio=' . $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
                                         
                     echo '</div>';     
 
@@ -67,12 +68,13 @@ $row_mensagens = mysqli_num_rows($res);
         
                     echo '<div class="div_br"> </div>';
                     echo '<div class="div_br"> </div>';
-        
+  
                     // MENSAGEM
                     echo '<img alt="teste_img" class="foto_usu" style="width:50px; height: 50px; float:left; margin-left: 10px; border-radius: 30px; border-color: #d6eaf8 !important; border: solid 2px; opacity: 30%;" src="img/outros/usuario.png">';
                     echo '<div style="float:left;" class="mensagem_chat_usu">' . $row['DS_MENSAGEM'];
                     
-                    echo '</br><a target="_blank" style="color: #3185c1; font-size: 12px; text-decoration: none;" href="' . $diretorio_arquivos_ftp . $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
+                    echo '</br><a target="_blank" style="color: #3185c1; font-size: 12px; text-decoration: none;" 
+                    href="baixar_ftp.php?diretorio=' . $row['ANEXO'] . '">'. $row['ANEXO'] .'</a>';
                     
                     echo '</div>';   
 

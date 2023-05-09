@@ -145,7 +145,9 @@
 
                 <?php if(isset($row[8])){ ?>
 
-                    <a target="_blank" href="<?php echo $diretorio_arquivos_ftp . $row[8]; ?>" class="btn btn-primary"><i class="fa-solid fa-download"></i> Anexo</a>
+                    <a target="_blank" 
+                    href="<?php echo 'baixar_ftp.php?diretorio=' . $row[8]; ?>" 
+                    class="btn btn-primary"><i class="fa-solid fa-download"></i> Anexo</a>
 
                 <?php }else{ ?>
 
