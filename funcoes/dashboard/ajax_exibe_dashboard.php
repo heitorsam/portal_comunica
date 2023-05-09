@@ -40,7 +40,6 @@
 
     <div style="max-width:70%; height: 400px; margin: 0 auto; text-align: center;">
 
-        <div class="div_br"> </div>
         <h11><i class="fa-solid fa-chart-column efeito-zoom"></i> Solicitações </h11>
         <div class="div_br"> </div>
 
@@ -157,7 +156,6 @@
 
     <div style="max-width:70%; height: 400px; margin: 0 auto; text-align: center;">
 
-        <div class="div_br"> </div>
         <h11><i class="fa-solid fa-chart-column efeito-zoom"></i> Meus Chamados </h11>
         <div class="div_br"> </div>
 
