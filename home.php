@@ -300,10 +300,9 @@
 
             //DASHBOARD
 
-            $("#resultados_ajax").load("meus_chamados.php", function() {
+            $("#resultados_ajax").load("dashboard.php", function() {
 
-
-                alert(periodo + ' | ' + usu + ' | ' + os);
+                $('#carrega_dashboard').load('funcoes/dashboard/ajax_exibe_dashboard.php?periodo=' + periodo + '&usu=' + usu);
 
             });
 
