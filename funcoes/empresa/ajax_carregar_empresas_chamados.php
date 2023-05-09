@@ -11,11 +11,9 @@
                                   WHERE emp.CD_EMPRESA NOT IN (SELECT usu.CD_EMPRESA 
                                                                FROM portal_comunica.USUARIO usu
                                                                WHERE usu.CD_USUARIO = '$var_cd_usu')
-                                  ORDER BY emp.CD_EMPRESA DESC";
+                                  ORDER BY emp.DS_EMPRESA ASC";
 
     $res = mysqli_query($conn, $cons_listar_empresas);
-
-    echo '<option value="" data-default disabled selected></option>';
     
     while ($row = mysqli_fetch_array($res)){
         

@@ -111,68 +111,95 @@
         var frm_dt_prevista = document.getElementById('frm_dt_prevista'); if(frm_dt_prevista.value == ''){ frm_dt_prevista.focus(); }
         var frm_observacao = document.getElementById('frm_observacao'); if(frm_observacao.value == ''){ frm_observacao.focus(); }
 
-        // VERIFICA NENHUM CAMPO ESTÁ VAZIO ANTES DE ABRIR UM CHAMADO
-        if(frm_descricao.value != '' && frm_empresa.value != '' && frm_grupo.value != '' && frm_prioridade.value != '' && frm_dt_prevista.value != '' && frm_observacao.value != '') {
+        // VALIDANDO DATA
+        var data_atual = new Date();
+        var data_prevista = new Date(frm_dt_prevista.value);
 
-            var form = document.getElementById('form_chamado');
-            var formData = new FormData(form);
+        if (data_atual.getFullYear() > data_prevista.getFullYear()) {
 
-            $.ajax({
-                url: "funcoes/chamados/insert_abrir_chamado.php",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success(res) {
+            prossegue_abertura_chamado();
 
-                    console.log(res);
+        } else if (data_atual.getFullYear() == data_prevista.getFullYear() &&
+                    (data_atual.getMonth() < 9 || data_atual.getDate() < 9) && data_atual < data_prevista) {
 
-                    if (res != 'Erro') {
-
-                        ajax_envia_email(res,'Abertura de Chamado','Foi aberto um novo chamado para seu grupo.','g');
-                        
-                        //MENSAGEM            
-                        var_ds_msg = 'Enviando%20e-mail!';
-                        var_tp_msg = 'alert-primary';
-                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-
-                        //AGUARDA 3 SEGUNDOS ANTES DE EXECUTAR OS COMANDOS ABAIXO
-                        setTimeout(function(){                    
-
-                            //MENSAGEM            
-                            var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
-                            var_tp_msg = 'alert-success';
-                            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-                            // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
-                            frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
-
-                            setTimeout(function(){
-                                window.location.reload(); 
-                            }, 4000);       
-
-                        }, 3000);
-
-                    } else {
-
-                        //MENSAGEM            
-                        var_ds_msg = 'Erro%20ao%20abrir%20chamado!';
-                        var_tp_msg = 'alert-danger';
-                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-                    }
-
-                }   
-
-            });
+            prossegue_abertura_chamado();
 
         } else {
 
             //MENSAGEM            
-            var_ds_msg = 'Preencha%20todos%20os%20campos!';
+            var_ds_msg = 'Data%20deve%20ser%20maior%20que%20a%20data%20atual!';
             var_tp_msg = 'alert-danger';
             $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+
+        }
+        
+        // VERIFICA NENHUM CAMPO ESTÁ VAZIO ANTES DE ABRIR UM CHAMADO
+        function prossegue_abertura_chamado() {
+
+            if(frm_descricao.value != '' && frm_empresa.value != '' && frm_grupo.value != '' && frm_prioridade.value != '' && frm_dt_prevista.value != '' && frm_observacao.value != '') {
+    
+                var form = document.getElementById('form_chamado');
+                var formData = new FormData(form);
+    
+                $.ajax({
+                    url: "funcoes/chamados/insert_abrir_chamado.php",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success(res) {
+    
+                        console.log(res);
+    
+                        if (res != 'Erro') {
+    
+                            ajax_envia_email(res,'Abertura de Chamado','Foi aberto um novo chamado para seu grupo.','g');
+                            
+                            //MENSAGEM            
+                            var_ds_msg = 'Enviando%20e-mail!';
+                            var_tp_msg = 'alert-primary';
+                            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+    
+    
+                            //AGUARDA 3 SEGUNDOS ANTES DE EXECUTAR OS COMANDOS ABAIXO
+                            setTimeout(function(){                    
+    
+                                //MENSAGEM            
+                                var_ds_msg = 'Chamado%20aberto%20com%20sucesso!';
+                                var_tp_msg = 'alert-success';
+                                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+    
+                                // LIMPANDO OS CAMPOS APÓS O CADASTRO CONCLUÍDO COM SUCESSO
+                                frm_descricao.value = ''; frm_empresa.value = ''; frm_grupo.value = ''; frm_prioridade.value = ''; frm_dt_prevista.value = ''; frm_observacao.value = ''; frm_arquivo.value = '';
+    
+                                setTimeout(function(){
+                                    window.location.reload(); 
+                                }, 4000);       
+    
+                            }, 3000);
+    
+                        } else {
+    
+                            //MENSAGEM            
+                            var_ds_msg = 'Erro%20ao%20abrir%20chamado!';
+                            var_tp_msg = 'alert-danger';
+                            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+    
+                        }
+    
+                    }   
+    
+                });
+    
+            } else {
+    
+                //MENSAGEM            
+                var_ds_msg = 'Preencha%20todos%20os%20campos!';
+                var_tp_msg = 'alert-danger';
+                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
+    
+            }
+
 
         }
     }
