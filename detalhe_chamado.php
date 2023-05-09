@@ -72,6 +72,9 @@
 
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
+    //APENAS GRUPOS PERTENCENTES
+    include 'acesso_restrito_grupos.php';
+
     // PEGA O TP STATUS DO CHAMADO E O GRUPO PARA QUAL FOI SOLICITADO
     $cons_tp_status_grupo = "SELECT TP_STATUS, 
                               CD_GRUPO

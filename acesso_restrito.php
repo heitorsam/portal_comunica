@@ -1,17 +1,14 @@
 <?php
 
 	// Se o usuário não está logado, manda para página de login.
-	if (!isset($_SESSION['usuarioNome'])){
+	if (!isset($_SESSION['cd_usu'])){
 		
 		unset(
-			$_SESSION['usuarioLogin'],
-			$_SESSION['usuarioNome'],
-			$_SESSION['usuariocpf'],
-			$_SESSION['permissao'],
-			$_SESSION['sn_admin'],
-			$_SESSION['sn_lancamento'],
-			$_SESSION['sn_cadastro'],
-			$_SESSION['sn_usuario_comum']			
+			$_SESSION['nomeusuario'],
+			$_SESSION['cd_usu'],		
+			$_SESSION['cd_empresa_usuario_logado'],
+			$_SESSION['tp_usuario'],
+			$_SESSION['msgerro']
 		);
 		
 		$_SESSION['msgerro'] = "Sessão expirada!";

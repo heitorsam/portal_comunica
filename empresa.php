@@ -2,6 +2,9 @@
 
     include 'cabecalho.php';
 
+    //ACESSO RESTRITO ADM
+    include 'acesso_restrito_adm.php';
+
     //AJAX ALERTA
     include 'config/mensagem/ajax_mensagem_alert.php';
     

@@ -2,6 +2,9 @@
 
     include 'cabecalho.php';
 
+    //ACESSO RESTRITO ADM
+    include 'acesso_restrito_adm.php';
+
     //echo 'cd_empresa: ' . $_SESSION['cd_empresa_usuario_logado'];
 
     //AJAX ALERTA

@@ -1,13 +1,14 @@
 <?php
 
 //Se o usuário não for admin
-if($_SESSION['papel_sesmt_adm'] == 'N'){
+if($_SESSION['tp_usuario'] <> 'A' || $_SESSION['tp_usuario'] <> 'T'){
 
 	unset(
-		$_SESSION['usuarioLogin'],
-		$_SESSION['usuarioNome'],
-		$_SESSION['papel_sesmt'],
-		$_SESSION['papel_sesmt_adm']
+		$_SESSION['nomeusuario'],
+		$_SESSION['cd_usu'],		
+		$_SESSION['cd_empresa_usuario_logado'],
+		$_SESSION['tp_usuario'],
+		$_SESSION['msgerro']
 	);
 
 	$_SESSION['msgerro'] = "Usuário sem permissão de administrador!";

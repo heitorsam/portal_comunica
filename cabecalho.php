@@ -15,7 +15,7 @@
 
 
     //ACESSO RESTRITO
-    //include 'acesso_restrito.php';
+    include 'acesso_restrito.php';
 ?>
 
 <!DOCTYPE html>
@@ -75,14 +75,28 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
 
                             <!--MENU-->    
+
+                            <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> Portal</a> 
+                            <a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
                             
                             <!--ADM-->    
+                            <?php 
+
+                                if($_SESSION['tp_usuario'] == 'A' || $_SESSION['tp_usuario'] == 'T'){
+
+                            ?>
+
                             <a class="dropdown-item" style="background-color: #f5f5f5;" href="javascript:void(0)"><i class="fa-solid fa-user-gear"></i> Administrativo</a> 
-                            <a class="dropdown-item" href="home.php"><i class="fas fa-home"></i> Home</a>
                             <a class="dropdown-item" href="cadastro_usuario.php"><i class="fa-solid fa-users"></i> Usuários</a>
                             <a class="dropdown-item" href="grupo.php"><i class="fa-solid fa-folder-tree"></i> Grupos</a>
                             <a class="dropdown-item" href="empresa.php"><i class="fa-solid fa-building"></i> Empresas</a>
                         
+                            <?php 
+
+                                }
+                            ?>
+
+
                         </div>
                     </li>
                 </div>
