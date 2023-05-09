@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css">
 
     <!--GRAFICOS CHART JS -->
-    <script src="js/chartjs_3_7_1.min"> </script>
+    <script src="js/chartjs_3_7_1.min.js"> </script>
 
 </head>
 <body>
