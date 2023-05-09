@@ -133,42 +133,56 @@
 
         var ds_novo_grupo = document.getElementById('ds_novo_grupo').value;
 
-        $.ajax({
-            url: "funcoes/grupo/incluir_grupo.php",
-            method: "POST",
-            data: {
-                novo_grupo: ds_novo_grupo
-            },
-            cache: false,
-            success(res) {
+        // REALIZA VERIFICAÇÕES PARA INSERIR UM NOVO GRUPO APENAS COM VALOR
+        if (ds_novo_grupo == '') { document.getElementById('ds_novo_grupo').focus(); }
 
-                // LIMPA O CAMPO APÓS A CONCLUSÃO
-                document.getElementById('ds_novo_grupo').value = '';
+        if (ds_novo_grupo == '') {
+     
+            var_ds_msg = 'Necessário%20preencher%20os%20campos!';
+            var_tp_msg = 'alert-danger';
 
-                // RECARREGA A TABELA DOS GRUPOS
-                $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
+            $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
 
-                if(res == 'sucesso'){
-
-                    //MENSAGEM            
-                    var_ds_msg = 'Grupo%20incluído%20com%20sucesso!';
-                    var_tp_msg = 'alert-success';
-                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
-                }else{
-
-                    
-                    console.log(res);
-
-                    //MENSAGEM            
-                    var_ds_msg = 'Ocorreu%20um%20erro!';
-                    var_tp_msg = 'alert-danger';
-                    $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
-
+        } else {
+            
+            $.ajax({
+                url: "funcoes/grupo/incluir_grupo.php",
+                method: "POST",
+                data: {
+                    novo_grupo: ds_novo_grupo
+                },
+                cache: false,
+                success(res) {
+            
+                    // LIMPA O CAMPO APÓS A CONCLUSÃO
+                    document.getElementById('ds_novo_grupo').value = '';
+            
+                    // RECARREGA A TABELA DOS GRUPOS
+                    $('#carrega_grupos').load('funcoes/grupo/ajax_tabela_grupos.php');
+            
+                    if(res == 'sucesso'){
+            
+                        //MENSAGEM            
+                        var_ds_msg = 'Grupo%20incluído%20com%20sucesso!';
+                        var_tp_msg = 'alert-success';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            
+                    }else{
+            
+                                
+                        console.log(res);
+            
+                        //MENSAGEM            
+                        var_ds_msg = 'Ocorreu%20um%20erro!';
+                        var_tp_msg = 'alert-danger';
+                        $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg);
+            
+                    }
+                                           
                 }
-                               
-            }
-        });
+            });
+
+        }
 
     }
 
