@@ -45,7 +45,7 @@
                                 HR_CADASTRO)
                                 VALUES 
                                     (
-                                    '$nome',
+                                    UPPER('$nome'),
                                     '$data_nasc',
                                     '$email',
                                     '$foto',

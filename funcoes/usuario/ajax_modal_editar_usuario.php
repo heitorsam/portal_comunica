@@ -82,9 +82,22 @@
 
             Tipo de Usuário:
             <select id="tp_usuario" name="tp_usuario" class="form form-control">
-    
-                <option value="C">Comum</option>
-                <option value="A">Administrador</option>
+                
+                <?php
+                    // VERIFICA O TIPO DE USUÁRIO PARA TRAZER EM PRIMEIRO
+                    if ($usuario_editavel['TP_USUARIO'] == 'C') {
+
+                        echo '<option value="C">Comum</option>';
+                        echo '<option value="A">Administrador</option>';
+
+                    } else {
+
+                        echo '<option value="A">Administrador</option>';
+                        echo '<option value="C">Comum</option>';
+
+                    }
+                ?>
+
 
             </select>
 
