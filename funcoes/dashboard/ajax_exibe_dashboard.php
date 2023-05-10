@@ -14,8 +14,14 @@
     
     //GRAFICO GERAL POR PRESTADOR
     $cons_geral_sol = "SELECT DATE_FORMAT(ch.HR_CADASTRO,'%m/%Y') AS PERIODO, 
-                   COUNT(ch.CD_CHAMADO) AS QTD_ABERTOS,
-                   
+                   COUNT(ch.CD_CHAMADO) AS QTD_TODOS,
+
+                   (SELECT COUNT(ch.CD_CHAMADO) AS QTD_ABERTOS
+                   FROM portal_comunica.CHAMADO ch 
+                   WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
+                   AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
+                   AND ch.TP_STATUS = 'A') AS QTD_ABERTOS,                  
+                                      
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_EM_EXECUCAO
                    FROM portal_comunica.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
@@ -31,7 +37,6 @@
                    FROM portal_comunica.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
-                   AND ch.TP_STATUS = 'A'
                    GROUP BY DATE_FORMAT(ch.HR_CADASTRO,'%m/%Y')";
 
     //echo $cons_geral_sol;

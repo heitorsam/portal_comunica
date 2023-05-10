@@ -6,6 +6,7 @@
 
     $cd_usuario_logado = $_SESSION['cd_usu'];
     $mensagem = $_POST['mensagem'];
+    $mensagem = str_replace("'","",$mensagem);
     $id_chamado = $_POST['id_chamado'];
 
     $insert_mensagem_chamado = "INSERT INTO portal_comunica.ITCHAMADO (CD_CHAMADO,

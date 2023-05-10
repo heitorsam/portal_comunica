@@ -8,9 +8,6 @@
 
 <input id="input_usu_logado" value="<?php echo $_SESSION['cd_usu']; ?>" hidden>
  
-    <h11><i class="fa-solid fa-list efeito-zoom" aria-hidden="true"></i> Home</h11>
-    <div class='espaco_pequeno'></div>
-    
     <!-- <h27><a onclick="alert('teste')" style="color: #555555; text-decoration: none; cursor: pointer;"><i class="fa-solid fa-filter"></i></a></h27> -->
     <!--</br> </br> <button class="btn btn-primary" 
     onclick="ajax_envia_email('56','Abertura de Chamado','Foi aberto um novo chamado ao seu grupo pertencente.','r')">
