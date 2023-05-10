@@ -112,28 +112,8 @@
         var frm_descricao = document.getElementById('frm_descricao'); if(frm_descricao.value == ''){ frm_descricao.focus(); }
 
         if(frm_descricao.value != '' && frm_empresa.value != '' && frm_grupo.value != '' && frm_prioridade.value != '' && frm_dt_prevista.value != '' && frm_observacao.value != '') {
-
-            // VALIDANDO DATA
-            var data_atual = new Date();
-            var data_prevista = new Date(frm_dt_prevista.value);
-
-            if (data_atual.getFullYear() > data_prevista.getFullYear()) {
-
-                prossegue_abertura_chamado();
-
-            } else if (data_atual.getFullYear() == data_prevista.getFullYear() &&
-                        (data_atual.getMonth() < 9 || data_atual.getDate() < 9) && data_atual < data_prevista) {
-
-                prossegue_abertura_chamado();
-
-            } else {
-
-                //MENSAGEM            
-                var_ds_msg = 'Data%20deve%20ser%20maior%20que%20a%20data%20atual!';
-                var_tp_msg = 'alert-danger';
-                $('#mensagem_acao').load('config/mensagem/ajax_mensagem_acoes.php?ds_msg='+var_ds_msg+'&tp_msg='+var_tp_msg); 
-
-            }
+                   
+            prossegue_abertura_chamado();            
 
         } else {
 

@@ -424,6 +424,7 @@
                 }                
 
                 input_mensagem.value = "";
+                document.getElementById("frm_arquivo_mensagem").value = "";
                 $('#carrega_mensagens').load('funcoes/chamados/ajax_mensagens.php?id=' + id_chamado);
 
             }
