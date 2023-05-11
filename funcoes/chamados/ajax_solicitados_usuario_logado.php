@@ -15,30 +15,30 @@
 
     $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
                               DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                              FROM portal_comunica.CHAMADO ch
-                              INNER JOIN portal_comunica.USUARIO usu
+                              FROM bd_comunic.CHAMADO ch
+                              INNER JOIN bd_comunic.USUARIO usu
                                 ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                              INNER JOIN portal_comunica.EMPRESA emp
+                              INNER JOIN bd_comunic.EMPRESA emp
                                 ON emp.CD_EMPRESA = ch.CD_EMPRESA
                               WHERE ch.TP_STATUS = 'A'
                               AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";
 
     $cons_chamados_execucao = "SELECT ch.*, usu.*, emp.*, 
                                DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                               FROM portal_comunica.CHAMADO ch
-                               INNER JOIN portal_comunica.USUARIO usu
+                               FROM bd_comunic.CHAMADO ch
+                               INNER JOIN bd_comunic.USUARIO usu
                                  ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                               INNER JOIN portal_comunica.EMPRESA emp
+                               INNER JOIN bd_comunic.EMPRESA emp
                                  ON emp.CD_EMPRESA = ch.CD_EMPRESA
                                WHERE ch.TP_STATUS = 'E'
                                AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";
     
     $cons_chamados_concluidos = "SELECT ch.*, usu.*, emp.*, 
                                  DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
-                                 FROM portal_comunica.CHAMADO ch
-                                 INNER JOIN portal_comunica.USUARIO usu
+                                 FROM bd_comunic.CHAMADO ch
+                                 INNER JOIN bd_comunic.USUARIO usu
                                  ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                 INNER JOIN portal_comunica.EMPRESA emp
+                                 INNER JOIN bd_comunic.EMPRESA emp
                                  ON emp.CD_EMPRESA = ch.CD_EMPRESA
                                  WHERE ch.TP_STATUS = 'C'
                                  AND DATE(ch.HR_CADASTRO) LIKE '$periodo%' ";

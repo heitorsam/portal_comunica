@@ -7,7 +7,7 @@
     $ds_empresa_nova = $_POST['ds_nova_empresa'];
     $cd_usu_logado = $_SESSION['cd_usu'];
 
-    $cons_cad_empresa = "INSERT INTO portal_comunica.EMPRESA (
+    $cons_cad_empresa = "INSERT INTO bd_comunic.EMPRESA (
                                     CD_EMPRESA,
                                     DS_EMPRESA,
                                     CD_USUARIO_CADASTRO,

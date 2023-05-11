@@ -10,13 +10,13 @@
     $cons_buscar_grupos = "SELECT CD_GRUPO,                           
                                 DS_GRUPO,                           
                                 (SELECT COUNT(CD_CHAMADO) 
-                                FROM portal_comunica.CHAMADO ch
+                                FROM bd_comunic.CHAMADO ch
                                 WHERE CD_GRUPO = grp.CD_GRUPO
                                     AND ch.TP_STATUS IN ('A', 'E')) AS QTD_CHAMADOS,
                                 (SELECT COUNT(CD_USUARIO)
-                                FROM portal_comunica.GRUPO_USUARIO grpusu
+                                FROM bd_comunic.GRUPO_USUARIO grpusu
                                 WHERE grpusu.CD_GRUPO = grp.CD_GRUPO) AS QTD_USUARIOS
-                            FROM portal_comunica.GRUPO grp
+                            FROM bd_comunic.GRUPO grp
                             WHERE grp.CD_EMPRESA = $cd_empresa_usuario_logado
                             ORDER BY CD_GRUPO DESC";
 

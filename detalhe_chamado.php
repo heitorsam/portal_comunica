@@ -78,7 +78,7 @@
     // PEGA O TP STATUS DO CHAMADO E O GRUPO PARA QUAL FOI SOLICITADO
     $cons_tp_status_grupo = "SELECT TP_STATUS, 
                               CD_GRUPO
-                            FROM portal_comunica.CHAMADO
+                            FROM bd_comunic.CHAMADO
                             WHERE CD_CHAMADO = $id_chamado";
 
     $res_status_grupo = mysqli_query($conn, $cons_tp_status_grupo);
@@ -88,10 +88,10 @@
     // IDENTIFICAR SE O USUÁRIO PERTENCE AO GRUPO SOLICITADO DO CHAMADO
     $cons_grupo_chamado_usuario = "SELECT grupo_chamado.CD_GRUPO
                                     FROM (SELECT CD_GRUPO
-                                        FROM portal_comunica.CHAMADO
+                                        FROM bd_comunic.CHAMADO
                                         WHERE CD_CHAMADO = $id_chamado) AS grupo_chamado
                                     WHERE grupo_chamado.CD_GRUPO IN (SELECT CD_GRUPO
-                                                                    FROM portal_comunica.GRUPO_USUARIO
+                                                                    FROM bd_comunic.GRUPO_USUARIO
                                                                     WHERE CD_USUARIO = $cd_usuario_logado)";
     
     $res_cons_grupo = mysqli_query($conn, $cons_grupo_chamado_usuario);

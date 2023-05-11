@@ -7,14 +7,14 @@
     $cons_usuarios_grupo = "SELECT usu.NM_USUARIO,
                                    usu.CD_USUARIO,
                                     (SELECT COUNT(CD_CHAMADO)
-                                    FROM portal_comunica.CHAMADO ch
+                                    FROM bd_comunic.CHAMADO ch
                                     WHERE ch.CD_USUARIO_RESPONSAVEL = usu.CD_USUARIO
                                         AND ch.TP_STATUS = 'E'
                                         AND ch.CD_GRUPO = $id_grupo) AS QNTD_CHAMADOS
-                                FROM portal_comunica.GRUPO_USUARIO grpusu
-                                INNER JOIN portal_comunica.USUARIO usu
+                                FROM bd_comunic.GRUPO_USUARIO grpusu
+                                INNER JOIN bd_comunic.USUARIO usu
                                 ON grpusu.CD_USUARIO = usu.CD_USUARIO
-                                INNER JOIN portal_comunica.GRUPO grp
+                                INNER JOIN bd_comunic.GRUPO grp
                                 ON grpusu.CD_GRUPO = grp.CD_GRUPO
                                 WHERE grp.CD_GRUPO = $id_grupo";
 

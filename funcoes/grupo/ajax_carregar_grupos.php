@@ -6,7 +6,7 @@
 
     $query_pegar_grupos_empresa = "SELECT grp.CD_GRUPO,
                                           grp.DS_GRUPO
-                                   FROM portal_comunica.GRUPO grp
+                                   FROM bd_comunic.GRUPO grp
                                    WHERE grp.CD_EMPRESA = $id_empresa
                                    ORDER BY grp.DS_GRUPO ASC";
 

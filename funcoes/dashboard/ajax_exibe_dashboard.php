@@ -17,24 +17,24 @@
                    COUNT(ch.CD_CHAMADO) AS QTD_TODOS,
 
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_ABERTOS
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
                    AND ch.TP_STATUS = 'A') AS QTD_ABERTOS,                  
                                       
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_EM_EXECUCAO
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
                    AND ch.TP_STATUS = 'E') AS QTD_EM_EXECUCAO,                   
                    
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_CONCLUIDOS
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
                    AND ch.TP_STATUS = 'C') AS QTD_CONCLUIDOS
 
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_CADASTRO = $var_usuario_logado
                    GROUP BY DATE_FORMAT(ch.HR_CADASTRO,'%m/%Y')";
@@ -138,18 +138,18 @@
                    COUNT(ch.CD_CHAMADO) AS QTD_ABERTOS,
                    
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_EM_EXECUCAO
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_RESPONSAVEL = $var_usuario_logado
                    AND ch.TP_STATUS = 'E') AS QTD_EM_EXECUCAO,                   
                    
                    (SELECT COUNT(ch.CD_CHAMADO) AS QTD_CONCLUIDOS
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_RESPONSAVEL = $var_usuario_logado
                    AND ch.TP_STATUS = 'C') AS QTD_CONCLUIDOS
 
-                   FROM portal_comunica.CHAMADO ch 
+                   FROM bd_comunic.CHAMADO ch 
                    WHERE DATE_FORMAT(ch.HR_CADASTRO,'%Y-%m') = '$var_periodo' 
                    AND ch.CD_USUARIO_RESPONSAVEL = $var_usuario_logado
                    AND ch.TP_STATUS IN ('C','E')

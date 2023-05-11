@@ -7,15 +7,15 @@
     include '../../conexao.php';
 
     echo $cons_listar_empresas = "SELECT emp.CD_EMPRESA, emp.DS_EMPRESA 
-                                  FROM portal_comunica.EMPRESA emp
-                                  WHERE emp.CD_EMPRESA IN (SELECT usu.CD_EMPRESA FROM portal_comunica.USUARIO usu WHERE usu.CD_USUARIO = '$var_cd_usu_edicao')
+                                  FROM bd_comunic.EMPRESA emp
+                                  WHERE emp.CD_EMPRESA IN (SELECT usu.CD_EMPRESA FROM bd_comunic.USUARIO usu WHERE usu.CD_USUARIO = '$var_cd_usu_edicao')
                                   
                                   UNION ALL
                                   
                                   SELECT res.*
                                   FROM(SELECT emp.CD_EMPRESA, emp.DS_EMPRESA 
-                                       FROM portal_comunica.EMPRESA emp
-                                       WHERE emp.CD_EMPRESA NOT IN (SELECT usu.CD_EMPRESA FROM portal_comunica.USUARIO usu WHERE usu.CD_USUARIO = '$var_cd_usu_edicao')
+                                       FROM bd_comunic.EMPRESA emp
+                                       WHERE emp.CD_EMPRESA NOT IN (SELECT usu.CD_EMPRESA FROM bd_comunic.USUARIO usu WHERE usu.CD_USUARIO = '$var_cd_usu_edicao')
                                        ORDER BY emp.DS_EMPRESA ASC) res
                                   ";
 

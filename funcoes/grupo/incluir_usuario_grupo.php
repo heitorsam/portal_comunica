@@ -8,7 +8,7 @@
     $id_usuario_grupo = $_POST['id_usuario_grupo'];
     $id_grupo = $_POST['id_grupo'];
 
-    $query_inserir_usuario_grupo = "INSERT INTO portal_comunica.GRUPO_USUARIO (CD_GRUPO_USUARIO,
+    $query_inserir_usuario_grupo = "INSERT INTO bd_comunic.GRUPO_USUARIO (CD_GRUPO_USUARIO,
                                                                                 CD_GRUPO,
                                                                                 CD_USUARIO,
                                                                                 CD_USUARIO_CADASTRO,

@@ -7,12 +7,12 @@
 	$cd_senha = $_POST['senha'];
 
 	$consulta_login_qtd = " SELECT COUNT(*) AS QTD 
-							FROM portal_comunica.USUARIO usu 
+							FROM bd_comunic.USUARIO usu 
 							WHERE usu.CPF = '$cd_usu' 
 							AND usu.SENHA = '$cd_senha'";
 							
 	$consulta_login = " SELECT * 
-						FROM portal_comunica.USUARIO usu 
+						FROM bd_comunic.USUARIO usu 
 						WHERE usu.CPF = '$cd_usu' 
 						AND usu.SENHA = '$cd_senha'";
 

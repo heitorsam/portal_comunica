@@ -33,7 +33,7 @@
 
     //CONSULTANDO A EMPRESA ATUAL
     $cons_emp_atual = "SELECT usu.CD_EMPRESA 
-                       FROM portal_comunica.USUARIO usu
+                       FROM bd_comunic.USUARIO usu
                        WHERE usu.CD_USUARIO = $id_usuario";
 
     $valida = $result_emp_atual = mysqli_query($conn, $cons_emp_atual);
@@ -49,7 +49,7 @@
         //FAZENDO TODOS OS UPDATES
         $var_cd_emp_atual = $row_emp_atual['CD_EMPRESA'];
         
-        $cons_edita_usuario = "UPDATE portal_comunica.USUARIO usu
+        $cons_edita_usuario = "UPDATE bd_comunic.USUARIO usu
                                 SET usu.NM_USUARIO = '$nm_usuario',
                                     usu.EMAIL = '$email',
                                     usu.FOTO = '$foto',
@@ -72,7 +72,7 @@
             //EXCLUE GRUPOS EXISTENTES DE OUTRA EMPRESA
             if($empresa <> $var_cd_emp_atual){
         
-                $cons_delete_hist_grupo = "DELETE FROM portal_comunica.GRUPO_USUARIO
+                $cons_delete_hist_grupo = "DELETE FROM bd_comunic.GRUPO_USUARIO
                                                 WHERE CD_USUARIO = $id_usuario";
         
                 $valida3 = mysqli_query($conn, $cons_delete_hist_grupo);

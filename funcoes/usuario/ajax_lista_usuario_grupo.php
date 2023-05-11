@@ -8,10 +8,10 @@
 
     // CONSULTA DE USUÁRIOS CADASTRADOS
     $consulta = "SELECT DISTINCT usu.CD_USUARIO, usu.NM_USUARIO
-                 FROM portal_comunica.GRUPO_USUARIO gu
-                 INNER JOIN portal_comunica.USUARIO usu
+                 FROM bd_comunic.GRUPO_USUARIO gu
+                 INNER JOIN bd_comunic.USUARIO usu
                    ON usu.CD_USUARIO = gu.CD_USUARIO
-                 WHERE gu.CD_GRUPO IN (SELECT grpusu.CD_GRUPO FROM portal_comunica.GRUPO_USUARIO grpusu WHERE grpusu.CD_USUARIO = $cd_usu)
+                 WHERE gu.CD_GRUPO IN (SELECT grpusu.CD_GRUPO FROM bd_comunic.GRUPO_USUARIO grpusu WHERE grpusu.CD_USUARIO = $cd_usu)
                  AND gu.CD_USUARIO = $cd_usu
 
                  UNION ALL 
@@ -19,10 +19,10 @@
                  SELECT res.* 
                  FROM (
                  SELECT DISTINCT usu.CD_USUARIO, usu.NM_USUARIO
-                 FROM portal_comunica.GRUPO_USUARIO gu
-                 INNER JOIN portal_comunica.USUARIO usu
+                 FROM bd_comunic.GRUPO_USUARIO gu
+                 INNER JOIN bd_comunic.USUARIO usu
                    ON usu.CD_USUARIO = gu.CD_USUARIO
-                 WHERE gu.CD_GRUPO IN (SELECT grpusu.CD_GRUPO FROM portal_comunica.GRUPO_USUARIO grpusu WHERE grpusu.CD_USUARIO = $cd_usu)
+                 WHERE gu.CD_GRUPO IN (SELECT grpusu.CD_GRUPO FROM bd_comunic.GRUPO_USUARIO grpusu WHERE grpusu.CD_USUARIO = $cd_usu)
                  AND gu.CD_USUARIO <> $cd_usu
                  ORDER BY usu.NM_USUARIO ASC
                  ) res

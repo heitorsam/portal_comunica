@@ -14,7 +14,7 @@
     $id_empresa = $_POST['id_empresa'];
     $ds_empresa = $_POST['ds_empresa'];
     
-    $cons_edita_empresa = "UPDATE portal_comunica.EMPRESA emp
+    $cons_edita_empresa = "UPDATE bd_comunic.EMPRESA emp
                             SET emp.DS_EMPRESA = '$ds_empresa',
                                 emp.CD_USUARIO_ULT_ALT = '$cd_usu_logado',
                                 emp.HR_ULT_ALT = NOW()

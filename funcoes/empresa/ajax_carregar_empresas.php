@@ -7,7 +7,7 @@
     include '../../conexao.php';
 
     echo $cons_listar_empresas = "SELECT emp.CD_EMPRESA, emp.DS_EMPRESA 
-                                  FROM portal_comunica.EMPRESA emp
+                                  FROM bd_comunic.EMPRESA emp
                                   ORDER BY emp.CD_EMPRESA DESC";
 
     $res = mysqli_query($conn, $cons_listar_empresas);

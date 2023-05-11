@@ -8,7 +8,7 @@
     $qtd_grupos = $_GET['qtd_grupos'];
 
     $cons_buscar_usuario = "SELECT *
-                            FROM portal_comunica.USUARIO usu
+                            FROM bd_comunic.USUARIO usu
                             WHERE usu.CD_USUARIO = '$id_usuario'";
 
     $res = mysqli_query($conn, $cons_buscar_usuario);

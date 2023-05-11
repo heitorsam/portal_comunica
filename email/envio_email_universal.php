@@ -85,9 +85,9 @@ if($var_grupo_dest == 'a'){
     echo "</br>Regra quem abriu</br>";
 
     $consulta_emails = "SELECT usu.CD_USUARIO, usu.NM_USUARIO, usu.EMAIL
-                        FROM portal_comunica.USUARIO usu
+                        FROM bd_comunic.USUARIO usu
                         WHERE usu.CD_USUARIO IN (SELECT ch.CD_USUARIO_CADASTRO
-                                                FROM portal_comunica.CHAMADO ch 
+                                                FROM bd_comunic.CHAMADO ch 
                                                 WHERE ch.CD_CHAMADO = $var_cd_chamado)";
     
 
@@ -105,9 +105,9 @@ if($var_grupo_dest == 'r'){
     echo "</br>Regra quem recebeu</br>";
 
     $consulta_emails = "SELECT usu.CD_USUARIO, usu.NM_USUARIO, usu.EMAIL
-                        FROM portal_comunica.USUARIO usu
+                        FROM bd_comunic.USUARIO usu
                         WHERE usu.CD_USUARIO IN (SELECT ch.CD_USUARIO_RESPONSAVEL
-                                                FROM portal_comunica.CHAMADO ch 
+                                                FROM bd_comunic.CHAMADO ch 
                                                 WHERE ch.CD_CHAMADO = $var_cd_chamado)";
     
 
@@ -126,11 +126,11 @@ if($var_grupo_dest == 'g'){
     echo "</br>Regra grupo</br>";
 
     $consulta_emails = "SELECT usu.CD_USUARIO, usu.NM_USUARIO, usu.EMAIL
-                              FROM portal_comunica.USUARIO usu
+                              FROM bd_comunic.USUARIO usu
                               WHERE usu.CD_USUARIO IN(SELECT gp.CD_USUARIO
-                                                      FROM portal_comunica.GRUPO_USUARIO gp
+                                                      FROM bd_comunic.GRUPO_USUARIO gp
                                                       WHERE gp.CD_GRUPO IN (SELECT ch.CD_GRUPO
-                                                                          FROM portal_comunica.CHAMADO ch 
+                                                                          FROM bd_comunic.CHAMADO ch 
                                                                           WHERE ch.CD_CHAMADO = $var_cd_chamado))";
     
 

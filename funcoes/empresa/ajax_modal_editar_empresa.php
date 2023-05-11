@@ -5,7 +5,7 @@
     $id_empresa = $_GET['id'];
 
     $cons_buscar_empresa = "SELECT *
-                            FROM portal_comunica.EMPRESA emp
+                            FROM bd_comunic.EMPRESA emp
                             WHERE emp.CD_EMPRESA = '$id_empresa'";
 
     $res = mysqli_query($conn, $cons_buscar_empresa);

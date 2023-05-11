@@ -8,28 +8,28 @@
     $cons_informacoes_chamado = "SELECT  ch.DS_CHAMADO,
                                         emp.DS_EMPRESA AS EMPRESA_SOLICITANTE,
                                         (SELECT usu.NM_USUARIO
-                                        FROM portal_comunica.CHAMADO ch
-                                        INNER JOIN portal_comunica.USUARIO usu
+                                        FROM bd_comunic.CHAMADO ch
+                                        INNER JOIN bd_comunic.USUARIO usu
                                             ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
                                         WHERE ch.CD_CHAMADO = $id_chamado) AS SOLICITANTE,
                                         IFNULL((SELECT usu.NM_USUARIO
-                                        FROM portal_comunica.CHAMADO ch
-                                        INNER JOIN portal_comunica.USUARIO usu
+                                        FROM bd_comunic.CHAMADO ch
+                                        INNER JOIN bd_comunic.USUARIO usu
                                             ON usu.CD_USUARIO = ch.CD_USUARIO_RESPONSAVEL
                                         WHERE ch.CD_CHAMADO = $id_chamado), 'SEM RESPONSÁVEL') AS ATENDENTE,
                                         ch.TP_PRIORIDADE AS PRIORIDADE,
                                         (SELECT grp.DS_GRUPO
-                                        FROM portal_comunica.CHAMADO ch
-                                        INNER JOIN portal_comunica.GRUPO grp
+                                        FROM bd_comunic.CHAMADO ch
+                                        INNER JOIN bd_comunic.GRUPO grp
                                             ON ch.CD_GRUPO = grp.CD_GRUPO
                                         WHERE ch.CD_CHAMADO = $id_chamado) AS GRUPO_SOLICITADO,
                                         date_format(ch.DT_PREVISTA, '%d/%m/%Y') AS DATA_PREVISTA,
                                         ch.OBS_MENSAGEM,
                                         ch.ANEXO
-                                    FROM portal_comunica.CHAMADO ch
-                                    INNER JOIN portal_comunica.USUARIO usu
+                                    FROM bd_comunic.CHAMADO ch
+                                    INNER JOIN bd_comunic.USUARIO usu
                                     ON usu.CD_USUARIO = ch.CD_USUARIO_CADASTRO
-                                    INNER JOIN portal_comunica.EMPRESA emp
+                                    INNER JOIN bd_comunic.EMPRESA emp
                                     ON usu.CD_EMPRESA = emp.CD_EMPRESA
                                     WHERE ch.CD_CHAMADO = $id_chamado";
 

@@ -32,7 +32,7 @@
     $email = $_POST['email'];
     $foto = $conteudo_foto;
 
-    $cons_insere_usuario = "INSERT INTO portal_comunica.USUARIO (
+    $cons_insere_usuario = "INSERT INTO bd_comunic.USUARIO (
                                 NM_USUARIO,
                                 DT_NASCIMENTO,
                                 EMAIL,

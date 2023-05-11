@@ -15,10 +15,10 @@
         DATE_FORMAT(itch.HR_CADASTRO, '%d/%m/%Y') AS DATA_MENSAGEM,
         itch.ANEXO,
         TIME(itch.HR_CADASTRO) AS HORA_MENSAGEM
-    FROM portal_comunica.CHAMADO ch
-    INNER JOIN portal_comunica.ITCHAMADO itch
+    FROM bd_comunic.CHAMADO ch
+    INNER JOIN bd_comunic.ITCHAMADO itch
     ON ch.CD_CHAMADO = itch.CD_CHAMADO
-    INNER JOIN portal_comunica.USUARIO usu
+    INNER JOIN bd_comunic.USUARIO usu
     ON itch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
     WHERE ch.CD_CHAMADO = $id_chamado
     ORDER BY itch.HR_CADASTRO ASC";

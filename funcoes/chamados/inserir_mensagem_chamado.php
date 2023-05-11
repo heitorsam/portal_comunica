@@ -9,7 +9,7 @@
     $mensagem = str_replace("'","",$mensagem);
     $id_chamado = $_POST['id_chamado'];
 
-    $insert_mensagem_chamado = "INSERT INTO portal_comunica.ITCHAMADO (CD_CHAMADO,
+    $insert_mensagem_chamado = "INSERT INTO bd_comunic.ITCHAMADO (CD_CHAMADO,
                                                                         DS_MENSAGEM,
                                                                         ANEXO,
                                                                         EXT,
@@ -32,7 +32,7 @@
                               WHEN ch.CD_USUARIO_RESPONSAVEL = $cd_usuario_logado THEN 'a'
                             ELSE 'Erro'
                             END AS TP_ENVIO_EMAIL
-                            FROM portal_comunica.CHAMADO ch 
+                            FROM bd_comunic.CHAMADO ch 
                             WHERE ch.CD_CHAMADO = $id_chamado";
 
     $result_tp_envio_email = mysqli_query($conn, $cons_tp_envio_email);
@@ -51,7 +51,7 @@
 
         //DESCOBRINDO OS
         $query_descobre_itchamado = "SELECT MAX(CD_ITCHAMADO) AS CD_ITCHAMADO
-                            FROM portal_comunica.ITCHAMADO itch
+                            FROM bd_comunic.ITCHAMADO itch
                             WHERE itch.CD_USUARIO_CADASTRO = '$cd_usuario_logado'";
 
         $res_cd_itchamado = mysqli_query($conn, $query_descobre_itchamado);
@@ -143,7 +143,7 @@
                 ftp_rename($conexao_ftp, $diretorio_final, $renomear_diretorio_final);
             
                 //ATUALIZA CHAMADO COM DADOS DO ANEXO
-                $query_update_itchamado = "UPDATE portal_comunica.ITCHAMADO itch
+                $query_update_itchamado = "UPDATE bd_comunic.ITCHAMADO itch
                                         SET itch.ANEXO = '$diretorio_final',
                                             itch.EXT = '$extensao_arquivo'
                                         WHERE itch.CD_CHAMADO = '$id_chamado'

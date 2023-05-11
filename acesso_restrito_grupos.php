@@ -11,19 +11,19 @@
 	  WHEN gp.CD_GRUPO IN (SELECT res.CD_GRUPO
 							FROM (
 							SELECT ch.CD_GRUPO
-							FROM portal_comunica.CHAMADO ch
+							FROM bd_comunic.CHAMADO ch
 							WHERE ch.CD_CHAMADO = $id_chamado
 	
 							UNION ALL
 	
 							SELECT gu.CD_GRUPO
-							FROM portal_comunica.GRUPO_USUARIO gu
+							FROM bd_comunic.GRUPO_USUARIO gu
 							WHERE gu.CD_USUARIO IN (SELECT ch.CD_USUARIO_CADASTRO
-													FROM portal_comunica.CHAMADO ch
+													FROM bd_comunic.CHAMADO ch
 													WHERE ch.CD_CHAMADO = $id_chamado)) res) THEN 'S'
 	ELSE 'N'
 	END AS SN_ACESSA_PAGINA_GRUPO
-	FROM portal_comunica.GRUPO_USUARIO gp
+	FROM bd_comunic.GRUPO_USUARIO gp
 	WHERE gp.CD_USUARIO = $cd_usuario_logado) tot
 	WHERE tot.SN_ACESSA_PAGINA_GRUPO = 'S'";
 

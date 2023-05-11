@@ -6,7 +6,7 @@
     $cd_grupo = $_POST['id_grupo'];
     $cd_usuario_do_grupo = $_POST['id_usuario'];
 
-    $query_exclui_usuario_grupo = "DELETE FROM portal_comunica.GRUPO_USUARIO
+    $query_exclui_usuario_grupo = "DELETE FROM bd_comunic.GRUPO_USUARIO
                                    WHERE CD_USUARIO = $cd_usuario_do_grupo
                                          AND CD_GRUPO = $cd_grupo";
 

@@ -8,7 +8,7 @@
 
     $id_chamado = $_POST['id_chamado'];    
     
-    $query_muda_status_concluido = "UPDATE portal_comunica.CHAMADO
+    $query_muda_status_concluido = "UPDATE bd_comunic.CHAMADO
                                     SET TP_STATUS = 'C',
                                         CD_USUARIO_RESPONSAVEL = $cd_usuario_logado
                                     WHERE CD_CHAMADO = $id_chamado";

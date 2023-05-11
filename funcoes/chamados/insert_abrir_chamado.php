@@ -15,7 +15,7 @@
     $data_prevista = $_POST['data_prevista'];
     $observacao = $_POST['observacao'];
 
-    $query_insere_chamado = "INSERT INTO portal_comunica.CHAMADO (
+    $query_insere_chamado = "INSERT INTO bd_comunic.CHAMADO (
                                                     CD_CHAMADO,
                                                     DS_CHAMADO,
                                                     CD_EMPRESA,
@@ -51,7 +51,7 @@
 
         //DESCOBRINDO OS
         $query_descobre_os = "SELECT MAX(CD_CHAMADO) AS CD_OS
-                              FROM portal_comunica.CHAMADO ch
+                              FROM bd_comunic.CHAMADO ch
                               WHERE ch.CD_USUARIO_CADASTRO = '$cd_usuario_logado'";
         
         $res_cd_os = mysqli_query($conn, $query_descobre_os);
@@ -146,7 +146,7 @@
                 ftp_rename($conexao_ftp, $diretorio_final, $renomear_diretorio_final);
 
                 //ATUALIZA CHAMADO COM DADOS DO ANEXO
-                $query_update_chamado = "UPDATE portal_comunica.CHAMADO ch
+                $query_update_chamado = "UPDATE bd_comunic.CHAMADO ch
                                          SET ch.ANEXO = '$diretorio_final',
                                              ch.EXT = '$extensao_arquivo'
                                         WHERE ch.CD_CHAMADO = '$var_cd_os'";

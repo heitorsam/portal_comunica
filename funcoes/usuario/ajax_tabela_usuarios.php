@@ -8,18 +8,18 @@
                         emp.DS_EMPRESA,
                         usu.TP_USUARIO,
                         (SELECT COUNT(CD_CHAMADO)
-                        FROM portal_comunica.CHAMADO ch
+                        FROM bd_comunic.CHAMADO ch
                         WHERE ch.CD_USUARIO_CADASTRO = usu.CD_USUARIO
                             AND ch.TP_STATUS IN ('A', 'E')) AS QNTD_CHAMADOS_ABERTOS,
                         (SELECT COUNT(CD_CHAMADO)
-                        FROM portal_comunica.CHAMADO ch
+                        FROM bd_comunic.CHAMADO ch
                         WHERE ch.CD_USUARIO_RESPONSAVEL = usu.CD_USUARIO
                             AND ch.TP_STATUS = 'E') AS QNTD_CHAMADOS_RECEBIDOS,
                         (SELECT COUNT(CD_GRUPO_USUARIO)
-                        FROM portal_comunica.GRUPO_USUARIO grpusu
+                        FROM bd_comunic.GRUPO_USUARIO grpusu
                         WHERE grpusu.CD_USUARIO = usu.CD_USUARIO) AS QNTD_GRUPOS
-                    FROM portal_comunica.USUARIO usu
-                    INNER JOIN portal_comunica.EMPRESA emp
+                    FROM bd_comunic.USUARIO usu
+                    INNER JOIN bd_comunic.EMPRESA emp
                     ON usu.CD_EMPRESA = emp.CD_EMPRESA
                     ORDER BY usu.CD_USUARIO DESC";
 

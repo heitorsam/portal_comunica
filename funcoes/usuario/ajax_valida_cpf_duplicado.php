@@ -12,7 +12,7 @@
                    WHEN COUNT(usu.CD_USUARIO) > 0 THEN 'N'
                    ELSE 'S'
                  END AS SN_AUTORIZA
-                 FROM portal_comunica.USUARIO usu
+                 FROM bd_comunic.USUARIO usu
                  WHERE usu.CPF = '$cd_cpf'";
 
   $res = mysqli_query($conn,$consulta);

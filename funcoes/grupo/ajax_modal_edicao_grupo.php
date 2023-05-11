@@ -5,7 +5,7 @@
     $id_grupo = $_GET['id'];
 
     $cons_buscar_empresa = "SELECT *
-                            FROM portal_comunica.GRUPO grp
+                            FROM bd_comunic.GRUPO grp
                             WHERE grp.CD_GRUPO = $id_grupo";
 
     $res = mysqli_query($conn, $cons_buscar_empresa);

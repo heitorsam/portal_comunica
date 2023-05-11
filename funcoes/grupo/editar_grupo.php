@@ -8,7 +8,7 @@
     //echo $id_grupo;
     $ds_novo_nome_grupo;
 
-    $query_editar_grupo = "UPDATE portal_comunica.GRUPO
+    $query_editar_grupo = "UPDATE bd_comunic.GRUPO
                            SET DS_GRUPO = '$ds_novo_nome_grupo'
                            WHERE CD_GRUPO = $id_grupo";
 

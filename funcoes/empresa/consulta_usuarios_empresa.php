@@ -11,13 +11,13 @@
     E AINDA NÃO FOI INCLUSO NO GRUPO CLICADO */
     $cons_usuarios_empresa = "SELECT usu.CD_USUARIO, 
                                      usu.NM_USUARIO
-                              FROM portal_comunica.USUARIO usu
+                              FROM bd_comunic.USUARIO usu
                               WHERE usu.CD_EMPRESA = $empresa_usuario_logado
                                     AND usu.CD_USUARIO NOT IN (SELECT usu.CD_USUARIO
-                                                               FROM portal_comunica.GRUPO_USUARIO grpusu
-                                                               INNER JOIN portal_comunica.USUARIO usu
+                                                               FROM bd_comunic.GRUPO_USUARIO grpusu
+                                                               INNER JOIN bd_comunic.USUARIO usu
                                                                    ON grpusu.CD_USUARIO = usu.CD_USUARIO
-                                                               INNER JOIN portal_comunica.GRUPO grp
+                                                               INNER JOIN bd_comunic.GRUPO grp
                                                                    ON grpusu.CD_GRUPO = grp.CD_GRUPO
                                                                WHERE grp.CD_GRUPO = $id_grupo)";
     

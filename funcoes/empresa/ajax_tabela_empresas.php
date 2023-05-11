@@ -4,10 +4,10 @@
 
     $consulta_empresas = "SELECT emp.CD_EMPRESA,
                           emp.DS_EMPRESA,
-                          (SELECT COUNT(CD_GRUPO) FROM portal_comunica.GRUPO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_GRUPO,       
-                          (SELECT COUNT(CD_CHAMADO) FROM portal_comunica.CHAMADO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_CHAMADO,                                  
-                          (SELECT COUNT(CD_USUARIO) FROM portal_comunica.USUARIO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_USUARIO       
-                          FROM portal_comunica.EMPRESA emp
+                          (SELECT COUNT(CD_GRUPO) FROM bd_comunic.GRUPO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_GRUPO,       
+                          (SELECT COUNT(CD_CHAMADO) FROM bd_comunic.CHAMADO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_CHAMADO,                                  
+                          (SELECT COUNT(CD_USUARIO) FROM bd_comunic.USUARIO WHERE CD_EMPRESA = emp.CD_EMPRESA) AS QTD_USUARIO       
+                          FROM bd_comunic.EMPRESA emp
                           ORDER BY emp.CD_EMPRESA DESC";
     
     $res = mysqli_query($conn, $consulta_empresas);
