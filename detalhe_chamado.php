@@ -77,7 +77,8 @@
 
     // PEGA O TP STATUS DO CHAMADO E O GRUPO PARA QUAL FOI SOLICITADO
     $cons_tp_status_grupo = "SELECT TP_STATUS, 
-                              CD_GRUPO
+                              CD_GRUPO,
+                              TP_PRIORIDADE
                             FROM bd_comunic.CHAMADO
                             WHERE CD_CHAMADO = $id_chamado";
 
@@ -142,7 +143,15 @@
                                     
                         ">
 
-                            <?php echo 'OS: ' . $id_chamado; ?>
+                            <?php 
+
+                                if($status_grupo[2] == 'B'){ $var_prioridade = '<i class="fa-solid fa-caret-down" style="color: green"></i>'; }                    
+                                if($status_grupo[2] == 'M'){ $var_prioridade = '<i class="fa-solid fa-grip-lines" style="color: orange;"></i>'; }                    
+                                if($status_grupo[2] == 'A'){ $var_prioridade = '<i class="fa-solid fa-caret-up" style="color: red"></i>'; }                                      
+                            
+                                echo $var_prioridade . ' OS: ' . $id_chamado; 
+                                
+                            ?>
 
                         </div>            
                 </h5>

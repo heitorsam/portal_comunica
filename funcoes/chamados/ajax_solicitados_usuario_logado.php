@@ -92,11 +92,15 @@
 
                 while ($row = mysqli_fetch_array($res_abertos)) {
 
+                    if($row['TP_PRIORIDADE'] == 'B'){ $var_prioridade = '<i class="fa-solid fa-caret-down" style="color: green"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'M'){ $var_prioridade = '<i class="fa-solid fa-grip-lines" style="color: orange;"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'A'){ $var_prioridade = '<i class="fa-solid fa-caret-up" style="color: red"></i>'; }                                      
+
                     echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens_pend" style="cursor:pointer;">';
 
-                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+                            echo '<div class="mini_caixa_chamado"><b>' . $var_prioridade . ' OS ' . $row['CD_CHAMADO'] . '</b></div>';
 
                             echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
 
@@ -137,12 +141,16 @@
             echo '<div class="row">';
 
                 while ($row = mysqli_fetch_array($res_execucao)) {
+                    
+                    if($row['TP_PRIORIDADE'] == 'B'){ $var_prioridade = '<i class="fa-solid fa-caret-down" style="color: green"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'M'){ $var_prioridade = '<i class="fa-solid fa-grip-lines" style="color: orange;"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'A'){ $var_prioridade = '<i class="fa-solid fa-caret-up" style="color: red"></i>'; }                                      
 
                     echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens" style="cursor:pointer;">';
 
-                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+                            echo '<div class="mini_caixa_chamado"><b>' . $var_prioridade . ' OS ' . $row['CD_CHAMADO'] . '</b></div>';
 
                             echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
 
@@ -174,8 +182,8 @@
 
     }
 
-    if (mysqli_num_rows($res_concluidos) > 0) {
-        
+    if (mysqli_num_rows($res_concluidos) > 0) {      
+
         echo '<div class="fnd_azul_dinamico"><i class="fa-solid fa-check"></i> Concluídos</div>';
 
         echo '<div class="caixa_lista_chamados">';
@@ -184,11 +192,15 @@
 
                 while ($row = mysqli_fetch_array($res_concluidos)) {
 
+                    if($row['TP_PRIORIDADE'] == 'B'){ $var_prioridade = '<i class="fa-solid fa-caret-down" style="color: green"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'M'){ $var_prioridade = '<i class="fa-solid fa-grip-lines" style="color: orange;"></i>'; }                    
+                    if($row['TP_PRIORIDADE'] == 'A'){ $var_prioridade = '<i class="fa-solid fa-caret-up" style="color: red"></i>'; }                                      
+            
                     echo '<div onclick="redirecionar_detalhe_chamado('. $row['CD_CHAMADO'] .')" class="col-12 col-md-3" style="background-color: rgba(0,0,0,0) !important; padding-top: 0px; padding-bottom: 0px;">';
 
                         echo '<div class="lista_home_itens_ok" style="cursor:pointer;">';
 
-                            echo '<div class="mini_caixa_chamado"><b>OS ' . $row['CD_CHAMADO'] . '</b></div>';
+                        echo '<div class="mini_caixa_chamado"><b>' . $var_prioridade . ' OS ' . $row['CD_CHAMADO'] . '</b></div>';
 
                             echo '<div class="mini_caixa_chamado">' . $row['DS_EMPRESA'] . '</div>';  
 
