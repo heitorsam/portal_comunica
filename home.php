@@ -81,6 +81,8 @@
 
 <script> 
 
+    let tempo; 
+
     //VERIFICANDO SE EXISTE SESSAO
     var js_sessao_periodo = sessionStorage.getItem("periodo");
     var js_sessao_cd_usu_sel = sessionStorage.getItem("cd_usu_sel");
@@ -226,93 +228,103 @@
 
     function chama_paginas(pagina) {
 
-        // VARIAVEIS PARA UTILIZAR COMO FILTRO DE BUSCA DOS CHAMADOS
-        var periodo = document.getElementById('periodo').value;
-        var usu = document.getElementById('sel_prestador').value;
+        //LIMPA CONTADOR TEMPO
+        clearTimeout(tempo);
 
-        if(usu == '' || usu == null){
-
-            usu = sessionStorage.getItem("cd_usu_sel");
-        }
-
-        var os = document.getElementById('txt_os').value;
-        var descricao = document.getElementById('txt_descricao').value;
-
-        if(pagina == 'x'){
-
-            //FILTRO REALIZADO 
-            pagina = document.getElementById('inpt_pag_atual').value;
-
-            //TRABALHANDO AS SESSOES
-            sessionStorage.setItem("sessao_periodo", periodo);
-
-            //alert('inclue ' + periodo);
-
-        }else if(pagina == 'prest_inicio'){
-
-            //APENAS MUDANCA DE PAGINA
-            document.getElementById('inpt_pag_atual').value = 1;  
-            pagina = 1;
-
-            //TRABALHANDO AS SESSOES
-            usu = sessionStorage.getItem("cd_usu_sel");
-
-            //alert('periodo ' + periodo + ' | usu ' + usu);          
-
-        }else{            
-
-            //APENAS MUDANCA DE PAGINA
-            document.getElementById('inpt_pag_atual').value = pagina;  
-
-            //TRABALHANDO AS SESSOES
-            //periodo = sessionStorage.getItem("sessao_periodo");
-
-            document.getElementById('periodo').value = periodo;
-            document.getElementById('sel_prestador').value = usu;
-
-            //alert('coleta ' + periodo);
-
-        }
-
-        //ADICIONA ULTIMA PAGINA SELECIONADA NA SESSAO
-        sessionStorage.setItem("sessao_ult_pg", pagina); 
-        sessionStorage.setItem("periodo", periodo);
+        tempo = setTimeout(function() {
 
 
-        if (pagina == '1') {    
+            // VARIAVEIS PARA UTILIZAR COMO FILTRO DE BUSCA DOS CHAMADOS
+            var periodo = document.getElementById('periodo').value;
+            var usu = document.getElementById('sel_prestador').value;
+
+            if(usu == '' || usu == null){
+
+                usu = sessionStorage.getItem("cd_usu_sel");
+            }
+
+            var os = document.getElementById('txt_os').value;
+            var descricao = document.getElementById('txt_descricao').value;
+
+            var descricao = descricao.replace(/\s/g, '')
             
-            //SOLICITACOES
+            if(pagina == 'x'){
 
-            $("#resultados_ajax").load("solicitacoes.php", function() {
-                //alert(periodo + ' | ' + usu + ' | ' + os)
-                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
-            });
+                //FILTRO REALIZADO 
+                pagina = document.getElementById('inpt_pag_atual').value;
 
-        }
+                //TRABALHANDO AS SESSOES
+                sessionStorage.setItem("sessao_periodo", periodo);
 
-        if (pagina == '2') {
+                //alert('inclue ' + periodo);
 
-            //MEUS CHAMADOS          
+            }else if(pagina == 'prest_inicio'){
 
-            $("#resultados_ajax").load("meus_chamados.php", function() {
-                //alert(periodo + ' | ' + usu + ' | ' + os)
-                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
-            });
+                //APENAS MUDANCA DE PAGINA
+                document.getElementById('inpt_pag_atual').value = 1;  
+                pagina = 1;
 
-        }
-        
-        if (pagina == '3') {
+                //TRABALHANDO AS SESSOES
+                usu = sessionStorage.getItem("cd_usu_sel");
 
-            //DASHBOARD
+                //alert('periodo ' + periodo + ' | usu ' + usu);          
 
-            $("#resultados_ajax").load("dashboard.php", function() {
+            }else{            
 
-                $('#carrega_dashboard').load('funcoes/dashboard/ajax_exibe_dashboard.php?periodo=' + periodo + '&usu=' + usu);
+                //APENAS MUDANCA DE PAGINA
+                document.getElementById('inpt_pag_atual').value = pagina;  
 
-            });
+                //TRABALHANDO AS SESSOES
+                //periodo = sessionStorage.getItem("sessao_periodo");
+
+                document.getElementById('periodo').value = periodo;
+                document.getElementById('sel_prestador').value = usu;
+
+                //alert('coleta ' + periodo);
+
+            }
+
+            //ADICIONA ULTIMA PAGINA SELECIONADA NA SESSAO
+            sessionStorage.setItem("sessao_ult_pg", pagina); 
+            sessionStorage.setItem("periodo", periodo);
 
 
-        }
+            if (pagina == '1') {    
+                
+                //SOLICITACOES
+
+                $("#resultados_ajax").load("solicitacoes.php", function() {
+                    //alert(periodo + ' | ' + usu + ' | ' + os)
+                    $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
+                });
+
+            }
+
+            if (pagina == '2') {
+
+                //MEUS CHAMADOS          
+
+                $("#resultados_ajax").load("meus_chamados.php", function() {
+                    //alert(periodo + ' | ' + usu + ' | ' + os)
+                    $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
+                });
+
+            }
+            
+            if (pagina == '3') {
+
+                //DASHBOARD
+
+                $("#resultados_ajax").load("dashboard.php", function() {
+
+                    $('#carrega_dashboard').load('funcoes/dashboard/ajax_exibe_dashboard.php?periodo=' + periodo + '&usu=' + usu);
+
+                });
+
+
+            }
+
+        }, 500);
 
     }
 

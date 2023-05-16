@@ -70,9 +70,9 @@
 
     if ($descricao <> '') {
 
-        $cons_chamados_abertos .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
-        $cons_chamados_execucao .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
-        $cons_chamados_concluidos .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
+        $cons_chamados_abertos .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','') LIKE REPLACE(UPPER('%$descricao%'),' ','') ";
+        $cons_chamados_execucao .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','') LIKE REPLACE(UPPER('%$descricao%'),' ','') ";
+        $cons_chamados_concluidos .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','') LIKE REPLACE(UPPER('%$descricao%'),' ','') ";
 
     }
 

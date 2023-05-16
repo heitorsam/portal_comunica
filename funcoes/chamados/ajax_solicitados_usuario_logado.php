@@ -62,9 +62,9 @@
 
     if ($descricao <> '') {
 
-        $cons_chamados_abertos .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
-        $cons_chamados_execucao .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
-        $cons_chamados_concluidos .= " AND UPPER(ch.DS_CHAMADO) LIKE UPPER('%$descricao%') ";
+        $cons_chamados_abertos .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','') LIKE REPLACE(UPPER('%$descricao%'),' ','')  ";
+        $cons_chamados_execucao .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','')  LIKE REPLACE(UPPER('%$descricao%'),' ','')  ";
+        $cons_chamados_concluidos .= " AND REPLACE(UPPER(ch.DS_CHAMADO),' ','')  LIKE REPLACE(UPPER('%$descricao%'),' ','')  ";
 
     }
 
@@ -72,7 +72,7 @@
     $cons_chamados_execucao .= " ORDER BY ch.CD_CHAMADO DESC";
     $cons_chamados_concluidos .= " ORDER BY ch.CD_CHAMADO DESC";
 
-    //echo $cons_chamados_execucao;
+    echo $cons_chamados_execucao;
         
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
