@@ -72,7 +72,7 @@
     $cons_chamados_execucao .= " ORDER BY ch.CD_CHAMADO DESC";
     $cons_chamados_concluidos .= " ORDER BY ch.CD_CHAMADO DESC";
 
-    echo $cons_chamados_execucao;
+    //echo $cons_chamados_execucao;
         
     $res_abertos = mysqli_query($conn, $cons_chamados_abertos);
     $res_execucao = mysqli_query($conn, $cons_chamados_execucao);
