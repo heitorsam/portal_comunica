@@ -10,6 +10,7 @@
     $periodo = $_GET['periodo'];
     $os = $_GET['os'];
     $usu = $_GET['usu'];
+    $descricao = $_GET['descricao'];
    
     $cons_chamados_abertos = "SELECT ch.*, usu.*, emp.*, 
                                 DATE_FORMAT(ch.HR_CADASTRO,'%d/%m/%Y') AS HR_CADASTRO_FORMAT
@@ -64,6 +65,14 @@
         //$cons_chamados_abertos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
         $cons_chamados_execucao .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
         $cons_chamados_concluidos .= " AND ch.CD_USUARIO_RESPONSAVEL = $usu ";
+
+    }
+
+    if ($descricao <> '') {
+
+        $cons_chamados_abertos .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
+        $cons_chamados_execucao .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
+        $cons_chamados_concluidos .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
 
     }
 

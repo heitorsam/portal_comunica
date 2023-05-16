@@ -37,6 +37,13 @@
 
         </div>
 
+        <div class="col-10 col-md-4" style="text-align: left; background-color: rgba(0,0,0,0) !important; padding: 10px;">
+
+            Descrição:</br>            
+            <input onkeyup="chama_paginas('x')" class="form-control" id="txt_descricao">
+
+        </div>
+
     </div>
 
     <div class="div_br"></div>
@@ -229,6 +236,7 @@
         }
 
         var os = document.getElementById('txt_os').value;
+        var descricao = document.getElementById('txt_descricao').value;
 
         if(pagina == 'x'){
 
@@ -277,7 +285,7 @@
 
             $("#resultados_ajax").load("solicitacoes.php", function() {
                 //alert(periodo + ' | ' + usu + ' | ' + os)
-                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os);
+                $('#carrega_chamados').load('funcoes/chamados/ajax_solicitados_usuario_logado.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
             });
 
         }
@@ -288,7 +296,7 @@
 
             $("#resultados_ajax").load("meus_chamados.php", function() {
                 //alert(periodo + ' | ' + usu + ' | ' + os)
-                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os);
+                $('#carrega_chamados').load('funcoes/chamados/ajax_chamados_recebidos.php?periodo=' + periodo + '&usu=' + usu + '&os=' + os + '&descricao=' + descricao);
             });
 
         }

@@ -10,6 +10,7 @@
     $periodo = $_GET['periodo'];
     $os = $_GET['os'];
     $usu = $_GET['usu'];
+    $descricao = $_GET['descricao'];
    
     $cd_usuario_logado = $_SESSION['cd_usu'];
 
@@ -56,6 +57,14 @@
         $cons_chamados_abertos .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
         $cons_chamados_execucao .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
         $cons_chamados_concluidos .= " AND ch.CD_USUARIO_CADASTRO = $usu ";
+
+    }
+
+    if ($descricao <> '') {
+
+        $cons_chamados_abertos .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
+        $cons_chamados_execucao .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
+        $cons_chamados_concluidos .= " AND ch.DS_CHAMADO LIKE '$descricao%' ";
 
     }
 
