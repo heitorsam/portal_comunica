@@ -26,7 +26,7 @@ $msg .="
 
 <br><br>
 
-<a href='http://10.200.0.50:8080/portal_comunica/'>Portal Comunica</a>
+<a href='https://kpi.santacasasjc.com.br/portal_comunica/'>Portal Comunica</a>
 
 <br><br> --- <br><br>
 
