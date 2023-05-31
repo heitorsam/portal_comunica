@@ -130,7 +130,7 @@
 <?php
 
     ///////////////////////////////////////////////
-    //MEUS CHAMADOS
+    //
     ///////////////////////////////////////////////
     
     //GRAFICO GERAL POR PRESTADOR
@@ -161,7 +161,7 @@
 
     <div style="max-width:70%; height: 400px; margin: 0 auto; text-align: center;">
 
-        <h11><i class="fa-solid fa-chart-column efeito-zoom"></i> Meus Chamados </h11>
+        <h11><i class="fa-solid fa-chart-column efeito-zoom"></i>  </h11>
         <div class="div_br"> </div>
 
         <canvas id="myChart2" style="width: 100%; height: 300px;"></canvas>

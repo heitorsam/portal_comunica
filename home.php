@@ -51,13 +51,13 @@
 
         <div class="col-4" style="text-align: center; background-color: rgba(1,1,1,0) !important; padding: 0px !important;">
 
-            <h11 id="solic" onclick="chama_paginas('1'), ajax_style('1')" style="cursor: pointer;"><i class="fa-solid fa-phone-volume"></i> Solicitações</h11>
+            <h11 id="solic" onclick="chama_paginas('1'), ajax_style('1')" style="cursor: pointer;"><i class="fa-solid fa-phone-volume"></i> Solicitados</h11>
 
         </div>
 
         <div class="col-4" style="text-align: center; background-color: rgba(1,1,1,0) !important; padding: 0px !important;">
 
-            <h11  id="chamados" onclick="chama_paginas('2'), ajax_style('2')" style="cursor: pointer;"><i class="fa-solid fa-headset"></i> Meus chamados</h11>
+            <h11  id="chamados" onclick="chama_paginas('2'), ajax_style('2')" style="cursor: pointer;"><i class="fa-solid fa-headset"></i> Recebidos</h11>
 
         </div>
 
